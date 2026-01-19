@@ -6,7 +6,7 @@
     <title>Sam McAulay | Fullstack Developer - Game, Web & Desktop</title>
     <meta name="description" content="Portfolio of Sam McAulay, a Fullstack Developer specializing in C++, Unity, Web, and Desktop environments. Explore my projects and digital worlds.">
     
-    <!-- Social media -->
+    <!-- Socials -->
     <meta property="og:title" content="Sam McAulay | Fullstack Developer">
     <meta property="og:description" content="Building Digital Worlds. View my projects in C++, Unity, Python, and Web Development.">
     <meta property="og:type" content="website">
@@ -29,7 +29,7 @@
 <body class="text-theme-sand font-sans antialiased selection:bg-theme-pink selection:text-white">
     <canvas id="parallax-bg"></canvas>
 
-    <!-- Navigation -->
+    <!-- Nav -->
     <nav class="fixed w-full z-50 bg-theme-dark/95 backdrop-blur border-b-2 border-theme-sand">
         <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
             <div class="text-2xl font-bold tracking-tighter uppercase border-2 border-theme-pink p-1">
@@ -211,91 +211,47 @@
     </section>
 
 <!-- Tech stack -->
-<section id="tech" class="py-24 bg-theme-dark/30 backdrop-blur-sm overflow-hidden">
+<section id="tech" class="py-24 bg-theme-dark/30 backdrop-blur-sm overflow-hidden relative min-h-[600px] flex items-center justify-center">
     
-    <div class="max-w-7xl mx-auto px-6 mb-12">
-        <h2 class="text-4xl font-black uppercase border-l-8 border-theme-pink pl-6">
-            Tech Stack
+    <div class="absolute z-20 text-center pointer-events-none">
+        <h2 class="text-5xl md:text-7xl font-black uppercase text-transparent bg-clip-text bg-gradient-to-b from-theme-pink to-theme-sand drop-shadow-[0_0_15px_rgba(233,69,96,0.5)]">
+            Tech<br>Stack
         </h2>
     </div>
 
-    <div class="flex flex-col space-y-8 w-full">
+    <div id="tech-orbit" class="relative w-full h-full max-w-7xl mx-auto">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/c/c-original.svg" class="tech-icon w-16 h-16 object-contain">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-original.svg" class="tech-icon w-16 h-16 object-contain">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/csharp/csharp-original.svg" class="tech-icon w-16 h-16 object-contain">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg" class="tech-icon w-16 h-16 object-contain">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" class="tech-icon w-16 h-16 object-contain">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/lua/lua-original.svg" class="tech-icon w-16 h-16 object-contain">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg" class="tech-icon w-16 h-16 object-contain">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg" class="tech-icon w-16 h-16 object-contain">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" class="tech-icon w-16 h-16 object-contain">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg" class="tech-icon w-16 h-16 object-contain">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cmake/cmake-original.svg" class="tech-icon w-16 h-16 object-contain">
+        
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg" class="tech-icon w-16 h-16 object-contain">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg" class="tech-icon w-16 h-16 object-contain">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" class="tech-icon w-16 h-16 object-contain">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/oracle/oracle-original.svg" class="tech-icon w-16 h-16 object-contain">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/jenkins/jenkins-original.svg" class="tech-icon w-16 h-16 object-contain">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/visualstudio/visualstudio-original.svg" class="tech-icon w-16 h-16 object-contain">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/neovim/neovim-original.svg" class="tech-icon w-16 h-16 object-contain">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/bash/bash-original.svg" class="tech-icon w-16 h-16 object-contain">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/blender/blender-original.svg" class="tech-icon w-16 h-16 object-contain">
 
-        <div class="group relative overflow-hidden w-full">
-            <div class="scroll-track-left" style="animation-duration: 100s;">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/c/c-original.svg" class="chevron-left flex-shrink-0 w-[400px] h-[120px] p-6 object-contain">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-original.svg" class="chevron-left flex-shrink-0 w-[400px] h-[120px] p-6 object-contain">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/csharp/csharp-original.svg" class="chevron-left flex-shrink-0 w-[400px] h-[120px] p-6 object-contain">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg" class="chevron-left flex-shrink-0 w-[400px] h-[120px] p-6 object-contain">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" class="chevron-left flex-shrink-0 w-[400px] h-[120px] p-6 object-contain">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/lua/lua-original.svg" class="chevron-left flex-shrink-0 w-[400px] h-[120px] p-6 object-contain">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg" class="chevron-left flex-shrink-0 w-[400px] h-[120px] p-6 object-contain">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg" class="chevron-left flex-shrink-0 w-[400px] h-[120px] p-6 object-contain">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" class="chevron-left flex-shrink-0 w-[400px] h-[120px] p-6 object-contain">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg" class="chevron-left flex-shrink-0 w-[400px] h-[120px] p-6 object-contain">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cmake/cmake-original.svg" class="chevron-left flex-shrink-0 w-[400px] h-[120px] p-6 object-contain">
-                
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/c/c-original.svg" class="chevron-left flex-shrink-0 w-[400px] h-[120px] p-6 object-contain">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-original.svg" class="chevron-left flex-shrink-0 w-[400px] h-[120px] p-6 object-contain">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/csharp/csharp-original.svg" class="chevron-left flex-shrink-0 w-[400px] h-[120px] p-6 object-contain">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg" class="chevron-left flex-shrink-0 w-[400px] h-[120px] p-6 object-contain">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" class="chevron-left flex-shrink-0 w-[400px] h-[120px] p-6 object-contain">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/lua/lua-original.svg" class="chevron-left flex-shrink-0 w-[400px] h-[120px] p-6 object-contain">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg" class="chevron-left flex-shrink-0 w-[400px] h-[120px] p-6 object-contain">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg" class="chevron-left flex-shrink-0 w-[400px] h-[120px] p-6 object-contain">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" class="chevron-left flex-shrink-0 w-[400px] h-[120px] p-6 object-contain">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg" class="chevron-left flex-shrink-0 w-[400px] h-[120px] p-6 object-contain">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cmake/cmake-original.svg" class="chevron-left flex-shrink-0 w-[400px] h-[120px] p-6 object-contain">
-            </div>
-        </div>
-
-        <div class="group relative overflow-hidden w-full">
-            <div class="scroll-track-right" style="animation-duration: 80s;">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg" class="chevron-right flex-shrink-0 w-[400px] h-[120px] p-6 object-contain">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg" class="chevron-right flex-shrink-0 w-[400px] h-[120px] p-6 object-contain">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" class="chevron-right flex-shrink-0 w-[400px] h-[120px] p-6 object-contain">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/oracle/oracle-original.svg" class="chevron-right flex-shrink-0 w-[400px] h-[120px] p-6 object-contain">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/jenkins/jenkins-original.svg" class="chevron-right flex-shrink-0 w-[400px] h-[120px] p-6 object-contain">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/visualstudio/visualstudio-original.svg" class="chevron-right flex-shrink-0 w-[400px] h-[120px] p-6 object-contain">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/neovim/neovim-original.svg" class="chevron-right flex-shrink-0 w-[400px] h-[120px] p-6 object-contain">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/bash/bash-original.svg" class="chevron-right flex-shrink-0 w-[400px] h-[120px] p-6 object-contain">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/blender/blender-original.svg" class="chevron-right flex-shrink-0 w-[400px] h-[120px] p-6 object-contain">
-
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg" class="chevron-right flex-shrink-0 w-[400px] h-[120px] p-6 object-contain">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg" class="chevron-right flex-shrink-0 w-[400px] h-[120px] p-6 object-contain">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" class="chevron-right flex-shrink-0 w-[400px] h-[120px] p-6 object-contain">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/oracle/oracle-original.svg" class="chevron-right flex-shrink-0 w-[400px] h-[120px] p-6 object-contain">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/jenkins/jenkins-original.svg" class="chevron-right flex-shrink-0 w-[400px] h-[120px] p-6 object-contain">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/visualstudio/visualstudio-original.svg" class="chevron-right flex-shrink-0 w-[400px] h-[120px] p-6 object-contain">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/neovim/neovim-original.svg" class="chevron-right flex-shrink-0 w-[400px] h-[120px] p-6 object-contain">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/bash/bash-original.svg" class="chevron-right flex-shrink-0 w-[400px] h-[120px] p-6 object-contain">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/blender/blender-original.svg" class="chevron-right flex-shrink-0 w-[400px] h-[120px] p-6 object-contain">
-            </div>
-        </div>
-
-        <div class="group relative overflow-hidden w-full">
-            <div class="scroll-track-left" style="animation-duration: 55s;">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/windows8/windows8-original.svg" class="chevron-left flex-shrink-0 w-[400px] h-[120px] p-6 object-contain">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/ubuntu/ubuntu-original.svg" class="chevron-left flex-shrink-0 w-[400px] h-[120px] p-6 object-contain">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/debian/debian-original.svg" class="chevron-left flex-shrink-0 w-[400px] h-[120px] p-6 object-contain">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/archlinux/archlinux-original.svg" class="chevron-left flex-shrink-0 w-[400px] h-[120px] p-6 object-contain">
-                
-                <img src="https://www.vectorlogo.zone/logos/freebsd/freebsd-icon.svg" class="chevron-left flex-shrink-0 w-[400px] h-[120px] p-6 object-contain">
-                <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons@v9/icons/openbsd.svg" class="chevron-left flex-shrink-0 w-[400px] h-[120px] p-6 object-contain">
-
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/windows8/windows8-original.svg" class="chevron-left flex-shrink-0 w-[400px] h-[120px] p-6 object-contain">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/ubuntu/ubuntu-original.svg" class="chevron-left flex-shrink-0 w-[400px] h-[120px] p-6 object-contain">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/debian/debian-original.svg" class="chevron-left flex-shrink-0 w-[400px] h-[120px] p-6 object-contain">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/archlinux/archlinux-original.svg" class="chevron-left flex-shrink-0 w-[400px] h-[120px] p-6 object-contain">
-                <img src="https://www.vectorlogo.zone/logos/freebsd/freebsd-icon.svg" class="chevron-left flex-shrink-0 w-[400px] h-[120px] p-6 object-contain">
-                <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons@v9/icons/openbsd.svg" class="chevron-left flex-shrink-0 w-[400px] h-[120px] p-6 object-contain">
-            </div>
-        </div>
-
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/windows8/windows8-original.svg" class="tech-icon w-16 h-16 object-contain">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/ubuntu/ubuntu-original.svg" class="tech-icon w-16 h-16 object-contain">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/debian/debian-original.svg" class="tech-icon w-16 h-16 object-contain">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/archlinux/archlinux-original.svg" class="tech-icon w-16 h-16 object-contain">
+        <img src="https://www.vectorlogo.zone/logos/freebsd/freebsd-icon.svg" class="tech-icon w-16 h-16 object-contain">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons@v9/icons/openbsd.svg" class="tech-icon w-16 h-16 object-contain">
     </div>
 </section>
 
-    <!-- Future goals -->
+    <!-- Goals -->
     <section id="goals" class="py-24">
         <div class="max-w-7xl mx-auto px-6">
             <h2 class="text-4xl font-black uppercase mb-16 text-center">
