@@ -36,19 +36,37 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let rotation = 0;
         let tilt = 0;
-        let mouseX = 0;
-        let mouseY = 0;
+        let isDragging = false;
+        let lastX = 0;
+        let lastY = 0;
+
+        // Set cursor
+        canvas.parentElement.style.cursor = 'grab';
 
         // Mouse input
-        canvas.parentElement.addEventListener('mousemove', (e) => {
-            const rect = canvas.getBoundingClientRect();
-            mouseX = (e.clientX - rect.left - width/2) / (width/2);
-            mouseY = (e.clientY - rect.top - height/2) / (height/2);
+        canvas.parentElement.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            lastX = e.clientX;
+            lastY = e.clientY;
+            canvas.parentElement.style.cursor = 'grabbing';
         });
 
-        canvas.parentElement.addEventListener('mouseleave', () => {
-            mouseX = 0;
-            mouseY = 0;
+        window.addEventListener('mouseup', () => {
+            isDragging = false;
+            canvas.parentElement.style.cursor = 'grab';
+        });
+
+        window.addEventListener('mousemove', (e) => {
+            if (isDragging) {
+                const dx = e.clientX - lastX;
+                const dy = e.clientY - lastY;
+                
+                rotation += dx * 0.004;
+                tilt -= dy * 0.004;
+                
+                lastX = e.clientX;
+                lastY = e.clientY;
+            }
         });
 
         function animate() {
@@ -60,8 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const cx = width / 2;
             const cy = height / 2;
 
-            rotation += 0.005 + (mouseX * 0.02);
-            tilt += ((mouseY * 0.5 + 0.3) - tilt) * 0.1;
+            if (!isDragging) rotation -= 0.002;
 
             const chars = "01"; 
 
@@ -83,37 +100,51 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     // Earth map
                     let isLand = false;
+                    let isIreland = false;
                     
                     // Rough edges
-                    const noise = Math.sin(nLon * 4 + lat * 4) * 0.15 + Math.sin(lat * 10) * 0.05;
+                    const noise = Math.sin(nLon * 10) * 0.05 + Math.cos(lat * 10) * 0.05;
 
-                    // Antarctica
-                    if (lat < -1.3 + noise) isLand = true;
+                    // Ireland Highlight (Approx 53N, 8W -> Lat -0.93, Lon -0.14)
+                    if (Math.hypot(lat + 0.93, nLon + 0.14) < 0.05) {
+                        isLand = true;
+                        isIreland = true;
+                    }
+
+                    // Antarctica (South)
+                    if (lat > 1.3 + noise) isLand = true;
                     
-                    // Americas
-                    if (Math.hypot(lat - 0.8, nLon + 1.7) < 0.6 + noise) isLand = true; // NA
-                    if (Math.hypot(lat + 0.4, nLon + 1.0) < 0.5 + noise) isLand = true; // SA
+                    // Greenland
+                    if (Math.hypot(lat + 1.1, nLon + 0.7) < 0.2 + noise) isLand = true;
+
+                    // North America
+                    if (Math.hypot(lat + 0.7, nLon + 1.7) < 0.6 + noise) isLand = true;
+
+                    // South America
+                    if (Math.hypot(lat - 0.3, nLon + 1.0) < 0.45 + noise) isLand = true;
                     
-                    // Europe / Africa
-                    if (Math.hypot(lat - 0.1, nLon - 0.3) < 0.6 + noise) isLand = true; // Africa
-                    if (Math.hypot(lat - 0.9, nLon - 0.3) < 0.35 + noise) isLand = true; // Europe
+                    // Europe
+                    if (Math.hypot(lat + 0.8, nLon - 0.3) < 0.35 + noise) isLand = true; 
+                    
+                    // Africa
+                    if (Math.hypot(lat - 0.2, nLon - 0.3) < 0.55 + noise) isLand = true; 
                     
                     // Asia
-                    if (Math.hypot(lat - 0.8, nLon - 1.5) < 0.8 + noise) isLand = true;
+                    if (Math.hypot(lat + 0.6, nLon - 1.6) < 0.75 + noise) isLand = true;
                     
                     // Australia
-                    if (Math.hypot(lat + 0.5, nLon - 2.3) < 0.3 + noise) isLand = true;
+                    if (Math.hypot(lat - 0.5, nLon - 2.3) < 0.3 + noise) isLand = true;
                     
                     // 3D math
-                    let x = rRing * Math.cos(lon + rotation);
-                    let z = rRing * Math.sin(lon + rotation);
+                    let x = rRing * Math.sin(lon + rotation);
+                    let z = rRing * Math.cos(lon + rotation);
                     let y = yRing;
 
-                    // Tilt
-                    let xRot = x * Math.cos(tilt) - y * Math.sin(tilt);
-                    let yRot = x * Math.sin(tilt) + y * Math.cos(tilt);
-                    x = xRot;
+                    // Pitch (Rotate around X-axis)
+                    let yRot = y * Math.cos(tilt) - z * Math.sin(tilt);
+                    let zRot = y * Math.sin(tilt) + z * Math.cos(tilt);
                     y = yRot;
+                    z = zRot;
 
                     // Draw front
                     if (z > -r/2) {
@@ -127,8 +158,13 @@ document.addEventListener('DOMContentLoaded', () => {
                         ctx.font = `${10 * scale + 2}px monospace`;
                         
                         if (isLand) {
-                            ctx.fillStyle = z > 0 ? '#E94560' : '#E3D5CA'; 
-                            ctx.globalAlpha = Math.max(0.1, alpha);
+                            if (isIreland) {
+                                ctx.fillStyle = '#4ADE80'; // Bright Green Highlight
+                                ctx.globalAlpha = 1.0;
+                            } else {
+                                ctx.fillStyle = z > 0 ? '#E94560' : '#E3D5CA'; 
+                                ctx.globalAlpha = Math.max(0.1, alpha);
+                            }
                         } else {
                             ctx.fillStyle = '#E3D5CA';
                             ctx.globalAlpha = Math.max(0.05, alpha * 0.2);
@@ -238,21 +274,26 @@ document.addEventListener('DOMContentLoaded', () => {
         const icons = Array.from(orbitContainer.querySelectorAll('.tech-icon'));
         
         // Ring settings
-        const ring = { radius: 550, speed: 0.001, tilt: 10 * (Math.PI / 180), slope: -5 * (Math.PI / 180) };
+        const ring = { speed: 0.001, tilt: 10 * (Math.PI / 180), slope: -5 * (Math.PI / 180) };
 
         const totalIcons = icons.length;
         const angleStep = (Math.PI * 2) / totalIcons;
 
         icons.forEach((icon, index) => {
             icon.dataset.angle = index * angleStep;
+            icon.style.position = 'absolute';
+            icon.style.left = '50%';
+            icon.style.top = '50%';
         });
 
         let width = techSection.clientWidth;
         let height = techSection.clientHeight;
+        let radius = Math.min(width, height) * 0.7;
 
         window.addEventListener('resize', () => {
             width = techSection.clientWidth;
             height = techSection.clientHeight;
+            radius = Math.min(width, height) * 0.45;
         });
 
         function animateTech() {
@@ -265,8 +306,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 item.dataset.angle = angle;
 
                 // 3D position
-                const x = Math.cos(angle) * ring.radius;
-                const z = Math.sin(angle) * ring.radius;
+                const x = Math.cos(angle) * radius;
+                const z = Math.sin(angle) * radius;
                 const y = 0;
 
                 // Tilt
@@ -289,14 +330,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Layering
                 if (zRot > 0) {
                     item.style.zIndex = Math.floor(scale * 19); 
-                    item.style.opacity = Math.max(0.3, 1 - (zRot / ring.radius));
+                    item.style.opacity = Math.max(0.3, 1 - (zRot / radius));
                 } else {
                     item.style.zIndex = 21 + Math.floor((scale - 1) * 20);
                     item.style.opacity = 1;
                 }
                 
-                // Glow
-                item.style.filter = `brightness(${scale}) drop-shadow(0 0 ${scale * 2}px rgba(233,69,96,${(scale - 0.5) * 0.4}))`;
+                // Glow (Reduced)
+                item.style.filter = `brightness(${scale}) drop-shadow(0 0 ${scale}px rgba(233,69,96,${(scale - 0.5) * 0.15}))`;
             });
 
             requestAnimationFrame(animateTech);
