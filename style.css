@@ -1,0 +1,45 @@
+/* Scrollbar style */
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: #121212; }
+::-webkit-scrollbar-thumb { background: #E3D5CA; border: 1px solid #121212; }
+::-webkit-scrollbar-thumb:hover { background: #E94560; }
+
+/* Arrow shape pointing left */
+.chevron-left {
+    clip-path: polygon(100% 0%, 25% 0%, 0% 50%, 25% 100%, 100% 100%, 75% 50%);
+    filter: drop-shadow(0 4px 8px rgba(227, 213, 202, 0.4));
+}
+
+/* Arrow shape pointing right */
+.chevron-right {
+    clip-path: polygon(75% 0%, 100% 50%, 75% 100%, 0% 100%, 25% 50%, 0% 0%);
+    filter: drop-shadow(0 4px 8px rgba(227, 213, 202, 0.4));
+}
+
+/* Animation for scrolling left */
+@keyframes scroll-left {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+/* Animation for scrolling right */
+@keyframes scroll-right {
+    0% { transform: translateX(-50%); }
+    100% { transform: translateX(0); }
+}
+
+/* Container that scrolls left */
+.scroll-track-left {
+    display: flex;
+    gap: 1rem;
+    width: max-content;
+    animation: scroll-left 40s linear infinite;
+}
+
+/* Container that scrolls right */
+.scroll-track-right {
+    display: flex;
+    gap: 1rem;
+    width: max-content;
+    animation: scroll-right 40s linear infinite;
+}

@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Page settings -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio</title>
+    
+    <!-- Link to style file -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Load Tailwind CSS library -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Load JavaScript file -->
+    <script src="script.js"></script>
+</head>
+<body class="bg-theme-dark text-theme-sand font-sans antialiased selection:bg-theme-pink selection:text-white">
+
+    <!-- Top navigation bar -->
+    <nav class="fixed w-full z-50 bg-theme-dark/95 backdrop-blur border-b-2 border-theme-sand">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="text-2xl font-bold tracking-tighter uppercase border-2 border-theme-pink p-1">
+                Sam McAulay
+            </div>
+            <div class="hidden md:flex space-x-8 text-sm font-bold uppercase tracking-widest">
+                <a href="#projects" class="hover:text-theme-pink transition-colors duration-300">Projects</a>
+                <a href="#configs" class="hover:text-theme-pink transition-colors duration-300">Configs</a>
+                <a href="#goals" class="hover:text-theme-pink transition-colors duration-300">In The Works</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main hero section with introduction -->
+    <header class="min-h-screen flex items-center justify-center pt-20">
+        <div class="max-w-5xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div>
+                <h2 class="text-theme-pink font-mono text-sm mb-4"> // Placeholder</h2>
+                <h1 class="text-5xl md:text-7xl font-black uppercase leading-none mb-6">
+                    Building <br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-theme-pink to-theme-sand">Digital</span> <br>
+                    Worlds.
+                </h1>
+                <p class="text-lg opacity-80 mb-8 max-w-md">
+                    Whether it be a game, A simulation, or a desktop enviornment, on your computer, console or headset. I aim to bring my dreams of how we use, and interact with our technology to fruition.
+                </p>
+                <a href="#projects" class="inline-block bg-theme-pink text-white font-bold uppercase tracking-wider py-4 px-8 border-2 border-theme-pink hover:bg-transparent hover:text-theme-pink transition-all duration-300 rounded-none">
+                    View My Work
+                </a>
+            </div>
+            <div class="border-2 border-theme-sand p-4 relative h-64 md:h-96 w-full flex items-center justify-center">
+                <div class="absolute inset-0 border border-theme-sand translate-x-4 translate-y-4 -z-10 opacity-50"></div>
+                <span class="font-mono text-xs opacity-50">[ placeholder ]</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Projects section -->
+    <section id="projects" class="py-24 border-t border-theme-surface">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="text-4xl font-black uppercase mb-16 border-l-8 border-theme-pink pl-6">
+                Selected Projects
+            </h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="group relative bg-theme-surface border border-theme-sand/20 hover:border-theme-pink transition-colors duration-300 p-8">
+                    <div class="absolute top-0 right-0 bg-theme-sand text-theme-dark text-xs font-bold px-3 py-1 uppercase rounded-none">
+                        C++ / SFML
+                    </div>
+                    <h3 class="text-2xl font-bold uppercase mb-4 group-hover:text-theme-pink transition-colors">
+                        Battleship Game
+                    </h3>
+                    <p class="mb-6 opacity-70 text-sm leading-relaxed">
+                        Multiplayer battleship game with LAN and WAN support. Built with C++ and SFML for speed, networking and real-time gameplay.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="https://github.com/Carlbytes/BattleShip_cpp_Game" class="text-sm font-bold uppercase border-b border-theme-pink pb-1 hover:text-theme-pink transition-colors">GitHub Repo</a>
+                    </div>
+                </div>
+
+                <div class="group relative bg-theme-surface border border-theme-sand/20 hover:border-theme-pink transition-colors duration-300 p-8">
+                    <div class="absolute top-0 right-0 bg-theme-sand text-theme-dark text-xs font-bold px-3 py-1 uppercase rounded-none">
+                        C++ / Crow
+                    </div>
+                    <h3 class="text-2xl font-bold uppercase mb-4 group-hover:text-theme-pink transition-colors">
+                        Math Game Web App
+                    </h3>
+                    <p class="mb-6 opacity-70 text-sm leading-relaxed">
+                        Full-stack web application with C++ backend and a web front, connected with crow. Utilises a jenkins CI/CD pipline to build the app image with docker, and upload it to prod.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="https://github.com/Carlbytes/Math-Game-Web-App" class="text-sm font-bold uppercase border-b border-theme-pink pb-1 hover:text-theme-pink transition-colors">GitHub Repo</a>
+                        <a href="https://se3-mathgame.duckdns.org/" class="text-sm font-bold uppercase border-b border-theme-sand pb-1 hover:text-white transition-colors">Live Demo</a>
+                    </div>
+                </div>
+
+                <div class="group relative bg-theme-surface border border-theme-sand/20 hover:border-theme-pink transition-colors duration-300 p-8">
+                    <div class="absolute top-0 right-0 bg-theme-sand text-theme-dark text-xs font-bold px-3 py-1 uppercase rounded-none">
+                        Unity / C#
+                    </div>
+                    <h3 class="text-2xl font-bold uppercase mb-4 group-hover:text-theme-pink transition-colors">
+                        Laser Game
+                    </h3>
+                    <p class="mb-6 opacity-70 text-sm leading-relaxed">
+                        Procedurally generated horror game, with a focus on speedruns! Makes use of custom textures and particles to emulate laser effects
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="https://github.com/SamMcAulay/laserGame" class="text-sm font-bold uppercase border-b border-theme-pink pb-1 hover:text-theme-pink transition-colors">GitHub Repo</a>
+                    </div>
+                </div>
+
+                <div class="group relative bg-theme-surface border border-theme-sand/20 hover:border-theme-pink transition-colors duration-300 p-8">
+                    <div class="absolute top-0 right-0 bg-theme-sand text-theme-dark text-xs font-bold px-3 py-1 uppercase rounded-none">
+                        Unity / VR / C# / ShaderLab
+                    </div>
+                    <h3 class="text-2xl font-bold uppercase mb-4 group-hover:text-theme-pink transition-colors">
+                        Space VR Explorer
+                    </h3>
+                    <p class="mb-6 opacity-70 text-sm leading-relaxed">
+                        Virtual reality Simulation of Real world theoretical asteroid impact effects. Built for Hackathon Athlone 2025 with NASA API integration.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="https://github.com/Carlbytes/Hackahton2025" class="text-sm font-bold uppercase border-b border-theme-pink pb-1 hover:text-theme-pink transition-colors">GitHub Repo</a>
+                    </div>
+                </div>
+
+                <div class="group relative bg-theme-surface border border-theme-sand/20 hover:border-theme-pink transition-colors duration-300 p-8">
+                    <div class="absolute top-0 right-0 bg-theme-sand text-theme-dark text-xs font-bold px-3 py-1 uppercase rounded-none">
+                        Unity / HLSL / C#
+                    </div>
+                    <h3 class="text-2xl font-bold uppercase mb-4 group-hover:text-theme-pink transition-colors">
+                        Moonhaul
+                    </h3>
+                    <p class="mb-6 opacity-70 text-sm leading-relaxed">
+                        Split-screen couch co-op game where you battle your friends to collect the most moons! Makes use of custom physics and shader meshes.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="https://github.com/SamsonA00321296/Games-fleadh" class="text-sm font-bold uppercase border-b border-theme-pink pb-1 hover:text-theme-pink transition-colors">GitHub Repo</a>
+                    </div>
+                </div>
+
+                <div class="group relative bg-theme-surface border border-theme-sand/20 hover:border-theme-pink transition-colors duration-300 p-8">
+                    <div class="absolute top-0 right-0 bg-theme-sand text-theme-dark text-xs font-bold px-3 py-1 uppercase rounded-none">
+                        Python
+                    </div>
+                    <h3 class="text-2xl font-bold uppercase mb-4 group-hover:text-theme-pink transition-colors">
+                        Pangbot
+                    </h3>
+                    <p class="mb-6 opacity-70 text-sm leading-relaxed">
+                        Twitch bot that automatically grabs build codes from chat. Built with Python for automated chat interaction and code extraction. Plans for Discord integration!
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="https://github.com/SamMcAulay/Pangbot" class="text-sm font-bold uppercase border-b border-theme-pink pb-1 hover:text-theme-pink transition-colors">GitHub Repo</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Managed configs section -->
+    <section id="configs" class="py-24 border-t border-theme-surface">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="text-4xl font-black uppercase mb-16 border-l-8 border-theme-pink pl-6">
+                Managed Configs
+            </h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="group relative bg-theme-surface border border-theme-sand/20 hover:border-theme-pink transition-colors duration-300 p-8">
+                    <div class="absolute top-0 right-0 bg-theme-sand text-theme-dark text-xs font-bold px-3 py-1 uppercase rounded-none">
+                        i3wm
+                    </div>
+                    <h3 class="text-2xl font-bold uppercase mb-4 group-hover:text-theme-pink transition-colors">
+                        I3WM Dotfiles
+                    </h3>
+                    <p class="mb-6 opacity-70 text-sm leading-relaxed">
+                        Animated i3 window manager configuration making use of an experimental picom branch, allowing for wayland like animations on xorg.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="https://github.com/SamMcAulay/i3_PywalEXP_Dotfiles" class="text-sm font-bold uppercase border-b border-theme-pink pb-1 hover:text-theme-pink transition-colors">GitHub Repo</a>
+                    </div>
+                </div>
+
+                <div class="group relative bg-theme-surface border border-theme-sand/20 hover:border-theme-pink transition-colors duration-300 p-8">
+                    <div class="absolute top-0 right-0 bg-theme-sand text-theme-dark text-xs font-bold px-3 py-1 uppercase rounded-none">
+                        Neovim
+                    </div>
+                    <h3 class="text-2xl font-bold uppercase mb-4 group-hover:text-theme-pink transition-colors">
+                        NVIM Config
+                    </h3>
+                    <p class="mb-6 opacity-70 text-sm leading-relaxed">
+                        Main Neovim configuration with lazy loading, mason, treesitter, telescope, which-key, and bufferline plugins. Regularly updated working setup.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="https://github.com/SamMcAulay/NVIM-Main-conf" class="text-sm font-bold uppercase border-b border-theme-pink pb-1 hover:text-theme-pink transition-colors">GitHub Repo</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<!-- Tech stack section with scrolling icons -->
+<section id="tech" class="py-24 bg-theme-surface overflow-hidden">
+    
+    <div class="max-w-7xl mx-auto px-6 mb-12">
+        <h2 class="text-4xl font-black uppercase border-l-8 border-theme-pink pl-6">
+            Tech Stack
+        </h2>
+    </div>
+
+    <div class="flex flex-col space-y-8 w-full">
+
+        <div class="group relative overflow-hidden w-full">
+            <div class="scroll-track-left" style="animation-duration: 100s;">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/c/c-original.svg" class="chevron-left flex-shrink-0 w-[400px] h-[120px] bg-[#4a4a4a] p-6 object-contain">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-original.svg" class="chevron-left flex-shrink-0 w-[400px] h-[120px] bg-[#4a4a4a] p-6 object-contain">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/csharp/csharp-original.svg" class="chevron-left flex-shrink-0 w-[400px] h-[120px] bg-[#4a4a4a] p-6 object-contain">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg" class="chevron-left flex-shrink-0 w-[400px] h-[120px] bg-[#4a4a4a] p-6 object-contain">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" class="chevron-left flex-shrink-0 w-[400px] h-[120px] bg-[#4a4a4a] p-6 object-contain">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/lua/lua-original.svg" class="chevron-left flex-shrink-0 w-[400px] h-[120px] bg-[#4a4a4a] p-6 object-contain">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg" class="chevron-left flex-shrink-0 w-[400px] h-[120px] bg-[#4a4a4a] p-6 object-contain">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg" class="chevron-left flex-shrink-0 w-[400px] h-[120px] bg-[#4a4a4a] p-6 object-contain">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" class="chevron-left flex-shrink-0 w-[400px] h-[120px] bg-[#4a4a4a] p-6 object-contain">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg" class="chevron-left flex-shrink-0 w-[400px] h-[120px] bg-[#4a4a4a] p-6 object-contain">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cmake/cmake-original.svg" class="chevron-left flex-shrink-0 w-[400px] h-[120px] bg-[#4a4a4a] p-6 object-contain">
+                
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/c/c-original.svg" class="chevron-left flex-shrink-0 w-[400px] h-[120px] bg-[#4a4a4a] p-6 object-contain">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-original.svg" class="chevron-left flex-shrink-0 w-[400px] h-[120px] bg-[#4a4a4a] p-6 object-contain">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/csharp/csharp-original.svg" class="chevron-left flex-shrink-0 w-[400px] h-[120px] bg-[#4a4a4a] p-6 object-contain">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg" class="chevron-left flex-shrink-0 w-[400px] h-[120px] bg-[#4a4a4a] p-6 object-contain">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" class="chevron-left flex-shrink-0 w-[400px] h-[120px] bg-[#4a4a4a] p-6 object-contain">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/lua/lua-original.svg" class="chevron-left flex-shrink-0 w-[400px] h-[120px] bg-[#4a4a4a] p-6 object-contain">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg" class="chevron-left flex-shrink-0 w-[400px] h-[120px] bg-[#4a4a4a] p-6 object-contain">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg" class="chevron-left flex-shrink-0 w-[400px] h-[120px] bg-[#4a4a4a] p-6 object-contain">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" class="chevron-left flex-shrink-0 w-[400px] h-[120px] bg-[#4a4a4a] p-6 object-contain">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg" class="chevron-left flex-shrink-0 w-[400px] h-[120px] bg-[#4a4a4a] p-6 object-contain">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cmake/cmake-original.svg" class="chevron-left flex-shrink-0 w-[400px] h-[120px] bg-[#4a4a4a] p-6 object-contain">
+            </div>
+        </div>
+
+        <div class="group relative overflow-hidden w-full">
+            <div class="scroll-track-right" style="animation-duration: 80s;">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg" class="chevron-right flex-shrink-0 w-[400px] h-[120px] bg-[#4a4a4a] p-6 object-contain">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg" class="chevron-right flex-shrink-0 w-[400px] h-[120px] bg-[#4a4a4a] p-6 object-contain">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" class="chevron-right flex-shrink-0 w-[400px] h-[120px] bg-[#4a4a4a] p-6 object-contain">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/oracle/oracle-original.svg" class="chevron-right flex-shrink-0 w-[400px] h-[120px] bg-[#4a4a4a] p-6 object-contain">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/jenkins/jenkins-original.svg" class="chevron-right flex-shrink-0 w-[400px] h-[120px] bg-[#4a4a4a] p-6 object-contain">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/visualstudio/visualstudio-original.svg" class="chevron-right flex-shrink-0 w-[400px] h-[120px] bg-[#4a4a4a] p-6 object-contain">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/neovim/neovim-original.svg" class="chevron-right flex-shrink-0 w-[400px] h-[120px] bg-[#4a4a4a] p-6 object-contain">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/bash/bash-original.svg" class="chevron-right flex-shrink-0 w-[400px] h-[120px] bg-[#4a4a4a] p-6 object-contain">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/blender/blender-original.svg" class="chevron-right flex-shrink-0 w-[400px] h-[120px] bg-[#4a4a4a] p-6 object-contain">
+
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg" class="chevron-right flex-shrink-0 w-[400px] h-[120px] bg-[#4a4a4a] p-6 object-contain">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg" class="chevron-right flex-shrink-0 w-[400px] h-[120px] bg-[#4a4a4a] p-6 object-contain">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" class="chevron-right flex-shrink-0 w-[400px] h-[120px] bg-[#4a4a4a] p-6 object-contain">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/oracle/oracle-original.svg" class="chevron-right flex-shrink-0 w-[400px] h-[120px] bg-[#4a4a4a] p-6 object-contain">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/jenkins/jenkins-original.svg" class="chevron-right flex-shrink-0 w-[400px] h-[120px] bg-[#4a4a4a] p-6 object-contain">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/visualstudio/visualstudio-original.svg" class="chevron-right flex-shrink-0 w-[400px] h-[120px] bg-[#4a4a4a] p-6 object-contain">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/neovim/neovim-original.svg" class="chevron-right flex-shrink-0 w-[400px] h-[120px] bg-[#4a4a4a] p-6 object-contain">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/bash/bash-original.svg" class="chevron-right flex-shrink-0 w-[400px] h-[120px] bg-[#4a4a4a] p-6 object-contain">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/blender/blender-original.svg" class="chevron-right flex-shrink-0 w-[400px] h-[120px] bg-[#4a4a4a] p-6 object-contain">
+            </div>
+        </div>
+
+        <div class="group relative overflow-hidden w-full">
+            <div class="scroll-track-left" style="animation-duration: 55s;">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/windows8/windows8-original.svg" class="chevron-left flex-shrink-0 w-[400px] h-[120px] bg-[#4a4a4a] p-6 object-contain">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/ubuntu/ubuntu-original.svg" class="chevron-left flex-shrink-0 w-[400px] h-[120px] bg-[#4a4a4a] p-6 object-contain">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/debian/debian-original.svg" class="chevron-left flex-shrink-0 w-[400px] h-[120px] bg-[#4a4a4a] p-6 object-contain">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/archlinux/archlinux-original.svg" class="chevron-left flex-shrink-0 w-[400px] h-[120px] bg-[#4a4a4a] p-6 object-contain">
+                
+                <img src="https://www.vectorlogo.zone/logos/freebsd/freebsd-icon.svg" class="chevron-left flex-shrink-0 w-[400px] h-[120px] bg-[#4a4a4a] p-6 object-contain">
+                <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons@v9/icons/openbsd.svg" class="chevron-left flex-shrink-0 w-[400px] h-[120px] bg-[#4a4a4a] p-6 object-contain">
+
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/windows8/windows8-original.svg" class="chevron-left flex-shrink-0 w-[400px] h-[120px] bg-[#4a4a4a] p-6 object-contain">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/ubuntu/ubuntu-original.svg" class="chevron-left flex-shrink-0 w-[400px] h-[120px] bg-[#4a4a4a] p-6 object-contain">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/debian/debian-original.svg" class="chevron-left flex-shrink-0 w-[400px] h-[120px] bg-[#4a4a4a] p-6 object-contain">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/archlinux/archlinux-original.svg" class="chevron-left flex-shrink-0 w-[400px] h-[120px] bg-[#4a4a4a] p-6 object-contain">
+                <img src="https://www.vectorlogo.zone/logos/freebsd/freebsd-icon.svg" class="chevron-left flex-shrink-0 w-[400px] h-[120px] bg-[#4a4a4a] p-6 object-contain">
+                <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons@v9/icons/openbsd.svg" class="chevron-left flex-shrink-0 w-[400px] h-[120px] bg-[#4a4a4a] p-6 object-contain">
+            </div>
+        </div>
+
+    </div>
+</section>
+
+    <!-- Future goals section -->
+    <section id="goals" class="py-24">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <h2 class="text-4xl font-black uppercase mb-8 text-theme-pink">
+                In The Works
+            </h2>
+            <div class="border-2 border-theme-sand p-8 md:p-12 relative">
+                <div class="absolute top-0 left-0 w-4 h-4 bg-theme-pink"></div>
+                <div class="absolute top-0 right-0 w-4 h-4 bg-theme-pink"></div>
+                <div class="absolute bottom-0 left-0 w-4 h-4 bg-theme-pink"></div>
+                <div class="absolute bottom-0 right-0 w-4 h-4 bg-theme-pink"></div>
+
+                <p class="text-xl leading-relaxed font-light">
+                    [title placeholder] <br><br>
+                    placeholder
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer with links -->
+    <footer class="py-12 border-t border-theme-sand/30 bg-theme-dark text-center">
+        <p class="font-mono text-sm opacity-50 mb-4">Designed & Built by Yours Truly</p>
+        <div class="flex justify-center space-x-6">
+            <a href="https://github.com/SamMcAulay" class="text-theme-sand hover:text-theme-pink transition-colors">GitHub</a>
+            <a href="https://www.linkedin.com/in/sammca05/" class="text-theme-sand hover:text-theme-pink transition-colors">LinkedIn</a>
+            <a href="mailto:SamMcAulay@pm.me" class="text-theme-sand hover:text-theme-pink transition-colors">Email</a>
+        </div>
+    </footer>
+
+</body>
+</html>
