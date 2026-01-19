@@ -151,19 +151,8 @@ document.addEventListener('DOMContentLoaded', () => {
         let width, height;
         let particles = [];
         
-        const particleCount = 150;
         const connectionDistance = 150;
         const moveSpeed = 0.2;
-
-        const resizeBg = () => {
-            width = window.innerWidth;
-            height = window.innerHeight;
-            bgCanvas.width = width;
-            bgCanvas.height = height;
-        };
-        
-        window.addEventListener('resize', resizeBg);
-        resizeBg();
 
         class Particle {
             constructor() {
@@ -191,9 +180,27 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        for (let i = 0; i < particleCount; i++) {
-            particles.push(new Particle());
-        }
+        const initParticles = () => {
+            particles = [];
+            // Scale node count based on screen area (approx 150 nodes for 1440p)
+            const particleCount = Math.floor((width * height) / 25000);
+            const count = Math.max(25, particleCount);
+
+            for (let i = 0; i < count; i++) {
+                particles.push(new Particle());
+            }
+        };
+
+        const resizeBg = () => {
+            width = window.innerWidth;
+            height = window.innerHeight;
+            bgCanvas.width = width;
+            bgCanvas.height = height;
+            initParticles();
+        };
+        
+        window.addEventListener('resize', resizeBg);
+        resizeBg();
 
         function animateConstellation() {
             bgCtx.clearRect(0, 0, width, height);
