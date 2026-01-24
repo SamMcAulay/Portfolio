@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sam McAulay | Projects</title>
+    
+    <link rel="stylesheet" href="style.css">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script src="script.js"></script>
+    <style>
+        #parallax-bg {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            pointer-events: none;
+            background-color: #121212;
+        }
+    </style>
+</head>
+<body class="text-theme-sand font-sans antialiased selection:bg-theme-pink selection:text-white min-h-screen flex flex-col">
+    <canvas id="parallax-bg"></canvas>
+
+    <!-- Nav -->
+    <nav class="fixed w-full z-50 bg-theme-dark/95 backdrop-blur border-b-2 border-theme-sand">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="text-2xl font-bold tracking-tighter uppercase border-2 border-theme-pink p-1">
+                Sam McAulay
+            </div>
+        </div>
+    </nav>
+
+    <!-- Return Option -->
+    <div class="pt-28 flex justify-center w-full relative z-10">
+        <a href="index.html?transition=shrink" class="text-sm font-bold uppercase tracking-widest border-b border-theme-pink pb-1 hover:text-theme-pink transition-colors duration-300">
+            Return to Main Page
+        </a>
+    </div>
+
+    <!-- Main Content -->
+    <main class="flex-grow flex items-center justify-center p-6 relative z-10">
+        <p class="text-xl md:text-2xl font-mono opacity-80 text-center">
+            uhh, this isnt quite done yet, Check back in a few days!
+        </p>
+    </main>
+</body>
+</html>
