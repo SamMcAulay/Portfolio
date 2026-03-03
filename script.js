@@ -596,4 +596,42 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         animateTech();
     }
+
+    // Fetch and inject 2 random projects from projects.html
+    async function fetchFeaturedProjects() {
+        const grid = document.getElementById('featured-projects');
+        if (!grid) return;
+
+        try {
+            const response = await fetch('projects.html');
+            const html = await response.text();
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            const cards = Array.from(doc.querySelectorAll('.project-card'));
+
+            // Fisher-Yates shuffle
+            for (let i = cards.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [cards[i], cards[j]] = [cards[j], cards[i]];
+            }
+
+            cards.slice(0, 2).forEach(card => {
+                grid.appendChild(document.importNode(card, true));
+            });
+
+            initGalleries(grid);
+        } catch (e) {
+            console.warn('Could not load projects:', e);
+        }
+    }
+
+    // Featured projects (index.html)
+    if (document.getElementById('featured-projects')) {
+        fetchFeaturedProjects();
+    }
+
+    // Gallery dropdowns (projects.html — cards already in DOM)
+    if (document.querySelector('.project-card')) {
+        initGalleries(document);
+    }
 });
