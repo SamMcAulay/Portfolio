@@ -650,12 +650,12 @@ document.addEventListener('DOMContentLoaded', () => {
       // --- Toggle button ---
       const toggleBtn = document.createElement('button');
       toggleBtn.className = 'gallery-toggle text-xs font-bold uppercase tracking-widest border-b border-theme-sand/50 pb-1 hover:text-theme-pink hover:border-theme-pink transition-colors duration-300';
-      toggleBtn.textContent = 'Gallery';
+      toggleBtn.textContent = 'Gallery ▲';
 
       // --- Collapsible panel ---
       const panel = document.createElement('div');
       panel.className = 'gallery-panel mt-4';
-      panel.style.display = 'none';
+      panel.style.display = 'block';
 
       // --- Belt wrapper (clips overflow) ---
       const beltWrapper = document.createElement('div');
@@ -771,6 +771,9 @@ document.addEventListener('DOMContentLoaded', () => {
       window.addEventListener('resize', () => {
         if (panel.style.display !== 'none') { threshold = null; setupBelt(); }
       });
+
+      // Start open
+      requestAnimationFrame(startScroll);
 
       toggleBtn.addEventListener('click', () => {
         const isOpen = panel.style.display !== 'none';
