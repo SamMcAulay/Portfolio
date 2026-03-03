@@ -619,10 +619,30 @@ document.addEventListener('DOMContentLoaded', () => {
         grid.appendChild(document.importNode(card, true));
       });
 
-      if (cards.length) initGalleries(grid);
+      if (cards.length) {
+        setupColumns(grid);
+        initGalleries(grid);
+      }
     } catch (e) {
       console.warn('Could not load projects:', e);
     }
+  }
+
+  // Distribute .project-card elements into two independent flex columns
+  function setupColumns(container) {
+    const cards = Array.from(container.querySelectorAll(':scope > .project-card'));
+    if (cards.length < 2) return;
+
+    const wrapper = document.createElement('div');
+    wrapper.className = 'flex flex-col md:flex-row gap-8 items-start';
+
+    const cols = [document.createElement('div'), document.createElement('div')];
+    cols.forEach(c => { c.className = 'flex flex-col gap-8 flex-1'; });
+
+    cards.forEach((card, i) => cols[i % 2].appendChild(card));
+
+    cols.forEach(c => wrapper.appendChild(c));
+    container.appendChild(wrapper);
   }
 
   // Build gallery dropdowns for any .project-card with data-images
@@ -655,7 +675,9 @@ document.addEventListener('DOMContentLoaded', () => {
       // --- Collapsible panel ---
       const panel = document.createElement('div');
       panel.className = 'gallery-panel mt-4';
-      panel.style.display = 'block';
+      panel.style.overflow = 'hidden';
+      panel.style.transition = 'max-height 0.35s ease';
+      panel.style.maxHeight = '250px';
 
       // --- Belt wrapper (clips overflow) ---
       const beltWrapper = document.createElement('div');
@@ -769,15 +791,15 @@ document.addEventListener('DOMContentLoaded', () => {
       beltWrapper.addEventListener('mouseleave', () => { paused = false; });
 
       window.addEventListener('resize', () => {
-        if (panel.style.display !== 'none') { threshold = null; setupBelt(); }
+        if (panel.style.maxHeight !== '0px') { threshold = null; setupBelt(); }
       });
 
       // Start open
       requestAnimationFrame(startScroll);
 
       toggleBtn.addEventListener('click', () => {
-        const isOpen = panel.style.display !== 'none';
-        panel.style.display = isOpen ? 'none' : 'block';
+        const isOpen = panel.style.maxHeight !== '0px';
+        panel.style.maxHeight = isOpen ? '0px' : '250px';
         toggleBtn.textContent = isOpen ? 'Gallery' : 'Gallery ▲';
         stopScroll();
         if (!isOpen) startScroll();
@@ -790,8 +812,11 @@ document.addEventListener('DOMContentLoaded', () => {
     fetchFeaturedProjects();
   }
 
-  // Gallery dropdowns (projects.html — cards already in DOM)
-  if (document.querySelector('.project-card')) {
-    initGalleries(document);
+  // Two-column layout + gallery dropdowns (projects.html — cards already in DOM)
+  const firstCard = document.querySelector('.project-card');
+  if (firstCard) {
+    const container = firstCard.parentElement;
+    setupColumns(container);
+    initGalleries(container);
   }
 });
