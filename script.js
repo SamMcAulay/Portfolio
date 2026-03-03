@@ -733,7 +733,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 const isOpen = panel.style.display !== 'none';
                 panel.style.display = isOpen ? 'none' : 'block';
                 toggleBtn.textContent = isOpen ? 'Gallery' : 'Gallery ▲';
-                if (isOpen) stopAuto(); else startAuto();
+                stopAuto();
+                if (!isOpen) startAuto();
             });
         });
     }
