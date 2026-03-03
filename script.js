@@ -633,10 +633,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const cards = Array.from(container.querySelectorAll(':scope > .project-card'));
     if (cards.length < 2) return;
 
+    // Preserve original DOM order for correct mobile sequencing
+    const ordered = [...cards];
+
     const wrapper = document.createElement('div');
     wrapper.style.display = 'flex';
     wrapper.style.gap = '2rem';
-    wrapper.style.alignItems = 'start';
 
     const cols = [document.createElement('div'), document.createElement('div')];
     cols.forEach(c => {
@@ -647,15 +649,27 @@ document.addEventListener('DOMContentLoaded', () => {
       c.style.gap = '2rem';
     });
 
+    ordered.forEach((card, i) => cols[i % 2].appendChild(card));
+    cols.forEach(c => wrapper.appendChild(c));
+    container.appendChild(wrapper);
+
     const applyLayout = () => {
-      wrapper.style.flexDirection = window.innerWidth >= 768 ? 'row' : 'column';
+      if (window.innerWidth >= 768) {
+        // Desktop: two side-by-side columns, cards interleaved
+        cols[1].style.display = '';
+        wrapper.style.flexDirection = 'row';
+        wrapper.style.alignItems = 'start';
+        ordered.forEach((card, i) => cols[i % 2].appendChild(card));
+      } else {
+        // Mobile: single full-width column, cards in original order
+        wrapper.style.flexDirection = 'column';
+        wrapper.style.alignItems = 'stretch';
+        ordered.forEach(card => cols[0].appendChild(card));
+        cols[1].style.display = 'none';
+      }
     };
     applyLayout();
     window.addEventListener('resize', applyLayout);
-
-    cards.forEach((card, i) => cols[i % 2].appendChild(card));
-    cols.forEach(c => wrapper.appendChild(c));
-    container.appendChild(wrapper);
   }
 
   // Build gallery dropdowns for any .project-card with data-images
