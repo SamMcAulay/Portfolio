@@ -667,11 +667,14 @@ document.addEventListener('DOMContentLoaded', () => {
             // --- Belt (sliding strip) ---
             const belt = document.createElement('div');
             belt.className = 'gallery-belt flex h-full';
-            belt.style.cssText = `width:${images.length * 100}%; transition: transform 0.5s ease;`;
+            belt.style.width = `${images.length * 100}%`;
+            belt.style.transition = 'transform 0.5s ease';
 
             images.forEach(src => {
                 const slide = document.createElement('div');
-                slide.style.cssText = `width:${100 / images.length}%; flex-shrink:0; height:100%;`;
+                slide.style.width = `${100 / images.length}%`;
+                slide.style.flexShrink = '0';
+                slide.style.height = '100%';
                 const img = document.createElement('img');
                 img.src = src;
                 img.alt = '';
