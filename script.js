@@ -675,6 +675,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const slide = document.createElement('div');
         slide.style.flexShrink = '0';
         slide.style.height = '100%';
+        slide.style.paddingRight = '6px';
+        slide.style.boxSizing = 'border-box';
         const img = document.createElement('img');
         img.src = src;
         img.alt = '';
@@ -682,6 +684,34 @@ document.addEventListener('DOMContentLoaded', () => {
         img.style.height = '100%';
         img.style.objectFit = 'cover';
         img.style.display = 'block';
+        img.style.outline = '1px solid rgba(227, 213, 202, 0.15)';
+        img.style.cursor = 'pointer';
+        img.addEventListener('click', () => {
+          const overlay = document.createElement('div');
+          overlay.style.cssText = 'position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;background:rgba(18,18,18,0.95);cursor:pointer;';
+
+          const full = document.createElement('img');
+          full.src = src;
+          full.style.cssText = 'max-width:90vw;max-height:90vh;object-fit:contain;';
+          full.addEventListener('click', e => e.stopPropagation());
+
+          const closeBtn = document.createElement('button');
+          closeBtn.textContent = '×';
+          closeBtn.style.cssText = 'position:absolute;top:1rem;right:1.5rem;color:#E3D5CA;font-size:2rem;font-weight:bold;background:none;border:none;cursor:pointer;font-family:monospace;opacity:0.7;line-height:1;';
+
+          overlay.appendChild(full);
+          overlay.appendChild(closeBtn);
+          document.body.appendChild(overlay);
+
+          function close() {
+            overlay.remove();
+            document.removeEventListener('keydown', onKey);
+          }
+          function onKey(e) { if (e.key === 'Escape') close(); }
+
+          overlay.addEventListener('click', close);
+          document.addEventListener('keydown', onKey);
+        });
         slide.appendChild(img);
         belt.appendChild(slide);
       });
