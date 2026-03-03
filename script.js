@@ -604,6 +604,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         try {
             const response = await fetch('projects.html');
+            if (!response.ok) throw new Error(response.status);
             const html = await response.text();
             const parser = new DOMParser();
             const doc = parser.parseFromString(html, 'text/html');
@@ -619,7 +620,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 grid.appendChild(document.importNode(card, true));
             });
 
-            initGalleries(grid);
+            if (cards.length) initGalleries(grid);
         } catch (e) {
             console.warn('Could not load projects:', e);
         }
