@@ -634,13 +634,26 @@ document.addEventListener('DOMContentLoaded', () => {
     if (cards.length < 2) return;
 
     const wrapper = document.createElement('div');
-    wrapper.className = 'flex flex-col md:flex-row gap-8 items-start';
+    wrapper.style.display = 'flex';
+    wrapper.style.gap = '2rem';
+    wrapper.style.alignItems = 'start';
 
     const cols = [document.createElement('div'), document.createElement('div')];
-    cols.forEach(c => { c.className = 'flex flex-col gap-8 flex-1'; });
+    cols.forEach(c => {
+      c.style.flex = '1';
+      c.style.minWidth = '0';
+      c.style.display = 'flex';
+      c.style.flexDirection = 'column';
+      c.style.gap = '2rem';
+    });
+
+    const applyLayout = () => {
+      wrapper.style.flexDirection = window.innerWidth >= 768 ? 'row' : 'column';
+    };
+    applyLayout();
+    window.addEventListener('resize', applyLayout);
 
     cards.forEach((card, i) => cols[i % 2].appendChild(card));
-
     cols.forEach(c => wrapper.appendChild(c));
     container.appendChild(wrapper);
   }
