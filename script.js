@@ -626,6 +626,118 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // Build gallery dropdowns for any .project-card with data-images
+    function initGalleries(container) {
+        const scope = (container === document || !container)
+            ? document
+            : container;
+        const cards = scope.querySelectorAll('.project-card');
+
+        cards.forEach(card => {
+            // Skip if gallery already built
+            if (card.querySelector('.gallery-section')) return;
+
+            let images;
+            try {
+                images = JSON.parse(card.getAttribute('data-images') || '[]');
+            } catch (_) {
+                return;
+            }
+            if (!images.length) return;
+
+            // --- Outer section ---
+            const section = document.createElement('div');
+            section.className = 'gallery-section mt-6 border-t border-theme-sand/20 pt-4';
+
+            // --- Toggle button ---
+            const toggleBtn = document.createElement('button');
+            toggleBtn.className = 'gallery-toggle text-xs font-bold uppercase tracking-widest border-b border-theme-sand/50 pb-1 hover:text-theme-pink hover:border-theme-pink transition-colors duration-300';
+            toggleBtn.textContent = 'Gallery';
+
+            // --- Collapsible panel ---
+            const panel = document.createElement('div');
+            panel.className = 'gallery-panel mt-4';
+            panel.style.display = 'none';
+
+            // --- Belt wrapper (clips overflow) ---
+            const beltWrapper = document.createElement('div');
+            beltWrapper.className = 'relative overflow-hidden border border-theme-sand/20';
+            beltWrapper.style.height = '200px';
+
+            // --- Belt (sliding strip) ---
+            const belt = document.createElement('div');
+            belt.className = 'gallery-belt flex h-full';
+            belt.style.cssText = `width:${images.length * 100}%; transition: transform 0.5s ease;`;
+
+            images.forEach(src => {
+                const slide = document.createElement('div');
+                slide.style.cssText = `width:${100 / images.length}%; flex-shrink:0; height:100%;`;
+                const img = document.createElement('img');
+                img.src = src;
+                img.alt = '';
+                img.style.cssText = 'width:100%; height:100%; object-fit:cover; display:block;';
+                slide.appendChild(img);
+                belt.appendChild(slide);
+            });
+
+            // --- Prev / Next buttons ---
+            const prevBtn = document.createElement('button');
+            prevBtn.innerHTML = '&#8249;';
+            prevBtn.className = 'absolute left-0 top-0 h-full px-3 text-theme-sand bg-theme-dark/60 hover:text-theme-pink hover:bg-theme-dark/80 transition-colors text-2xl font-bold flex items-center';
+
+            const nextBtn = document.createElement('button');
+            nextBtn.innerHTML = '&#8250;';
+            nextBtn.className = 'absolute right-0 top-0 h-full px-3 text-theme-sand bg-theme-dark/60 hover:text-theme-pink hover:bg-theme-dark/80 transition-colors text-2xl font-bold flex items-center';
+
+            // --- Dot indicators ---
+            const dotsWrap = document.createElement('div');
+            dotsWrap.className = 'flex justify-center space-x-2 mt-3';
+            const dots = images.map((_, i) => {
+                const d = document.createElement('button');
+                d.className = `w-2 h-2 border transition-colors duration-300 ${i === 0 ? 'bg-theme-pink border-theme-pink' : 'border-theme-sand/50 bg-transparent'}`;
+                dotsWrap.appendChild(d);
+                return d;
+            });
+
+            beltWrapper.appendChild(belt);
+            beltWrapper.appendChild(prevBtn);
+            beltWrapper.appendChild(nextBtn);
+            panel.appendChild(beltWrapper);
+            panel.appendChild(dotsWrap);
+            section.appendChild(toggleBtn);
+            section.appendChild(panel);
+            card.appendChild(section);
+
+            // --- State & controls ---
+            let current = 0;
+            let timer = null;
+
+            const goTo = idx => {
+                current = (idx + images.length) % images.length;
+                belt.style.transform = `translateX(-${current * (100 / images.length)}%)`;
+                dots.forEach((d, i) => {
+                    d.className = `w-2 h-2 border transition-colors duration-300 ${i === current ? 'bg-theme-pink border-theme-pink' : 'border-theme-sand/50 bg-transparent'}`;
+                });
+            };
+
+            const startAuto = () => { timer = setInterval(() => goTo(current + 1), 3500); };
+            const stopAuto  = () => clearInterval(timer);
+
+            prevBtn.addEventListener('click', () => { stopAuto(); goTo(current - 1); startAuto(); });
+            nextBtn.addEventListener('click', () => { stopAuto(); goTo(current + 1); startAuto(); });
+            dots.forEach((d, i) => d.addEventListener('click', () => { stopAuto(); goTo(i); startAuto(); }));
+            beltWrapper.addEventListener('mouseenter', stopAuto);
+            beltWrapper.addEventListener('mouseleave', startAuto);
+
+            toggleBtn.addEventListener('click', () => {
+                const isOpen = panel.style.display !== 'none';
+                panel.style.display = isOpen ? 'none' : 'block';
+                toggleBtn.textContent = isOpen ? 'Gallery' : 'Gallery ▲';
+                if (isOpen) stopAuto(); else startAuto();
+            });
+        });
+    }
+
     // Featured projects (index.html)
     if (document.getElementById('featured-projects')) {
         fetchFeaturedProjects();
