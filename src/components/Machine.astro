@@ -1,0 +1,613 @@
+---
+import { projects, shellColor, pad } from '../data/projects';
+import { makeWorld, settle, BASE_RADIUS } from '../scripts/drum';
+import Icon from './Icon.astro';
+
+const radii = projects.map((p) => BASE_RADIUS * p.size);
+const world = settle(makeWorld(radii));
+const caps = projects.map((p, i) => ({ ...p, body: world.bodies[i] }));
+const r3 = (n: number) => Math.round(n * 1000) / 1000;
+---
+
+<section class="machine" aria-labelledby="hero-title">
+  <div class="intro">
+    <h1 id="hero-title" class="lettering">Sam McAulay</h1>
+    <p class="role">Fullstack Developer - Game | Web | Desktop</p>
+    <div class="card">
+      <p class="series">Building Digital Worlds.</p>
+      <p class="pitch">
+        Games, web apps, Discord bots and Linux desktops. Every capsule in the globe is something I've
+        built and shipped. Spin it, turn the crank, or open any capsule to see what's inside.
+      </p>
+      <a class="pill" data-tone="lemon" href="#set">
+        See the full set <Icon name="arrow" />
+      </a>
+    </div>
+  </div>
+
+  <div class="unit">
+    <div class="dome" data-dome>
+      <div class="dome-shine" aria-hidden="true"></div>
+      <ul class="drum" aria-label="Project capsules">
+        {
+          caps.map((c) => (
+            <li>
+              <a
+                class="cap capsule"
+                href={`/projects/${c.slug}/`}
+                data-slug={c.slug}
+                data-cap
+                aria-label={`${pad(c.no)} ${c.name}`}
+                style={`--shell:${shellColor[c.shell]};--x:${r3(c.body.x)};--y:${r3(c.body.y)};--r:${r3(c.body.r)};--a:${r3(c.body.a)}rad`}
+                data-crew={c.crew}
+              >
+                <span class="cap-top" aria-hidden="true">
+                  {c.users ? c.users.count.replace(',000', 'K') : pad(c.no)}
+                </span>
+                <span class="cap-name" aria-hidden="true">
+                  {c.crew === 'wip' ? '???' : c.short}
+                </span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <div class="dome-gloss" aria-hidden="true"></div>
+    </div>
+
+    <div class="base">
+      <button class="crank" type="button" data-crank aria-describedby="tray-status">
+        <span class="crank-knob" aria-hidden="true"><span class="crank-bar"></span></span>
+        <span class="crank-label">Turn the crank</span>
+      </button>
+      <div class="tray" data-tray>
+        <div class="chute" aria-hidden="true"></div>
+        <p class="tray-hint" id="tray-status" aria-live="polite" data-tray-status>
+          One random project, no coins needed.
+        </p>
+        <div class="prize" data-prize hidden>
+          <a class="prize-cap" data-prize-cap href="/" aria-hidden="true" tabindex="-1">
+            <span class="ph top"></span>
+            <span class="ph bottom"></span>
+          </a>
+          <div class="prize-text">
+            <a class="prize-name" data-prize-link href="/">
+              <span data-prize-name></span>
+              <Icon name="arrow" />
+            </a>
+            <p class="prize-meta" data-prize-meta></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script is:inline>
+  // Runs before first paint: restore the pile from this visit and name the capsule that morphs on navigation.
+  (() => {
+    const dome = document.querySelector('[data-dome]');
+    try {
+      const saved = JSON.parse(sessionStorage.getItem('drum') || 'null');
+      if (saved && dome) {
+        for (const cap of dome.querySelectorAll('[data-cap]')) {
+          const s = saved[cap.dataset.slug];
+          if (!s) continue;
+          cap.style.setProperty('--x', s[0]);
+          cap.style.setProperty('--y', s[1]);
+          cap.style.setProperty('--a', s[2] + 'rad');
+        }
+      }
+    } catch {}
+
+    const slugOf = (url) => url && new URL(url).pathname.match(/^\/projects\/([^/]+)/)?.[1];
+    const capFor = (slug) =>
+      document.querySelector(`[data-prize-cap][data-slug="${slug}"]`) ||
+      document.querySelector(`[data-cap][data-slug="${slug}"]`);
+
+    addEventListener('pagereveal', (e) => {
+      if (!e.viewTransition) return;
+      const from = navigation.activation?.from?.url;
+      const cap = capFor(slugOf(from));
+      if (!cap) return;
+      cap.style.viewTransitionName = 'capsule';
+      e.viewTransition.finished.finally(() => (cap.style.viewTransitionName = ''));
+    });
+
+    addEventListener('pageswap', (e) => {
+      if (!e.viewTransition) return;
+      const cap = capFor(slugOf(e.activation?.entry?.url));
+      if (cap) cap.style.viewTransitionName = 'capsule';
+    });
+  })();
+</script>
+
+<script>
+  import { mountMachine } from '../scripts/machine';
+  mountMachine();
+</script>
+
+<style>
+  .machine {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+    grid-template-areas: 'unit intro';
+    align-items: center;
+    gap: clamp(var(--s4), 5vw, var(--s6));
+    min-height: calc(100svh - 76px);
+    padding: var(--s3) var(--gutter) var(--s5);
+    max-width: 1440px;
+    margin: 0 auto;
+  }
+
+  /* Intro column */
+  .intro {
+    grid-area: intro;
+    display: grid;
+    gap: var(--s2);
+    justify-items: start;
+  }
+
+  h1 {
+    font-size: clamp(3.4rem, 7.4vw, 6rem);
+    line-height: 0.92;
+    transform: rotate(-3deg);
+    transform-origin: left bottom;
+  }
+
+  .role {
+    font-weight: 800;
+    font-size: clamp(1rem, 1.4vw, 1.2rem);
+    margin-bottom: var(--s2);
+  }
+
+  .card {
+    position: relative;
+    display: grid;
+    gap: var(--s2);
+    justify-items: start;
+    max-width: 30rem;
+    padding: var(--s4) var(--s4) var(--s4);
+    background: var(--paper);
+    border: 3px solid var(--ink);
+    border-radius: var(--radius);
+    transform: rotate(1.5deg);
+    box-shadow: 0 18px 30px -18px rgb(27 20 32 / 0.6);
+  }
+
+  .series {
+    font-family: var(--display);
+    font-size: clamp(2rem, 3.4vw, 2.85rem);
+    line-height: 0.98;
+    color: var(--pink);
+    -webkit-text-stroke: 0.06em var(--ink);
+    paint-order: stroke fill;
+  }
+
+  .pitch {
+    color: var(--ink-soft);
+    max-width: 34ch;
+  }
+
+  .card .pill {
+    margin-top: var(--s1);
+  }
+
+  /* Machine column */
+  .unit {
+    grid-area: unit;
+    display: grid;
+    justify-items: center;
+    --dome: min(100%, 560px, calc(100svh - 300px));
+  }
+
+  .dome {
+    position: relative;
+    z-index: 2;
+    width: var(--dome);
+    min-width: 280px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    border: 4px solid var(--ink);
+    background:
+      radial-gradient(circle at 50% 46%, rgb(255 255 255 / 0.12), transparent 66%),
+      var(--pink);
+    box-shadow:
+      inset 0 0 0 6px rgb(255 255 255 / 0.18),
+      inset 0 -18px 30px -12px rgb(27 20 32 / 0.3),
+      0 20px 30px -20px rgb(27 20 32 / 0.5);
+    container-type: size;
+    touch-action: pan-y;
+    cursor: grab;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  .dome.is-dragging {
+    cursor: grabbing;
+  }
+
+  .dome-shine,
+  .dome-gloss {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  /* Acrylic: crisp specular arcs riding the rim, drawn over the capsules. */
+  .dome-gloss {
+    z-index: 3;
+  }
+
+  .dome-gloss::before,
+  .dome-gloss::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    border: 0 solid transparent;
+  }
+
+  .dome-gloss::before {
+    inset: 5%;
+    border-top: 9px solid rgb(255 255 255 / 0.85);
+    border-left: 9px solid rgb(255 255 255 / 0.85);
+    rotate: -12deg;
+    mask: conic-gradient(from 250deg, transparent 0 8deg, #000 30deg 90deg, transparent 110deg);
+  }
+
+  .dome-gloss::after {
+    inset: 9%;
+    border-right: 4px solid rgb(255 255 255 / 0.7);
+    border-bottom: 4px solid rgb(255 255 255 / 0.7);
+    mask: conic-gradient(from 60deg, transparent 0 10deg, #000 25deg 55deg, transparent 70deg);
+  }
+
+  .dome-shine {
+    z-index: 3;
+    inset: 13%;
+    border-top: 4px solid rgb(255 255 255 / 0.55);
+    mask: conic-gradient(from 300deg, transparent 0 5deg, #000 15deg 35deg, transparent 45deg);
+  }
+
+  .drum {
+    position: absolute;
+    inset: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    z-index: 2;
+  }
+
+  .cap {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: calc(var(--r) * 100cqw);
+    aspect-ratio: 1;
+    transform: translate(calc((var(--x) + 1 - var(--r)) * 50cqw), calc((var(--y) + 1 - var(--r)) * 50cqw))
+      rotate(var(--a));
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    place-items: center;
+    text-align: center;
+    text-decoration: none;
+    color: var(--ink);
+    border-width: clamp(2px, 0.5cqw, 3px);
+    will-change: transform;
+  }
+
+  .cap-top {
+    align-self: end;
+    padding-bottom: 6%;
+    font-family: var(--display);
+    font-size: calc(var(--r) * 20cqw);
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+
+  .cap-name {
+    align-self: start;
+    padding: 9% 8% 0;
+    font-weight: 800;
+    font-size: max(10px, calc(var(--r) * 9.6cqw));
+    line-height: 1.05;
+  }
+
+  .cap[data-crew='wip'] {
+    --shell: transparent;
+    border-style: dashed;
+  }
+
+  .cap:hover,
+  .cap:focus-visible {
+    z-index: 2;
+    filter: brightness(1.06) saturate(1.1);
+  }
+
+  .cap:focus-visible {
+    outline-offset: 2px;
+    border-radius: 50%;
+  }
+
+  /* Base: the body of the machine under the dome. */
+  .base {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: center;
+    gap: var(--s3);
+    width: calc(var(--dome) * 0.92);
+    min-width: 280px;
+    margin-top: -26px;
+    padding: calc(26px + var(--s3)) var(--s3) var(--s3);
+    background: var(--lemon);
+    border: 4px solid var(--ink);
+    border-radius: 18px 18px 36px 36px;
+    box-shadow:
+      inset 0 -10px 0 rgb(27 20 32 / 0.12),
+      inset 0 6px 0 rgb(255 255 255 / 0.5),
+      0 20px 30px -18px rgb(27 20 32 / 0.6);
+  }
+
+  .crank {
+    display: grid;
+    justify-items: center;
+    gap: var(--s1);
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--ink);
+    font: 800 0.9rem/1.1 var(--body);
+    cursor: pointer;
+  }
+
+  .crank-knob {
+    position: relative;
+    display: block;
+    width: 92px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    border: 4px solid var(--ink);
+    background:
+      radial-gradient(circle at 35% 30%, rgb(255 255 255 / 0.7) 0 10%, transparent 11%),
+      var(--paper);
+    box-shadow:
+      inset 0 -8px 0 rgb(27 20 32 / 0.12),
+      0 6px 0 -1px var(--ink);
+    transition: transform 0.2s var(--spring);
+  }
+
+  .crank-bar {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 78%;
+    height: 24px;
+    border-radius: 12px;
+    border: 3.5px solid var(--ink);
+    background: var(--pink);
+    translate: -50% -50%;
+    box-shadow: inset 0 4px 0 rgb(255 255 255 / 0.4);
+  }
+
+  .crank:hover .crank-knob {
+    transform: rotate(-14deg);
+  }
+
+  .crank.is-turning .crank-knob {
+    animation: crank 0.9s var(--out);
+  }
+
+  @keyframes crank {
+    0% { transform: rotate(-14deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  .crank:focus-visible {
+    outline: none;
+  }
+  .crank:focus-visible .crank-knob {
+    outline: 3px solid var(--ink);
+    outline-offset: 4px;
+  }
+
+  .tray {
+    position: relative;
+    min-height: 112px;
+    display: grid;
+    align-items: center;
+    padding: var(--s2) var(--s3);
+    border: 4px solid var(--ink);
+    padding-top: calc(var(--s2) + 16px);
+    border-radius: 22px 22px 28px 28px;
+    background: #e9b10f;
+    color: var(--ink);
+    box-shadow:
+      inset 0 14px 18px -6px rgb(27 20 32 / 0.4),
+      inset 0 -4px 0 rgb(255 255 255 / 0.35);
+    overflow: hidden;
+  }
+
+  /* The prize door: a hinged plastic flap hanging over the opening. */
+  .chute {
+    position: absolute;
+    left: 10px;
+    right: 10px;
+    top: 0;
+    height: 18px;
+    border: 3px solid var(--ink);
+    border-top: 0;
+    border-radius: 0 0 14px 14px;
+    background: var(--lemon);
+    box-shadow: inset 0 -4px 0 rgb(27 20 32 / 0.15), 0 4px 6px -2px rgb(27 20 32 / 0.35);
+    transform-origin: top;
+  }
+
+  .tray.is-open .chute {
+    animation: flap 0.6s var(--out);
+  }
+
+  @keyframes flap {
+    30% { transform: rotateX(70deg); }
+  }
+
+  .tray-hint {
+    font-weight: 800;
+    font-size: 0.95rem;
+    max-width: 24ch;
+  }
+
+  .prize[hidden] {
+    display: none;
+  }
+
+  .prize {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: center;
+    gap: var(--s2);
+  }
+
+  /* The dispensed capsule lands, then pops open. */
+  .prize-cap {
+    position: relative;
+    display: block;
+    width: 68px;
+    aspect-ratio: 1 / 1.1;
+  }
+
+  .ph {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 46%;
+    border: 3px solid var(--ink);
+  }
+
+  .ph.top {
+    top: 0;
+    border-radius: 999px 999px 0 0;
+    background:
+      radial-gradient(circle at 26% 40%, rgb(255 255 255 / 0.85) 0 9%, transparent 10%),
+      var(--shell, var(--lemon));
+    transform-origin: 6% 100%;
+    transform: translateY(-8%) rotate(-32deg);
+  }
+
+  .ph.bottom {
+    bottom: 0;
+    border-radius: 0 0 999px 999px;
+    background: rgb(255 255 255 / 0.85);
+  }
+
+  .prize.is-in .prize-cap {
+    animation: drop 0.7s var(--spring) both;
+  }
+
+  .prize.is-in .ph.top {
+    animation: open 0.5s 0.6s var(--spring) both;
+  }
+
+  @keyframes open {
+    from { transform: none; }
+  }
+
+  .prize.is-in .prize-text {
+    animation: slip 0.5s 0.25s var(--out) both;
+  }
+
+  @keyframes drop {
+    0% { transform: translateY(-140%) rotate(-160deg); }
+    100% { transform: none; }
+  }
+
+  @keyframes slip {
+    0% { clip-path: inset(0 100% 0 0); }
+    100% { clip-path: inset(0); }
+  }
+
+  .prize-meta {
+    font-size: 0.85rem;
+    font-weight: 800;
+  }
+
+  .prize-name {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35em;
+    font-family: var(--display);
+    font-size: 1.45rem;
+    line-height: 1.05;
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .prize-name:hover {
+    text-decoration: underline;
+    text-decoration-thickness: 3px;
+  }
+
+  .prize-name svg {
+    width: 0.8em;
+    height: 0.8em;
+    flex: none;
+    transition: transform 0.2s var(--spring);
+  }
+
+  .prize-name:hover svg {
+    transform: translateX(4px);
+  }
+
+  @media (max-width: 960px) {
+    .machine {
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-areas: 'title' 'role' 'unit' 'card';
+      justify-items: center;
+      gap: var(--s3);
+      min-height: 0;
+      padding-top: var(--s4);
+    }
+    .unit {
+      --dome: min(100%, 520px);
+      width: 100%;
+    }
+    .intro {
+      display: contents;
+    }
+    h1 {
+      grid-area: title;
+      transform-origin: center;
+      text-align: center;
+    }
+    .role {
+      grid-area: role;
+      margin: calc(var(--s2) * -1) 0 0;
+      text-align: center;
+    }
+    .card {
+      grid-area: card;
+      margin-top: var(--s3);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .base {
+      grid-template-columns: minmax(0, 1fr);
+      justify-items: center;
+      width: 100%;
+    }
+    .tray {
+      width: 100%;
+    }
+    .crank {
+      grid-template-columns: auto auto;
+      align-items: center;
+      gap: var(--s2);
+    }
+    .crank-knob {
+      width: 72px;
+    }
+  }
+</style>

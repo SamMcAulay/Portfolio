@@ -1,0 +1,296 @@
+---
+import { projects, shellColor, crewLabel, pad } from '../data/projects';
+
+// Width on a 12-column sheet. Proof (user counts) gets the most room; the secret item closes the set.
+const span: Record<string, number> = {
+  'jantleman-bot': 7,
+  'flicker-bot': 5,
+  'math-game': 4,
+  battleship: 4,
+  'space-vr-explorer': 4,
+  moonhaul: 3,
+  'laser-game': 3,
+  pangbot: 3,
+  'i3-dotfiles': 3,
+  'nvim-config': 5,
+  ncwm: 7,
+};
+---
+
+<section class="set" id="set" aria-labelledby="set-title">
+  <div class="sheet">
+    <header class="sheet-head">
+      <h2 id="set-title" class="lettering">The full set</h2>
+      <p>
+        {projects.length} capsules: bots with real users, games, web, and the Linux setup I work in every day.
+        Tap any one for the full write-up.
+      </p>
+    </header>
+
+    <ol class="grid">
+      {
+        projects.map((p, i) => (
+          <li
+            class:list={['entry', { proof: !!p.users, secret: p.crew === 'wip' }]}
+            style={`--shell:${shellColor[p.shell]};--span:${span[p.slug] ?? 4};--tilt:${((i * 7) % 5) - 2}`}
+          >
+            <span class="mini capsule" aria-hidden="true">
+              <span>{p.crew === 'wip' ? '?' : pad(p.no)}</span>
+            </span>
+            <div class="entry-body">
+              <h3>
+                <a href={`/projects/${p.slug}/`}>{p.name}</a>
+              </h3>
+              {p.users && (
+                <p class="numeral">
+                  <span class="big">{p.users.count}</span> {p.users.label}
+                </p>
+              )}
+              <p class="line">{p.line}</p>
+              <p class="facts">
+                <span class:list={['crew', p.crew]}>{crewLabel[p.crew]}</span>
+                <span>{p.category}</span>
+                {p.tech.map((t) => (
+                  <span>{t}</span>
+                ))}
+              </p>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
+
+<style>
+  .set {
+    padding: var(--s5) var(--gutter) var(--s7);
+  }
+
+  .sheet {
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+
+  .sheet-head {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: end;
+    gap: var(--s2) var(--s5);
+    margin-bottom: var(--s5);
+  }
+
+  h2 {
+    font-size: clamp(2.8rem, 6vw, 5rem);
+    color: var(--lemon);
+    transform: rotate(-2deg);
+  }
+
+  .sheet-head p {
+    color: var(--ink);
+    font-weight: 700;
+    max-width: 44ch;
+    padding-bottom: var(--s1);
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: var(--s6) var(--s4);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .entry {
+    position: relative;
+    grid-column: span var(--span);
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: start;
+    gap: var(--s2);
+    padding: var(--s3);
+    background: var(--paper);
+    border: 3px solid var(--ink);
+    border-radius: 26px;
+    box-shadow: 0 16px 24px -16px rgb(27 20 32 / 0.6);
+    rotate: calc(var(--tilt) * 0.45deg);
+    transition: rotate 0.35s var(--spring), translate 0.35s var(--spring);
+  }
+
+  .entry:hover,
+  .entry:focus-within {
+    rotate: 0deg;
+    translate: 0 -4px;
+  }
+
+  .mini {
+    display: grid;
+    place-items: start center;
+    padding-top: 17%;
+    width: 64px;
+    aspect-ratio: 1;
+    font-family: var(--display);
+    font-size: 1.15rem;
+    line-height: 1;
+    transition: transform 0.35s var(--spring);
+  }
+
+  .mini span {
+    font-size: 0.82em;
+  }
+
+  .entry:hover .mini,
+  .entry:focus-within .mini {
+    transform: rotate(-18deg) scale(1.08);
+  }
+
+  .entry-body {
+    display: grid;
+    gap: var(--s1);
+    min-width: 0;
+  }
+
+  h3 {
+    font-size: clamp(1.4rem, 2vw, 1.7rem);
+    line-height: 1.05;
+  }
+
+  h3 a {
+    text-decoration: none;
+  }
+
+  /* The whole entry is the link target. */
+  h3 a::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 26px;
+  }
+
+  h3 a:focus-visible {
+    outline: none;
+  }
+  h3 a:focus-visible::after {
+    outline: 3px solid var(--ink);
+    outline-offset: 5px;
+  }
+
+  .entry:hover h3 a {
+    text-decoration: underline;
+    text-decoration-color: var(--pink);
+    text-decoration-thickness: 4px;
+  }
+
+  .line {
+    color: var(--ink-soft);
+    max-width: 40ch;
+  }
+
+  .facts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: var(--s1);
+    font-size: 0.85rem;
+    font-weight: 700;
+  }
+
+  .facts span {
+    padding: 2px 10px 3px;
+    border-radius: 999px;
+    border: 2px solid rgb(27 20 32 / 0.2);
+  }
+
+  .facts .crew {
+    border-color: var(--ink);
+    background: var(--ink);
+    color: var(--paper);
+  }
+  .facts .crew.team {
+    background: var(--mint);
+    color: var(--ink);
+  }
+  .facts .crew.wip {
+    background: var(--lemon);
+    color: var(--ink);
+  }
+
+  /* Proof entries: the user count is the headline number on the card. */
+  .proof .mini {
+    width: 88px;
+    font-size: 1.5rem;
+  }
+
+  .numeral {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0 var(--s1);
+    font-weight: 800;
+    color: var(--ink);
+  }
+
+  .numeral .big {
+    font-family: var(--display);
+    font-size: clamp(3.2rem, 7vw, 6rem);
+    line-height: 0.9;
+    letter-spacing: -0.02em;
+    color: var(--pink);
+    -webkit-text-stroke: 0.05em var(--ink);
+    paint-order: stroke fill;
+  }
+
+  /* The secret item: a silhouette, like the "?" slot on a real lineup card. */
+  .secret .mini {
+    border-style: dashed;
+    background: transparent;
+    box-shadow: none;
+  }
+  .secret .mini {
+    place-items: center;
+    padding-top: 0;
+  }
+  .secret .mini span {
+    font-size: 1.8rem;
+  }
+
+  @media (max-width: 1100px) {
+    .entry {
+      grid-column: span 6;
+    }
+    .entry.proof {
+      grid-column: span 12;
+    }
+  }
+
+  @media (max-width: 680px) {
+    .sheet-head {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .grid {
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--s5);
+    }
+    .entry {
+      width: 84%;
+      padding: var(--s3) var(--s2);
+      rotate: calc(var(--tilt) * 0.9deg);
+    }
+    .entry:nth-child(even) {
+      justify-self: end;
+    }
+    .entry,
+    .entry.proof {
+      grid-column: auto;
+    }
+    .mini {
+      width: 52px;
+      font-size: 1rem;
+    }
+    .proof .mini {
+      width: 64px;
+      font-size: 1.15rem;
+    }
+  }
+</style>

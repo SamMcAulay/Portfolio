@@ -1,0 +1,401 @@
+---
+import Base from '../../layouts/Base.astro';
+import Close from '../../components/Close.astro';
+import Icon from '../../components/Icon.astro';
+import { projects, shellColor, crewLabel, pad, type Project } from '../../data/projects';
+
+export function getStaticPaths() {
+  return projects.map((project, i) => ({
+    params: { slug: project.slug },
+    props: { project, next: projects[(i + 1) % projects.length] },
+  }));
+}
+
+interface Props {
+  project: Project;
+  next: Project;
+}
+
+const { project: p, next } = Astro.props;
+const linkIcon = { repo: 'github', live: 'play', invite: 'discord' } as const;
+const tone = { repo: 'ink', live: 'lemon', invite: 'mint' } as const;
+---
+
+<Base title={`${p.name} | Sam McAulay`} description={`${p.line} ${p.tech.join(', ')}.`}>
+  <article style={`--shell:${p.crew === 'wip' ? 'transparent' : shellColor[p.shell]}`} class:list={{ secret: p.crew === 'wip' }}>
+    <header class="hero">
+      <div class="opened" aria-hidden="true">
+        <span class="half top"></span>
+        <span class="prize-no">{p.crew === 'wip' ? '?' : pad(p.no)}</span>
+        <span class="half bottom"></span>
+      </div>
+
+      <div class="title">
+        <h1 class="lettering">{p.name}</h1>
+        <p class="line">{p.line}</p>
+        <p class="facts">
+          <span class:list={['crew', p.crew]}>{crewLabel[p.crew]}</span>
+          <span>{p.category}</span>
+          <span>No.{pad(p.no)} of {projects.length}</span>
+        </p>
+        {
+          p.links.length > 0 && (
+            <ul class="links">
+              {p.links.map((l) => (
+                <li>
+                  <a class="pill" data-tone={tone[l.kind]} href={l.href} target="_blank" rel="noopener">
+                    <Icon name={linkIcon[l.kind]} />
+                    {l.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          )
+        }
+      </div>
+    </header>
+
+    <section class="sheet" aria-label="About this project">
+      {
+        p.users && (
+          <p class="numeral">
+            <span class="big">{p.users.count}</span>
+            <span>{p.users.label}</span>
+          </p>
+        )
+      }
+      <div class="prose">
+        {p.body.map((para) => <p>{para}</p>)}
+        {p.crewNote && <p class="note">{p.crewNote}.</p>}
+      </div>
+      <div class="built">
+        <h2>Built with</h2>
+        <ul>
+          {p.tech.map((t) => <li>{t}</li>)}
+        </ul>
+      </div>
+    </section>
+
+    {
+      p.images.length > 0 && (
+        <section class="shots" aria-label="Screenshots">
+          <ul>
+            {p.images.map((src, i) => (
+              <li style={`--tilt:${i % 2 ? 1.6 : -1.4}deg`}>
+                <a href={src} target="_blank" rel="noopener">
+                  <img src={src} alt={`${p.name} screenshot ${i + 1} of ${p.images.length}`} loading="lazy" decoding="async" />
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )
+    }
+
+    <nav class="next" aria-label="More projects">
+      <a class="pill" href={`/projects/${next.slug}/`} data-tone="lemon">
+        Next capsule: {next.name} <Icon name="arrow" />
+      </a>
+      <a class="pill" href="/#set">See the full set</a>
+    </nav>
+  </article>
+  <Close />
+</Base>
+
+<style>
+  article {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: var(--s4) var(--gutter) var(--s7);
+  }
+
+  .hero {
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    align-items: center;
+    gap: clamp(var(--s4), 6vw, var(--s6));
+    padding-top: var(--s6);
+    margin-bottom: var(--s6);
+  }
+
+  /* The capsule popped open: top shell lifted and tipped, number sitting in the base. */
+  .opened {
+    view-transition-name: capsule;
+    position: relative;
+    width: min(100%, 400px);
+    aspect-ratio: 1 / 1.12;
+    justify-self: center;
+  }
+
+  .half {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    border: 5px solid var(--ink);
+  }
+
+  .half.top {
+    top: 0;
+    border-radius: 999px 999px 0 0;
+    border-bottom-width: 8px;
+    background:
+      radial-gradient(circle at 30% 34%, rgb(255 255 255 / 0.85) 0 9%, transparent 10%),
+      radial-gradient(ellipse 60% 40% at 50% 36%, rgb(255 255 255 / 0.3), transparent 70%),
+      var(--shell);
+    box-shadow: inset 0 -16px 24px -10px rgb(27 20 32 / 0.25);
+    transform-origin: 8% 100%;
+    transform: translateY(-14%) rotate(-24deg);
+    animation: pop 0.9s 0.15s var(--spring) both;
+  }
+
+  .half.bottom {
+    bottom: 0;
+    border-radius: 0 0 999px 999px;
+    background:
+      radial-gradient(ellipse 50% 30% at 50% 74%, rgb(255 255 255 / 0.6), transparent 70%),
+      rgb(255 255 255 / 0.78);
+    box-shadow:
+      inset 0 16px 24px -12px rgb(27 20 32 / 0.25),
+      0 24px 30px -20px rgb(27 20 32 / 0.6);
+  }
+
+  .prize-no {
+    position: absolute;
+    z-index: 2;
+    left: 50%;
+    top: 62%;
+    translate: -50% -50%;
+    font-family: var(--display);
+    font-size: clamp(4rem, 10vw, 7rem);
+    line-height: 1;
+    color: var(--shell);
+    -webkit-text-stroke: 0.07em var(--ink);
+    paint-order: stroke fill;
+    animation: rise 0.7s 0.35s var(--spring) both;
+  }
+
+  .secret .prize-no {
+    color: var(--paper);
+  }
+  .secret .half {
+    border-style: dashed;
+  }
+
+  @keyframes pop {
+    from { transform: none; }
+  }
+  @keyframes rise {
+    from { translate: -50% -10%; scale: 0.6; }
+  }
+
+  .title {
+    display: grid;
+    gap: var(--s2);
+    justify-items: start;
+  }
+
+  h1 {
+    font-size: clamp(3rem, 7vw, 6rem);
+    transform: rotate(-2deg);
+    transform-origin: left bottom;
+  }
+
+  .line {
+    font-size: clamp(1.1rem, 1.6vw, 1.3rem);
+    font-weight: 700;
+    max-width: 36ch;
+  }
+
+  .facts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    font-size: 0.9rem;
+    font-weight: 800;
+  }
+
+  .facts span {
+    padding: 3px 12px 4px;
+    border-radius: 999px;
+    border: 2.5px solid var(--ink);
+    background: var(--paper);
+  }
+  .facts .crew {
+    background: var(--ink);
+    color: var(--paper);
+  }
+  .facts .crew.team {
+    background: var(--mint);
+    color: var(--ink);
+  }
+  .facts .crew.wip {
+    background: var(--lemon);
+    color: var(--ink);
+  }
+
+  .links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s2);
+    margin: var(--s2) 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  /* The folded instruction slip that comes in every capsule. */
+  .sheet {
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+    grid-template-areas: 'num num' 'prose built';
+    gap: var(--s4) var(--s6);
+    padding: clamp(var(--s4), 5vw, var(--s6));
+    background: var(--paper);
+    border: 4px solid var(--ink);
+    border-radius: 40px;
+    box-shadow: 0 30px 50px -30px rgb(27 20 32 / 0.6);
+  }
+
+  .sheet:not(:has(.numeral)) {
+    grid-template-areas: 'prose built';
+  }
+
+  .numeral {
+    grid-area: num;
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0 var(--s2);
+    font-weight: 800;
+    font-size: 1.25rem;
+  }
+
+  .numeral .big {
+    font-family: var(--display);
+    font-size: clamp(4rem, 12vw, 9rem);
+    line-height: 0.9;
+    color: var(--pink);
+    -webkit-text-stroke: 0.04em var(--ink);
+    paint-order: stroke fill;
+  }
+
+  .prose {
+    grid-area: prose;
+    display: grid;
+    gap: var(--s2);
+    font-size: 1.12rem;
+    max-width: 62ch;
+  }
+
+  .note {
+    color: var(--ink-soft);
+    font-size: 0.98rem;
+    font-weight: 700;
+  }
+
+  .built {
+    grid-area: built;
+  }
+
+  h2 {
+    font-family: var(--body);
+    font-weight: 800;
+    font-size: 1.05rem;
+    margin-bottom: var(--s2);
+  }
+
+  .built ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .built li {
+    padding: 0.35em 0.9em 0.42em;
+    border-radius: 999px;
+    border: 2.5px solid var(--ink);
+    background: var(--shell);
+    font-weight: 800;
+  }
+
+  .secret .built li {
+    background: var(--lemon);
+  }
+
+  .shots {
+    margin-top: var(--s6);
+  }
+
+  .shots ul {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--s5) var(--s4);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .shots li {
+    rotate: var(--tilt);
+    transition: rotate 0.35s var(--spring), scale 0.35s var(--spring);
+  }
+
+  .shots li:hover {
+    rotate: 0deg;
+    scale: 1.02;
+  }
+
+  .shots a {
+    display: block;
+    padding: 10px;
+    background: var(--paper);
+    border: 3px solid var(--ink);
+    border-radius: 22px;
+    box-shadow: 0 20px 30px -18px rgb(27 20 32 / 0.6);
+  }
+
+  .shots img {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+  }
+
+  .next {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s2);
+    margin-top: var(--s6);
+  }
+
+  @media (max-width: 860px) {
+    .hero {
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--s4);
+    }
+    .opened {
+      width: min(62vw, 280px);
+    }
+    .sheet {
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-areas: 'num' 'prose' 'built';
+    }
+    .sheet:not(:has(.numeral)) {
+      grid-template-areas: 'prose' 'built';
+    }
+    .sheet {
+      width: 84%;
+      rotate: -1deg;
+      justify-self: center;
+      margin-inline: auto;
+    }
+    .hero {
+      padding-top: var(--s5);
+    }
+    .shots ul {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+</style>

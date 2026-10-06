@@ -1,0 +1,130 @@
+---
+const groups = [
+  { title: 'Languages', tone: 'lemon', items: ['C', 'C++', 'C#', 'Java', 'Python', 'Lua', 'JavaScript', 'TypeScript', 'HTML', 'CSS', 'Bash'] },
+  { title: 'Engines & libraries', tone: 'mint', items: ['Unity', 'SFML', 'Crow', 'Discord API', 'SQLite', 'HLSL', 'ShaderLab'] },
+  { title: 'Tooling', tone: 'blue', items: ['Git', 'Docker', 'Jenkins', 'CMake', 'AWS', 'Oracle', 'Neovim', 'Visual Studio', 'Blender'] },
+  { title: 'Systems', tone: 'orange', items: ['Arch Linux', 'Debian', 'Ubuntu', 'FreeBSD', 'OpenBSD', 'Windows', 'i3wm', 'Wayland'] },
+];
+
+// Deterministic tilt per sticker so the sheet looks slapped on by hand but never shifts between builds.
+const tilt = (s: string) => {
+  let h = 0;
+  for (const c of s) h = (h * 31 + c.charCodeAt(0)) | 0;
+  return ((Math.abs(h) % 11) - 5) * 0.9;
+};
+---
+
+<section class="parts" aria-labelledby="parts-title">
+  <div class="parts-head">
+    <h2 id="parts-title" class="lettering">Parts list</h2>
+    <p>What the capsules are made of. Everything here has shipped in at least one of them, or runs on my machine.</p>
+  </div>
+
+  <div class="groups">
+    {
+      groups.map((g) => (
+        <div class="group" data-tone={g.tone}>
+          <h3>{g.title}</h3>
+          <ul>
+            {g.items.map((item) => (
+              <li class="sticker" style={`--tilt:${tilt(item)}deg`}>
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .parts {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 var(--gutter) var(--s7);
+  }
+
+  .parts-head {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: end;
+    gap: var(--s2) var(--s5);
+    margin-bottom: var(--s5);
+  }
+
+  h2 {
+    font-size: clamp(2.8rem, 6vw, 5rem);
+    transform: rotate(2deg);
+  }
+
+  .parts-head p {
+    font-weight: 700;
+    max-width: 44ch;
+    padding-bottom: var(--s1);
+  }
+
+  .groups {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--s5) var(--s6);
+  }
+
+  h3 {
+    font-family: var(--body);
+    font-weight: 800;
+    font-size: 1.05rem;
+    margin-bottom: var(--s2);
+  }
+
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px 10px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  /* Die-cut sticker: white kiss-cut border, colour face, ink outline. */
+  .sticker {
+    --face: var(--lemon);
+    padding: 0.4em 0.95em 0.48em;
+    border-radius: 999px;
+    background: var(--face);
+    color: var(--ink);
+    font-weight: 800;
+    font-size: 1.02rem;
+    line-height: 1.1;
+    border: 2.5px solid var(--ink);
+    box-shadow:
+      0 0 0 5px var(--paper),
+      0 0 0 7.5px var(--ink),
+      0 10px 14px -6px rgb(27 20 32 / 0.5);
+    rotate: var(--tilt);
+    margin: 7px;
+    transition: rotate 0.35s var(--spring), scale 0.35s var(--spring);
+  }
+
+  .sticker:hover {
+    rotate: 0deg;
+    scale: 1.1;
+  }
+
+  [data-tone='mint'] .sticker { --face: var(--mint); }
+  [data-tone='blue'] .sticker { --face: var(--blue); }
+  [data-tone='orange'] .sticker { --face: var(--orange); }
+
+  @media (max-width: 760px) {
+    .parts-head,
+    .groups {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .groups {
+      gap: var(--s4);
+    }
+    .sticker {
+      font-size: 0.95rem;
+    }
+  }
+</style>

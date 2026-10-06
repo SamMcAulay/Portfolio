@@ -1,0 +1,206 @@
+@view-transition {
+  navigation: auto;
+}
+
+:root {
+  --pink: #e94560;
+  --pink-deep: #c9304d;
+  --pink-light: #f37a8e;
+  --ink: #1b1420;
+  --ink-soft: #5b4652;
+  --paper: #fffdf9;
+  --lemon: #ffd23f;
+  --mint: #3bceac;
+  --blue: #3d7bff;
+  --orange: #ff8a3d;
+  --shell-white: #f6f2f7;
+
+  --display: 'Bagel Fat One', 'M PLUS Rounded 1c', system-ui, sans-serif;
+  --body: 'M PLUS Rounded 1c', system-ui, sans-serif;
+
+  /* One spacing rhythm, 8px base. */
+  --s1: 0.5rem;
+  --s2: 1rem;
+  --s3: 1.5rem;
+  --s4: 2rem;
+  --s5: 3rem;
+  --s6: 4.5rem;
+  --s7: 7rem;
+
+  --gutter: clamp(16px, 4vw, 56px);
+  --radius: 28px;
+  --spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --out: cubic-bezier(0.16, 1, 0.3, 1);
+
+  color-scheme: light;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--pink);
+  scrollbar-color: var(--ink) var(--pink-deep);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--pink);
+  color: var(--ink);
+  font-family: var(--body);
+  font-weight: 500;
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+  caret-color: var(--pink);
+}
+
+::selection {
+  background: var(--lemon);
+  color: var(--ink);
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-underline-offset: 0.2em;
+  text-decoration-thickness: 2px;
+}
+
+:focus-visible {
+  outline: 3px solid var(--ink);
+  outline-offset: 4px;
+  border-radius: 12px;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  font-family: var(--display);
+  font-weight: 400;
+  line-height: 0.95;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
+p {
+  margin: 0;
+  text-wrap: pretty;
+}
+
+/* Sticker lettering: fat fill, ink outline, a short soft ink drop. */
+.lettering {
+  color: var(--paper);
+  -webkit-text-stroke: 0.09em var(--ink);
+  paint-order: stroke fill;
+  text-shadow: 0 0.07em 0.02em var(--ink);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* Moulded plastic pill: lit from the top, presses down on hover and click. */
+.pill {
+  --pill: var(--paper);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55em;
+  padding: 0.7em 1.25em 0.75em;
+  border: 2.5px solid var(--ink);
+  border-radius: 999px;
+  background: var(--pill);
+  color: var(--ink);
+  font: 800 1rem/1 var(--body);
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow:
+    inset 0 -4px 0 rgb(27 20 32 / 0.16),
+    inset 0 3px 0 rgb(255 255 255 / 0.65),
+    0 5px 0 -1px var(--ink),
+    0 9px 14px -6px rgb(27 20 32 / 0.45);
+  transform: translateY(0);
+  transition:
+    transform 0.18s var(--spring),
+    box-shadow 0.18s var(--out),
+    background-color 0.18s var(--out);
+}
+
+.pill:hover {
+  transform: translateY(2px);
+  box-shadow:
+    inset 0 -4px 0 rgb(27 20 32 / 0.16),
+    inset 0 3px 0 rgb(255 255 255 / 0.65),
+    0 3px 0 -1px var(--ink),
+    0 6px 10px -6px rgb(27 20 32 / 0.45);
+}
+
+.pill:active {
+  transform: translateY(5px);
+  box-shadow:
+    inset 0 -2px 0 rgb(27 20 32 / 0.16),
+    inset 0 3px 0 rgb(255 255 255 / 0.65),
+    0 0 0 -1px var(--ink),
+    0 2px 4px -2px rgb(27 20 32 / 0.45);
+  transition-duration: 0.06s;
+}
+
+.pill svg {
+  width: 1.15em;
+  height: 1.15em;
+  flex: none;
+}
+
+.pill[data-tone='lemon'] { --pill: var(--lemon); }
+.pill[data-tone='mint'] { --pill: var(--mint); }
+.pill[data-tone='blue'] { --pill: var(--blue); }
+.pill[data-tone='ink'] { --pill: var(--ink); color: var(--paper); }
+
+/* Two-tone capsule: coloured top, milky bottom, a seam, and a specular highlight. */
+.capsule {
+  position: relative;
+  border-radius: 50%;
+  border: 2.5px solid var(--ink);
+  background:
+    radial-gradient(circle at 21% 30%, rgb(255 255 255 / 0.85) 0 5.5%, transparent 6.5%),
+    radial-gradient(ellipse 60% 22% at 50% 12%, rgb(255 255 255 / 0.35), transparent 70%),
+    linear-gradient(to bottom, var(--shell, var(--lemon)) 0 47%, var(--ink) 47% 50%, rgb(255 255 255 / 0.82) 50% 100%);
+  box-shadow:
+    inset 0 -10px 16px -6px rgb(27 20 32 / 0.18),
+    inset 0 6px 10px -4px rgb(255 255 255 / 0.5),
+    0 8px 14px -8px rgb(27 20 32 / 0.55);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
+
+::view-transition-group(*) {
+  animation-duration: 0.55s;
+  animation-timing-function: var(--out);
+}

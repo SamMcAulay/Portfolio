@@ -1,0 +1,179 @@
+---
+import '@fontsource/bagel-fat-one/400.css';
+import '@fontsource/m-plus-rounded-1c/500.css';
+import '@fontsource/m-plus-rounded-1c/700.css';
+import '@fontsource/m-plus-rounded-1c/800.css';
+import '../styles/global.css';
+import Icon from '../components/Icon.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  home?: boolean;
+}
+
+const { title, description, home = false } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta name="theme-color" content="#e94560" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="topbar">
+      {
+        home ? (
+          <span class="domain">sammcaulay.dev</span>
+        ) : (
+          <a class="pill back" href="/" data-tone="lemon">
+            <Icon name="back" />
+            Back<span class="label"> to the machine</span>
+          </a>
+        )
+      }
+      <nav aria-label="Contact">
+        <ul>
+          <li>
+            <a class="sticker" style="--tilt:-3deg" href="https://github.com/SamMcAulay" rel="me noopener" target="_blank">
+              <Icon name="github" /><span class="label">GitHub</span>
+            </a>
+          </li>
+          <li>
+            <a class="sticker" style="--tilt:2deg;--face:var(--mint)" href="https://www.linkedin.com/in/sammca05/" rel="me noopener" target="_blank">
+              <Icon name="linkedin" /><span class="label">LinkedIn</span>
+            </a>
+          </li>
+          <li>
+            <a class="sticker" style="--tilt:-1.5deg;--face:var(--lemon)" href="mailto:SamMcAulay@pm.me">
+              <Icon name="mail" /><span class="label">Email me</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <main id="main">
+      <slot />
+    </main>
+  </body>
+</html>
+
+<style>
+  .skip {
+    position: absolute;
+    left: var(--gutter);
+    top: -4rem;
+    z-index: 100;
+    padding: var(--s1) var(--s2);
+    background: var(--ink);
+    color: var(--paper);
+    border-radius: 999px;
+    font-weight: 800;
+  }
+  .skip:focus {
+    top: var(--s2);
+  }
+
+  .topbar {
+    position: relative;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--s2);
+    padding: var(--s3) var(--gutter) 0;
+    view-transition-name: topbar;
+  }
+
+  .domain {
+    font: 800 0.95rem/1 var(--body);
+    color: var(--ink);
+    letter-spacing: 0.02em;
+  }
+
+  nav ul {
+    display: flex;
+    gap: var(--s2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  /* Die-cut contact stickers, same cut as the parts list. */
+  .sticker {
+    --face: var(--paper);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5em;
+    padding: 0.5em 1em 0.55em;
+    border-radius: 999px;
+    border: 2.5px solid var(--ink);
+    background: var(--face);
+    color: var(--ink);
+    font: 800 0.95rem/1 var(--body);
+    white-space: nowrap;
+    text-decoration: none;
+    box-shadow:
+      0 0 0 4px var(--paper),
+      0 0 0 6.5px var(--ink),
+      0 10px 14px -6px rgb(27 20 32 / 0.5);
+    rotate: var(--tilt);
+    transition: rotate 0.3s var(--spring), scale 0.3s var(--spring);
+  }
+
+  .sticker:hover {
+    rotate: 0deg;
+    scale: 1.08;
+  }
+
+  .sticker:active {
+    scale: 0.96;
+  }
+
+  .sticker :global(svg) {
+    width: 1.15em;
+    height: 1.15em;
+    flex: none;
+  }
+
+  .sticker:focus-visible {
+    outline-offset: 9px;
+    border-radius: 999px;
+  }
+
+  .back {
+    font-size: 0.95rem;
+    white-space: nowrap;
+  }
+
+  @media (max-width: 640px) {
+    .label {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip-path: inset(50%);
+    }
+    nav .sticker {
+      padding: 0.6em;
+    }
+    .back {
+      font-size: 0.85rem;
+    }
+    .domain {
+      font-size: 0.85rem;
+    }
+  }
+</style>

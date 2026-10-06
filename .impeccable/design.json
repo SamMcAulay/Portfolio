@@ -1,0 +1,465 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-06T11:08:02+00:00",
+  "title": "Design System: Sam McAulay",
+  "extensions": {
+    "colorMeta": {
+      "pink": {
+        "role": "primary",
+        "displayName": "Machine Pink",
+        "canonical": "oklch(62.5% 0.2 15)",
+        "tonalRamp": [
+          "oklch(15% 0.09 15)",
+          "oklch(25% 0.14 15)",
+          "oklch(35% 0.2 15)",
+          "oklch(45% 0.2 15)",
+          "oklch(55% 0.2 15)",
+          "oklch(65% 0.2 15)",
+          "oklch(80% 0.14 15)",
+          "oklch(95% 0.09 15)"
+        ]
+      },
+      "pink-deep": {
+        "role": "primary",
+        "displayName": "Pink Deep",
+        "canonical": "oklch(55% 0.19 14)",
+        "tonalRamp": [
+          "oklch(15% 0.086 14)",
+          "oklch(25% 0.133 14)",
+          "oklch(35% 0.19 14)",
+          "oklch(45% 0.19 14)",
+          "oklch(55% 0.19 14)",
+          "oklch(65% 0.19 14)",
+          "oklch(80% 0.133 14)",
+          "oklch(95% 0.086 14)"
+        ]
+      },
+      "pink-light": {
+        "role": "primary",
+        "displayName": "Pink Light",
+        "canonical": "oklch(71% 0.15 13)",
+        "tonalRamp": [
+          "oklch(15% 0.068 13)",
+          "oklch(25% 0.105 13)",
+          "oklch(35% 0.15 13)",
+          "oklch(45% 0.15 13)",
+          "oklch(55% 0.15 13)",
+          "oklch(65% 0.15 13)",
+          "oklch(80% 0.105 13)",
+          "oklch(95% 0.068 13)"
+        ]
+      },
+      "lemon": {
+        "role": "secondary",
+        "displayName": "Lemon Shell",
+        "canonical": "oklch(88% 0.17 92)",
+        "tonalRamp": [
+          "oklch(15% 0.077 92)",
+          "oklch(25% 0.119 92)",
+          "oklch(35% 0.17 92)",
+          "oklch(45% 0.17 92)",
+          "oklch(55% 0.17 92)",
+          "oklch(65% 0.17 92)",
+          "oklch(80% 0.119 92)",
+          "oklch(95% 0.077 92)"
+        ]
+      },
+      "mint": {
+        "role": "secondary",
+        "displayName": "Mint Shell",
+        "canonical": "oklch(77% 0.13 172)",
+        "tonalRamp": [
+          "oklch(15% 0.059 172)",
+          "oklch(25% 0.091 172)",
+          "oklch(35% 0.13 172)",
+          "oklch(45% 0.13 172)",
+          "oklch(55% 0.13 172)",
+          "oklch(65% 0.13 172)",
+          "oklch(80% 0.091 172)",
+          "oklch(95% 0.059 172)"
+        ]
+      },
+      "blue": {
+        "role": "secondary",
+        "displayName": "Blue Shell",
+        "canonical": "oklch(61% 0.2 262)",
+        "tonalRamp": [
+          "oklch(15% 0.09 262)",
+          "oklch(25% 0.14 262)",
+          "oklch(35% 0.2 262)",
+          "oklch(45% 0.2 262)",
+          "oklch(55% 0.2 262)",
+          "oklch(65% 0.2 262)",
+          "oklch(80% 0.14 262)",
+          "oklch(95% 0.09 262)"
+        ]
+      },
+      "orange": {
+        "role": "secondary",
+        "displayName": "Orange Shell",
+        "canonical": "oklch(74% 0.16 52)",
+        "tonalRamp": [
+          "oklch(15% 0.072 52)",
+          "oklch(25% 0.112 52)",
+          "oklch(35% 0.16 52)",
+          "oklch(45% 0.16 52)",
+          "oklch(55% 0.16 52)",
+          "oklch(65% 0.16 52)",
+          "oklch(80% 0.112 52)",
+          "oklch(95% 0.072 52)"
+        ]
+      },
+      "shell-white": {
+        "role": "secondary",
+        "displayName": "Milk Shell",
+        "canonical": "oklch(96.5% 0.008 320)",
+        "tonalRamp": [
+          "oklch(15% 0.004 320)",
+          "oklch(25% 0.006 320)",
+          "oklch(35% 0.008 320)",
+          "oklch(45% 0.008 320)",
+          "oklch(55% 0.008 320)",
+          "oklch(65% 0.008 320)",
+          "oklch(80% 0.006 320)",
+          "oklch(95% 0.004 320)"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "canonical": "oklch(19% 0.03 320)",
+        "tonalRamp": [
+          "oklch(15% 0.013 320)",
+          "oklch(25% 0.021 320)",
+          "oklch(35% 0.03 320)",
+          "oklch(45% 0.03 320)",
+          "oklch(55% 0.03 320)",
+          "oklch(65% 0.03 320)",
+          "oklch(80% 0.021 320)",
+          "oklch(95% 0.013 320)"
+        ]
+      },
+      "ink-soft": {
+        "role": "neutral",
+        "displayName": "Ink Soft",
+        "canonical": "oklch(42% 0.04 345)",
+        "tonalRamp": [
+          "oklch(15% 0.018 345)",
+          "oklch(25% 0.028 345)",
+          "oklch(35% 0.04 345)",
+          "oklch(45% 0.04 345)",
+          "oklch(55% 0.04 345)",
+          "oklch(65% 0.04 345)",
+          "oklch(80% 0.028 345)",
+          "oklch(95% 0.018 345)"
+        ]
+      },
+      "paper": {
+        "role": "neutral",
+        "displayName": "Paper",
+        "canonical": "oklch(99.4% 0.006 80)",
+        "tonalRamp": [
+          "oklch(15% 0.003 80)",
+          "oklch(25% 0.004 80)",
+          "oklch(35% 0.006 80)",
+          "oklch(45% 0.006 80)",
+          "oklch(55% 0.006 80)",
+          "oklch(65% 0.006 80)",
+          "oklch(80% 0.004 80)",
+          "oklch(95% 0.003 80)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Name plate and project titles, set as sticker lettering and tilted."
+      },
+      "numeral": {
+        "displayName": "Numeral",
+        "purpose": "Real user counts and capsule numbers; the loudest type on its surface."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Section heads lettered on the pink, tilted about 2deg."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Ticket project names and the dispensed prize name."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Running text on paper, 34-62ch."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Pills, stickers, crank caption, tray hint, group headings at 800."
+      },
+      "tag": {
+        "displayName": "Tag",
+        "purpose": "Fact chips and meta lines; provenance chips lead the row."
+      }
+    },
+    "shadows": [
+      {
+        "name": "paper-drop",
+        "value": "0 16px 24px -16px rgb(27 20 32 / 0.6)",
+        "purpose": "Tickets; scaled versions on intro card, screenshot frames (0 20px 30px -18px) and sheet (0 30px 50px -30px)."
+      },
+      {
+        "name": "moulded-lip",
+        "value": "inset 0 -4px 0 rgb(27 20 32 / 0.16), inset 0 3px 0 rgb(255 255 255 / 0.65), 0 5px 0 -1px #1b1420, 0 9px 14px -6px rgb(27 20 32 / 0.45)",
+        "purpose": "Pressable plastic pills at rest; lip 3px on hover, 0 on active."
+      },
+      {
+        "name": "die-cut-ring",
+        "value": "0 0 0 4px #fffdf9, 0 0 0 6.5px #1b1420, 0 10px 14px -6px rgb(27 20 32 / 0.5)",
+        "purpose": "Stickers: paper kiss-cut border, ink cut line, drop."
+      },
+      {
+        "name": "capsule-gloss",
+        "value": "inset 0 -10px 16px -6px rgb(27 20 32 / 0.18), inset 0 6px 10px -4px rgb(255 255 255 / 0.5), 0 8px 14px -8px rgb(27 20 32 / 0.55)",
+        "purpose": "Two-tone capsules."
+      },
+      {
+        "name": "machine-body",
+        "value": "inset 0 -10px 0 rgb(27 20 32 / 0.12), inset 0 6px 0 rgb(255 255 255 / 0.5), 0 20px 30px -18px rgb(27 20 32 / 0.6)",
+        "purpose": "The lemon machine base."
+      },
+      {
+        "name": "sticker-lettering-drop",
+        "value": "text-shadow: 0 0.07em 0.02em #1b1420",
+        "purpose": "Short ink drop under display lettering on pink."
+      }
+    ],
+    "motion": [
+      {
+        "name": "spring",
+        "value": "cubic-bezier(0.34, 1.56, 0.64, 1)",
+        "purpose": "Press, settle, sticker straighten, capsule drop and pop. Accepted exception in .impeccable/config.json."
+      },
+      {
+        "name": "out",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Shadow and colour changes, crank turn, prize-door flap, text wipe, View Transitions."
+      },
+      {
+        "name": "press",
+        "value": "0.18s (active 0.06s)",
+        "purpose": "Pill press-down."
+      },
+      {
+        "name": "settle",
+        "value": "0.3s-0.35s",
+        "purpose": "Tilt-to-straight on stickers, tickets, frames."
+      },
+      {
+        "name": "view-transition",
+        "value": "0.55s",
+        "purpose": "Cross-document morph; capsule and topbar are named transition elements."
+      },
+      {
+        "name": "crank",
+        "value": "0.9s",
+        "purpose": "Crank knob full turn before dispense at 650ms."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "0.01ms",
+        "purpose": "All transitions/animations collapse; drum renders static."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "xs",
+        "value": "480px"
+      },
+      {
+        "name": "sm",
+        "value": "640px"
+      },
+      {
+        "name": "ticket-stack",
+        "value": "680px"
+      },
+      {
+        "name": "parts-stack",
+        "value": "760px"
+      },
+      {
+        "name": "project-stack",
+        "value": "860px"
+      },
+      {
+        "name": "machine-stack",
+        "value": "960px"
+      },
+      {
+        "name": "lineup-6col",
+        "value": "1100px"
+      },
+      {
+        "name": "panel-inset",
+        "value": "1360px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Moulded Pill",
+      "kind": "button",
+      "refersTo": "pill",
+      "description": "Default pressable plastic button; paper face, sinks into its ink lip.",
+      "html": "<a class=\"ds-pill\" href=\"#\"><svg viewBox=\"0 0 24 24\" aria-hidden=\"true\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M5 12h14M13 6l6 6-6 6\"/></svg>See the full set</a>",
+      "css": ".ds-pill{display:inline-flex;align-items:center;gap:.55em;padding:.7em 1.25em .75em;border:2.5px solid var(--ink,#1b1420);border-radius:999px;background:var(--paper,#fffdf9);color:var(--ink,#1b1420);font:800 1rem/1 'M PLUS Rounded 1c',system-ui,sans-serif;text-decoration:none;cursor:pointer;box-shadow:inset 0 -4px 0 rgb(27 20 32 / 0.16), inset 0 3px 0 rgb(255 255 255 / 0.65),0 5px 0 -1px var(--ink,#1b1420),0 9px 14px -6px rgb(27 20 32 / .45);transition:transform .18s cubic-bezier(.34,1.56,.64,1),box-shadow .18s cubic-bezier(.16,1,.3,1)} .ds-pill svg{width:1.15em;height:1.15em;flex:none} .ds-pill:hover{transform:translateY(2px);box-shadow:inset 0 -4px 0 rgb(27 20 32 / 0.16), inset 0 3px 0 rgb(255 255 255 / 0.65),0 3px 0 -1px var(--ink,#1b1420),0 6px 10px -6px rgb(27 20 32 / .45)} .ds-pill:active{transform:translateY(5px);transition-duration:.06s;box-shadow:inset 0 -2px 0 rgb(27 20 32 / .16),inset 0 3px 0 rgb(255 255 255 / .65),0 0 0 -1px var(--ink,#1b1420),0 2px 4px -2px rgb(27 20 32 / .45)} .ds-pill:focus-visible{outline:3px solid var(--ink,#1b1420);outline-offset:4px}"
+    },
+    {
+      "name": "Lemon Pill",
+      "kind": "button",
+      "refersTo": "pill-lemon",
+      "description": "Primary action on any surface.",
+      "html": "<a class=\"ds-pill-lemon\" href=\"#\">Send an email</a>",
+      "css": ".ds-pill-lemon{display:inline-flex;align-items:center;padding:.7em 1.25em .75em;border:2.5px solid #1b1420;border-radius:999px;background:var(--lemon,#ffd23f);color:#1b1420;font:800 1rem/1 'M PLUS Rounded 1c',system-ui,sans-serif;text-decoration:none;box-shadow:inset 0 -4px 0 rgb(27 20 32 / 0.16), inset 0 3px 0 rgb(255 255 255 / 0.65),0 5px 0 -1px #1b1420,0 9px 14px -6px rgb(27 20 32 / .45);transition:transform .18s cubic-bezier(.34,1.56,.64,1),box-shadow .18s cubic-bezier(.16,1,.3,1)} .ds-pill-lemon:hover{transform:translateY(2px);box-shadow:inset 0 -4px 0 rgb(27 20 32 / 0.16), inset 0 3px 0 rgb(255 255 255 / 0.65),0 3px 0 -1px #1b1420,0 6px 10px -6px rgb(27 20 32 / .45)} .ds-pill-lemon:active{transform:translateY(5px);transition-duration:.06s;box-shadow:inset 0 -4px 0 rgb(27 20 32 / 0.16), inset 0 3px 0 rgb(255 255 255 / 0.65),0 0 0 -1px #1b1420} .ds-pill-lemon:focus-visible{outline:3px solid #1b1420;outline-offset:4px}"
+    },
+    {
+      "name": "Ink Pill",
+      "kind": "button",
+      "refersTo": "pill-ink",
+      "description": "Repo links; ink face with paper label.",
+      "html": "<a class=\"ds-pill-ink\" href=\"#\">GitHub repo</a>",
+      "css": ".ds-pill-ink{display:inline-flex;align-items:center;padding:.7em 1.25em .75em;border:2.5px solid #1b1420;border-radius:999px;background:var(--ink,#1b1420);color:var(--paper,#fffdf9);font:800 1rem/1 'M PLUS Rounded 1c',system-ui,sans-serif;text-decoration:none;box-shadow:inset 0 -4px 0 rgb(27 20 32 / 0.16), inset 0 3px 0 rgb(255 255 255 / 0.65),0 5px 0 -1px #1b1420,0 9px 14px -6px rgb(27 20 32 / .45);transition:transform .18s cubic-bezier(.34,1.56,.64,1)} .ds-pill-ink:hover{transform:translateY(2px)} .ds-pill-ink:active{transform:translateY(5px);transition-duration:.06s} .ds-pill-ink:focus-visible{outline:3px solid #1b1420;outline-offset:4px}"
+    },
+    {
+      "name": "Die-cut Sticker",
+      "kind": "chip",
+      "refersTo": "sticker",
+      "description": "Contact links and parts-list items: colour face, paper kiss-cut ring, ink cut line, tilted.",
+      "html": "<a class=\"ds-sticker\" href=\"#\" style=\"--tilt:-3deg\">Email me</a>",
+      "css": ".ds-sticker{display:inline-flex;align-items:center;margin:8px;padding:.5em 1em .55em;border-radius:999px;border:2.5px solid #1b1420;background:var(--lemon,#ffd23f);color:#1b1420;font:800 .95rem/1 'M PLUS Rounded 1c',system-ui,sans-serif;text-decoration:none;white-space:nowrap;box-shadow:0 0 0 4px #fffdf9,0 0 0 6.5px #1b1420,0 10px 14px -6px rgb(27 20 32 / .5);rotate:var(--tilt,-3deg);transition:rotate .3s cubic-bezier(.34,1.56,.64,1),scale .3s cubic-bezier(.34,1.56,.64,1)} .ds-sticker:hover{rotate:0deg;scale:1.08} .ds-sticker:active{scale:.96} .ds-sticker:focus-visible{outline:3px solid #1b1420;outline-offset:9px}"
+    },
+    {
+      "name": "Provenance Tags",
+      "kind": "chip",
+      "refersTo": "tag-solo",
+      "description": "Honest solo/team/WIP marks leading a fact-chip row.",
+      "html": "<p class=\"ds-tags\"><span class=\"ds-tag ds-solo\">Solo build</span><span class=\"ds-tag ds-team\">Team build</span><span class=\"ds-tag ds-wip\">In the works</span><span class=\"ds-tag\">Bot</span></p>",
+      "css": ".ds-tags{display:flex;flex-wrap:wrap;gap:6px;margin:0;font:700 .85rem/1.2 'M PLUS Rounded 1c',system-ui,sans-serif} .ds-tag{padding:2px 10px 3px;border-radius:999px;border:2px solid rgb(27 20 32 / .2);background:#fffdf9;color:#1b1420} .ds-solo{background:#1b1420;border-color:#1b1420;color:#fffdf9} .ds-team{background:var(--mint,#3bceac);border-color:#1b1420} .ds-wip{background:var(--lemon,#ffd23f);border-color:#1b1420}"
+    },
+    {
+      "name": "Lineup Ticket",
+      "kind": "card",
+      "refersTo": "lineup-ticket",
+      "description": "Tilted paper ticket with a mini capsule, title, proof numeral and facts; straightens on hover.",
+      "html": "<article class=\"ds-ticket\"><span class=\"ds-mini\"><span>01</span></span><div><h3 class=\"ds-ticket-title\">The Jantleman Bot</h3><p class=\"ds-ticket-num\"><span>50K+</span> users</p><p class=\"ds-ticket-line\">A reputation database for Discord trading communities.</p></div></article>",
+      "css": ".ds-ticket{display:grid;grid-template-columns:auto 1fr;gap:1rem;max-width:26rem;padding:1.5rem;background:#fffdf9;color:#1b1420;border:3px solid #1b1420;border-radius:26px;box-shadow:0 16px 24px -16px rgb(27 20 32 / .6);rotate:-.9deg;transition:rotate .35s cubic-bezier(.34,1.56,.64,1),translate .35s cubic-bezier(.34,1.56,.64,1);font:500 1.0625rem/1.6 'M PLUS Rounded 1c',system-ui,sans-serif} .ds-ticket:hover{rotate:0deg;translate:0 -4px} .ds-mini{display:grid;place-items:start center;padding-top:17%;width:64px;aspect-ratio:1;border-radius:50%;border:2.5px solid #1b1420;font:400 .95rem/1 'Bagel Fat One',sans-serif;background:radial-gradient(circle at 21% 30%,rgb(255 255 255 / .85) 0 5.5%,transparent 6.5%),linear-gradient(to bottom,var(--lemon,#ffd23f) 0 47%,#1b1420 47% 50%,rgb(255 255 255 / .82) 50% 100%);transition:transform .35s cubic-bezier(.34,1.56,.64,1)} .ds-ticket:hover .ds-mini{transform:rotate(-18deg) scale(1.08)} .ds-ticket-title{margin:0;font:400 1.6rem/1.05 'Bagel Fat One',sans-serif} .ds-ticket-num{margin:.25rem 0;font-weight:800} .ds-ticket-num span{font:400 3.2rem/.9 'Bagel Fat One',sans-serif;color:#e94560;-webkit-text-stroke:.05em #1b1420;paint-order:stroke fill} .ds-ticket-line{margin:0;color:#5b4652}"
+    },
+    {
+      "name": "Capsule",
+      "kind": "custom",
+      "refersTo": "capsule",
+      "description": "Two-tone capsule: shell-colour top, ink seam, milky bottom, specular dot.",
+      "html": "<span class=\"ds-capsule\"><span class=\"ds-cap-no\">05</span><span class=\"ds-cap-name\">Space VR</span></span>",
+      "css": ".ds-capsule{display:grid;grid-template-rows:1fr 1fr;place-items:center;width:120px;aspect-ratio:1;border-radius:50%;border:2.5px solid #1b1420;color:#1b1420;background:radial-gradient(circle at 21% 30%,rgb(255 255 255 / .85) 0 5.5%,transparent 6.5%),radial-gradient(ellipse 60% 22% at 50% 12%,rgb(255 255 255 / .35),transparent 70%),linear-gradient(to bottom,var(--mint,#3bceac) 0 47%,#1b1420 47% 50%,rgb(255 255 255 / .82) 50% 100%);box-shadow:inset 0 -10px 16px -6px rgb(27 20 32 / .18),inset 0 6px 10px -4px rgb(255 255 255 / .5),0 8px 14px -8px rgb(27 20 32 / .55);rotate:-24deg} .ds-cap-no{align-self:end;padding-bottom:6%;font:400 1.6rem/1 'Bagel Fat One',sans-serif} .ds-cap-name{align-self:start;padding-top:9%;font:800 .75rem/1.05 'M PLUS Rounded 1c',sans-serif}"
+    },
+    {
+      "name": "Sticker Lettering",
+      "kind": "custom",
+      "refersTo": "display",
+      "description": "Display type on the pink: paper fill, ink stroke, short ink drop.",
+      "html": "<div class=\"ds-field\"><h2 class=\"ds-lettering\">Parts list</h2></div>",
+      "css": ".ds-field{padding:2rem;background:var(--pink,#e94560);border-radius:28px} .ds-lettering{margin:0;font:400 clamp(2.8rem,6vw,5rem)/.95 'Bagel Fat One',sans-serif;letter-spacing:-.01em;color:#fffdf9;-webkit-text-stroke:.09em #1b1420;paint-order:stroke fill;text-shadow:0 .07em .02em #1b1420;rotate:2deg}"
+    },
+    {
+      "name": "Ink Panel",
+      "kind": "card",
+      "refersTo": "ink-panel",
+      "description": "Inset ink footer slab on the pink with lemon headline, pink-light email and pills.",
+      "html": "<footer class=\"ds-panel\"><h2>Got a project for the next series?</h2><p>Email is the fastest way to reach me.</p><a href=\"#\">SamMcAulay@pm.me</a></footer>",
+      "css": ".ds-panel{display:grid;gap:1.5rem;justify-items:start;padding:4.5rem clamp(1.5rem,5vw,4.5rem) 2rem;background:#1b1420;color:#fffdf9;border-radius:48px;font:500 1.0625rem/1.6 'M PLUS Rounded 1c',sans-serif} .ds-panel h2{margin:0;max-width:14ch;font:400 clamp(2.6rem,6vw,5.2rem)/.95 'Bagel Fat One',sans-serif;color:var(--lemon,#ffd23f)} .ds-panel p{margin:0;color:#eadde4} .ds-panel a{font:400 clamp(1.6rem,5vw,3.6rem)/1.1 'Bagel Fat One',sans-serif;color:var(--pink-light,#f37a8e);text-decoration:none} .ds-panel a:hover{text-decoration:underline;text-decoration-thickness:5px} .ds-panel a:focus-visible{outline:3px solid var(--lemon,#ffd23f);outline-offset:4px}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Capsule Machine",
+    "overview": "The whole site is a gashapon vending machine, and every project is a prize in it. Brand pink is the machine body and fills the page edge to edge. On top of it sit physical, toy-shop objects: a clear acrylic dome full of two-tone capsules, a lemon plastic base with a crank and prize tray, moulded plastic pills you can press down, die-cut stickers with white kiss-cut borders, and printed paper tickets and instruction slips. Everything is outlined in ink, rounded, and looks slightly hand-placed.\n\nThe density is low and the scale is big. Fat rounded display lettering carries names and numbers, user counts are printed as huge numerals, and running text sits on paper. The only copy set on the pink is a short ink lead (700, 44ch max) beside a section head. Objects tilt by a few degrees as if stuck on by hand, then straighten when you touch them. Motion is springy and physical (drum physics, a crank that turns, a capsule that drops and pops open, pills that press in), never decorative scroll choreography.\n\nThere is one light, daytime theme. The machine is the brand, so there is no dark variant.",
+    "keyCharacteristics": [
+      "Pink page field (the machine body) owns at least a third of every screen.",
+      "Every object has an ink outline (2 to 5px) and rounded corners. Nothing is square.",
+      "Toy-shop materials: acrylic, two-tone capsule plastic, moulded pills, die-cut stickers, printed paper.",
+      "Sticker lettering: Bagel Fat One with an ink stroke and a short ink drop.",
+      "Small deterministic tilts that straighten on hover.",
+      "Springy, press-down motion, plus a capsule-to-page View Transition."
+    ],
+    "rules": [
+      {
+        "name": "The Pink Field Rule",
+        "body": "Pink is the page, and the page stays pink. Never cover it with a full-bleed neutral section. Content goes on discrete paper or ink objects sitting on the pink.",
+        "section": "colors"
+      },
+      {
+        "name": "The Shell Five Rule",
+        "body": "Capsule tops, sticker faces and tone variants come from lemon, mint, blue, orange or shell-white only. A sixth hue means it is not from this machine.",
+        "section": "colors"
+      },
+      {
+        "name": "The Ink Not Black Rule",
+        "body": "Outlines, text and shadows use ink (#1b1420) or ink at reduced alpha. Neutral grey and pure black shadows are not part of the palette.",
+        "section": "colors"
+      },
+      {
+        "name": "The Sticker Lettering Rule",
+        "body": "Display text on pink is lettered: a paper or lemon fill, a 0.09em ink stroke painted under the fill, and a short ink drop (0 0.07em 0.02em). Display text on paper reverses this: a pink fill with a 0.04 to 0.07em ink stroke.",
+        "section": "typography"
+      },
+      {
+        "name": "The Two Faces Rule",
+        "body": "There are exactly two families. Bagel Fat One is for names, headlines and numbers only. Everything you read or click is M PLUS Rounded 1c, never lighter than 500.",
+        "section": "typography"
+      },
+      {
+        "name": "The Proof Numeral Rule",
+        "body": "A real user count is the loudest type on its surface, set in the numeral role. Never shrink it into a sentence.",
+        "section": "typography"
+      },
+      {
+        "name": "The Hand-Slapped Tilt Rule",
+        "body": "Paper and stickers carry small deterministic tilts (tickets ±0.9deg, intro card 1.5deg, stickers up to ±4.5deg, headlines ±2 to 3deg). Tilts come from the data or a hash so they never change between builds, and they settle to 0 on hover or focus.",
+        "section": "layout"
+      },
+      {
+        "name": "The Moulded Lip Rule",
+        "body": "A solid ink under-lip belongs only to pressable plastic (pills and the crank knob), and it collapses when pressed. Paper surfaces never get a hard offset shadow, only the soft negative-spread drop.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Press Rule",
+        "body": "Pressing plastic moves it down into its lip (translateY 2px on hover, 5px on active, active transition 0.06s). Paper and stickers lift and straighten instead.",
+        "section": "elevation"
+      },
+      {
+        "name": "The No Square Corner Rule",
+        "body": "The smallest corner in the system is 12px (inner screenshot crops and the focus ring). Nothing ships square.",
+        "section": "shapes"
+      }
+    ],
+    "dos": [
+      "**Do** keep the page field pink on every route and place content on discrete paper, plastic or ink objects.",
+      "**Do** outline every object in ink, scaling the stroke with size (2 to 5px).",
+      "**Do** draw capsule and sticker faces from the five shell colours only.",
+      "**Do** set display text on pink as sticker lettering (paper or lemon fill, 0.09em ink stroke, short ink drop), and display text on paper as pink with an ink stroke.",
+      "**Do** print real user counts at numeral scale in pink.",
+      "**Do** use the spring curve, cubic-bezier(0.34, 1.56, 0.64, 1), for press, settle and pop. Use the out curve, cubic-bezier(0.16, 1, 0.3, 1), for shadows, wipes, the crank turn and View Transitions.",
+      "**Do** give paper and stickers deterministic tilts that straighten on hover or focus.",
+      "**Do** set running text on paper, at weight 500 or above, within a 34 to 62ch measure. On the pink, only use short ink leads at 700 or above, capped at 44ch.",
+      "**Do** honour reduced motion: transitions collapse to 0.01ms and the drum rests static."
+    ],
+    "donts": [
+      "**Don't** use frosted or blurred glass panels. The only transparent object is the acrylic dome, and its gloss comes from specular arcs.",
+      "**Don't** put a hard offset shadow on paper. A solid under-lip is only for pressable plastic.",
+      "**Don't** add a third typeface, or set display type in any face other than Bagel Fat One.",
+      "**Don't** use square corners, hairline greys or pure-black shadows.",
+      "**Don't** add scroll-triggered fades or reveals. Motion comes from touch, the crank and page transitions.",
+      "**Don't** add a dark theme. The machine is a single daytime scene.",
+      "**Don't** introduce a sixth shell hue or tint the pink field toward another hue."
+    ]
+  }
+}

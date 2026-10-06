@@ -1,0 +1,110 @@
+{
+  "title": "Choose the visual world",
+  "question": "The roll picked the Capsule Machine. Keep it, take an alternate, or re-roll.",
+  "options": [
+    {
+      "id": "assigned",
+      "label": "Capsule Machine",
+      "kicker": "THE ROLL",
+      "lineage": "Japanese gashapon capsule-toy machines and their series lineup cards",
+      "thesis": "Every project is a capsule in one clear globe: spin it, crank it, and a project drops out and pops open.",
+      "palette": ["#E94560", "#FFD23F", "#3BCEAC", "#3D7BFF", "#1B1420", "#FFF7F0"],
+      "materials": ["glossy injection-moulded plastic", "clear acrylic dome", "printed lineup card with thick outlined lettering"],
+      "viewport": "Your existing pink fills the screen as the machine body. The globe is a clear dome of capsules (one per project, labelled Projects, GitHub, LinkedIn) that you drag to spin, with real physics. 'Building Digital Worlds.' is set big on the lineup card in chunky outlined type, and a crank at the bottom drops a random project.",
+      "risk": "The globe becomes a capsule dome, not an earth. If the physics feel cheap it reads as a toy, not as engineering.",
+      "raised": [
+        {"from": "challenger-jcard", "raise": "The lineup card numbers all 8 projects (01–08, 'collect them all'), so a recruiter sees the full range at a glance, not 2 random cards."},
+        {"from": "challenger-dubois", "raise": "50,000+ and 100+ users are drawn as huge graphic numerals on their capsules, not hidden in body text."},
+        {"from": "challenger-provenance", "raise": "Each capsule is marked honestly as solo, team, or work in progress (NCWM), so team repos under collaborators' accounts are never passed off as solo work."},
+        {"from": "challenger-cuttingbench", "raise": "Colour commits at page scale: pink owns at least a third of every screen, never used as an accent on grey."}
+      ]
+    },
+    {
+      "id": "model-pick",
+      "label": "Tiny Planet",
+      "kicker": "IMPECCABLE’S PICK",
+      "lineage": "Super Mario Galaxy planetoids and Animal Crossing's rolling-log world",
+      "thesis": "'Building Digital Worlds' taken literally: a small round planet you spin, with a little landmark built on it for each project.",
+      "palette": ["#FFB3C7", "#9BE7D8", "#FFE58A", "#FF7A59", "#2A1E3B"],
+      "materials": ["soft clay-toy 3D", "pastel sky", "chunky outlined signposts"],
+      "viewport": "A three.js clay planet fills the centre of a pastel sky. Signposts on the planet (Projects, GitHub, LinkedIn, Configs) fan out like vyphir's links. Click one and the camera dives to the landmark, and a View Transition opens the page.",
+      "risk": "Familiar: the tagline is painting its own picture, so this is where most runs would land. It also needs real 3D modelling to look good."
+    },
+    {
+      "id": "challenger-cracktro",
+      "label": "Cracktro Scroller",
+      "verdict": "competitive",
+      "lineage": "demoscene cracktro title screens",
+      "thesis": "The portfolio as a demo intro: one bouncy bitmap line out front, starfield layers behind, and a vector globe spinning in the middle.",
+      "palette": ["#0A0710", "#F4EEE6", "#FF5C8A", "#FFD23F"],
+      "materials": ["bitmap type", "layered parallax dust", "copper-bar raster stripes"],
+      "viewport": "A wireframe globe spins on black, a sine-wave scroller of chunky letters bounces across it, and project names ride baselines at different depths.",
+      "case": "Speaks to game and Linux people (high identification), but less clear for a recruiter skimming quickly.",
+      "risk": "On dark it goes generic and neon unless the type is genuinely bouncy, and it drifts away from the bright vyphir energy you asked for."
+    },
+    {
+      "id": "challenger-jcard",
+      "label": "Cassette J-card",
+      "verdict": "declined",
+      "lineage": "hand-made bedroom tape sleeves",
+      "palette": ["#EDEBE6", "#2B2B2B"],
+      "materials": ["photocopy", "crosshatch"],
+      "thesis": "Projects as a hand-numbered tracklist on a folding sleeve.",
+      "viewport": "A j-card unfolding panel by panel.",
+      "risk": "Monochrome and lo-fi, the opposite of bubbly.",
+      "case": "Loses both axes: too quiet and too far from the brief.",
+      "kept": "A numbered lineup of every project."
+    },
+    {
+      "id": "challenger-dubois",
+      "label": "Du Bois Data Portraits",
+      "verdict": "declined",
+      "lineage": "1900 hand-inked data graphics",
+      "palette": ["#E8DCC4", "#C8102E", "#E8B83A", "#1E6B52", "#111111"],
+      "materials": ["flat gouache", "hand lettering"],
+      "thesis": "Numbers as bold graphic argument.",
+      "viewport": "Spirals and bars for user counts.",
+      "risk": "Only two real numbers exist to chart.",
+      "case": "Too little data to carry a whole page.",
+      "kept": "User counts drawn as huge graphic numerals."
+    },
+    {
+      "id": "challenger-provenance",
+      "label": "Provenance Ribbon",
+      "verdict": "declined",
+      "lineage": "museum custody records",
+      "palette": ["#E9DFC9", "#B3202A", "#8A8A8A"],
+      "materials": ["silk ribbon", "ledger"],
+      "thesis": "One object's history told as a single ribbon.",
+      "viewport": "A ribbon threading through a timeline.",
+      "risk": "Archival and solemn.",
+      "case": "Off-tone for a playful developer portfolio.",
+      "kept": "Honest solo, team, and WIP marks."
+    },
+    {
+      "id": "challenger-cuttingbench",
+      "label": "Cutting Bench Rail",
+      "verdict": "declined",
+      "lineage": "film editing benches",
+      "palette": ["#0B0B0B", "#FF6A13", "#FFFFFF"],
+      "materials": ["film grain", "perforated strip"],
+      "thesis": "Projects strung along a film rail.",
+      "viewport": "A perforated rail across an orange field.",
+      "risk": "Utilitarian, not bubbly.",
+      "case": "Loses on both identification and tone.",
+      "kept": "One colour owns a third of every screen."
+    }
+  ],
+  "reroll": { "registers": ["safer", "bolder"] },
+  "buildPath": { "value": "code", "toggle": false },
+  "canon": true,
+  "canonCard": {
+    "label": "The category standard",
+    "thesis": "A clean developer portfolio: name and role, a project grid, a stack list, and contact.",
+    "palette": ["#0B0B0F", "#F5F5F5", "#E94560"],
+    "materials": ["clean grid", "project screenshots"],
+    "viewport": "Name and role over a short intro, then a grid of project cards.",
+    "risk": "Indistinguishable from every other dev portfolio, which is exactly what you said you don't want."
+  },
+  "steer": true
+}

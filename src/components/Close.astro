@@ -1,0 +1,122 @@
+---
+import Icon from './Icon.astro';
+---
+
+<footer class="close" aria-labelledby="close-title">
+  <div class="inner">
+    <h2 id="close-title">Got a project for the next series?</h2>
+    <p>I'm looking for developer roles across games, web and desktop. Email is the fastest way to reach me.</p>
+    <a class="mail" href="mailto:SamMcAulay@pm.me">SamMcAulay@pm.me</a>
+    <ul>
+      <li>
+        <a class="pill" data-tone="lemon" href="mailto:SamMcAulay@pm.me"><Icon name="mail" /> Send an email</a>
+      </li>
+      <li>
+        <a class="pill" href="https://github.com/SamMcAulay" rel="me noopener" target="_blank"><Icon name="github" /> GitHub</a>
+      </li>
+      <li>
+        <a class="pill" href="https://www.linkedin.com/in/sammca05/" rel="me noopener" target="_blank"><Icon name="linkedin" /> LinkedIn</a>
+      </li>
+    </ul>
+    <p class="small">© {new Date().getFullYear()} Sam McAulay. Built with Astro, hosted on GitHub Pages.</p>
+  </div>
+</footer>
+
+<style>
+  .close {
+    background: var(--ink);
+    color: var(--paper);
+    border-radius: 48px;
+    max-width: 1280px;
+    margin: 0 auto var(--gutter);
+    padding: var(--s6) clamp(var(--s3), 5vw, var(--s6)) var(--s4);
+  }
+
+  @media (max-width: 1360px) {
+    .close {
+      margin-inline: var(--gutter);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .close {
+      margin: 0 var(--s4) var(--s5);
+      padding: var(--s5) var(--s3) var(--s4);
+      border-radius: 36px;
+      rotate: -1deg;
+    }
+    h2 {
+      font-size: 1.8rem;
+      max-width: none;
+    }
+    .mail {
+      font-size: 1.2rem;
+      overflow-wrap: normal;
+    }
+  }
+
+  .inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: grid;
+    justify-items: start;
+    gap: var(--s3);
+  }
+
+  h2 {
+    font-size: clamp(2.6rem, 6vw, 5.2rem);
+    max-width: 14ch;
+    color: var(--lemon);
+  }
+
+  p {
+    max-width: 52ch;
+    color: #eadde4;
+  }
+
+  .mail {
+    font-family: var(--display);
+    font-size: clamp(1.6rem, 5vw, 3.6rem);
+    line-height: 1.1;
+    color: var(--pink-light);
+    text-decoration: none;
+    overflow-wrap: anywhere;
+    margin-top: var(--s2);
+  }
+
+  .mail:hover {
+    text-decoration: underline;
+    text-decoration-thickness: 5px;
+    text-underline-offset: 0.15em;
+  }
+
+  .mail:focus-visible {
+    outline-color: var(--lemon);
+  }
+
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s2);
+    margin: var(--s2) 0 var(--s6);
+    padding: 0;
+    list-style: none;
+  }
+
+  .close .pill {
+    box-shadow:
+      inset 0 -4px 0 rgb(27 20 32 / 0.16),
+      inset 0 3px 0 rgb(255 255 255 / 0.65),
+      0 5px 0 -1px #000,
+      0 9px 14px -6px rgb(0 0 0 / 0.6);
+  }
+
+  .close .pill:focus-visible {
+    outline-color: var(--lemon);
+  }
+
+  .small {
+    font-size: 0.85rem;
+    color: #bfaab6;
+  }
+</style>
