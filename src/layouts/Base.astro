@@ -29,6 +29,11 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={new URL('/og.png', Astro.site)} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Sam McAulay's portfolio: a capsule machine full of numbered project capsules." />
+    <meta name="twitter:card" content="summary_large_image" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   </head>
   <body>
@@ -38,9 +43,9 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
         home ? (
           <span class="domain">sammcaulay.dev</span>
         ) : (
-          <a class="pill back" href="/" data-tone="lemon">
+          <a class="pill back" href="/" data-tone="lemon" aria-label="Back to the machine">
             <Icon name="back" />
-            Back<span class="label"> to the machine</span>
+            Back<span class="label">to the machine</span>
           </a>
         )
       }
@@ -156,6 +161,10 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
   .back {
     font-size: 0.95rem;
     white-space: nowrap;
+    gap: 0.35em;
+  }
+  .back .label {
+    margin-left: -0.1em;
   }
 
   @media (max-width: 640px) {
