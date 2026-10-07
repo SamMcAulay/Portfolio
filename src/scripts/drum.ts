@@ -177,4 +177,4 @@ function mulberry(seed: number) {
   };
 }
 
-export const BASE_RADIUS = 0.195;
+export const BASE_RADIUS = 0.18;

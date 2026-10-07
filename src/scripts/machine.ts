@@ -179,7 +179,7 @@ export function mountMachine() {
     prizeCap.style.setProperty('--shell', p.crew === 'wip' ? 'transparent' : shellColor[p.shell]);
     prizeLink.href = href;
     prizeName.textContent = p.name;
-    prizeMeta.textContent = `No.${pad(p.no)} · ${p.category} · ${p.users ? `${p.users.count} users` : crewLabel[p.crew]}`;
+    prizeMeta.textContent = `No.${pad(p.no)} · ${p.category} · ${p.stats ? `${p.stats[0].count} ${p.stats[0].label}` : crewLabel[p.crew]}`;
     status.hidden = true;
     status.textContent = `You got No.${pad(p.no)}, ${p.name}.`;
     prize.hidden = false;

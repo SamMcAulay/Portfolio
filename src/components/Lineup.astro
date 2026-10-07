@@ -3,8 +3,11 @@ import { projects, shellColor, crewLabel, pad } from '../data/projects';
 
 // Width on a 12-column sheet. Proof (user counts) gets the most room; the secret item closes the set.
 const span: Record<string, number> = {
-  'jantleman-bot': 7,
-  'flicker-bot': 5,
+  'teg-wardogs': 7,
+  'jantleman-bot': 5,
+  'flicker-bot': 4,
+  janguard: 4,
+  'ai-museum': 4,
   'math-game': 4,
   battleship: 4,
   'space-vr-explorer': 4,
@@ -22,7 +25,8 @@ const span: Record<string, number> = {
     <header class="sheet-head">
       <h2 id="set-title" class="lettering">The full set</h2>
       <p>
-        {projects.length} capsules: bots with real users, games, web, and the Linux setup I work in every day.
+        {projects.length} capsules: live community services, bots with real users, games, web, and the Linux setup I
+        work in every day.
         Tap any one for the full write-up.
       </p>
     </header>
@@ -31,7 +35,7 @@ const span: Record<string, number> = {
       {
         projects.map((p, i) => (
           <li
-            class:list={['entry', { proof: !!p.users, secret: p.crew === 'wip' }]}
+            class:list={['entry', { proof: !!p.stats, secret: p.crew === 'wip' }]}
             style={`--shell:${shellColor[p.shell]};--span:${span[p.slug] ?? 4};--tilt:${((i * 7) % 5) - 2}`}
           >
             <span class="mini capsule" aria-hidden="true">
@@ -41,10 +45,14 @@ const span: Record<string, number> = {
               <h3>
                 <a href={`/projects/${p.slug}/`}>{p.name}</a>
               </h3>
-              {p.users && (
-                <p class="numeral">
-                  <span class="big">{p.users.count}</span> {p.users.label}
-                </p>
+              {p.stats && (
+                <div class="numerals">
+                  {p.stats.map((st) => (
+                    <p class="numeral">
+                      <span class="big">{st.count}</span> {st.label}
+                    </p>
+                  ))}
+                </div>
               )}
               <p class="line">{p.line}</p>
               <p class="facts">
@@ -222,18 +230,22 @@ const span: Record<string, number> = {
     font-size: 1.5rem;
   }
 
-  .numeral {
+  .numerals {
     display: flex;
-    align-items: baseline;
     flex-wrap: wrap;
-    gap: 0 var(--s1);
+    gap: var(--s1) var(--s4);
+  }
+
+  .numeral {
+    display: grid;
+    gap: 2px;
     font-weight: 800;
     color: var(--ink);
   }
 
   .numeral .big {
     font-family: var(--display);
-    font-size: clamp(3.2rem, 7vw, 6rem);
+    font-size: clamp(2.6rem, 4.4vw, 4rem);
     line-height: 0.9;
     letter-spacing: -0.02em;
     color: var(--pink);

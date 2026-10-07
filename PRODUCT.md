@@ -18,6 +18,7 @@ A personal portfolio at sammcaulay.dev presenting Sam McAulay as a fullstack dev
 
 What this portfolio can claim that a typical student or junior portfolio can't:
 
+- **Live community infrastructure:** for The Employed Gamers (TEG) community, Sam hosts and runs the Warcon admin panel for six Wardogs game servers (VPS, Docker, Cloudflare tunnel and Access) and built the services on top of it: the stats site (stats.tegwardogs.fyi), six server-status Discord bots, a moderation log bot, and Janguard (VIP management). These services reach 35,000+ Discord members and 20,000+ in-game players (figures from Sam).
 - **Real users at scale:** Discord bots in production. The Jantleman Bot serves 50,000+ users and Flicker Bot serves 100+, with live server invites.
 - **Range across platforms:** Unity games (including VR), C++/SFML networked games, a C++/Crow web app with CI/CD and Docker, Python bots, and Linux desktop work.
 - **Linux / window-manager craft:** an animated i3 + experimental picom config, a maintained Neovim config, and NCWM (a no-code dynamic tiling Wayland compositor, early WIP).
@@ -44,9 +45,10 @@ Future work should keep all four visible. None of them should be dropped to make
 
 ## Evidence on Hand
 
-- Project write-ups and repo links: `src/data/projects.ts` (11 entries, including the two configs and NCWM).
+- Project write-ups and repo links: `src/data/projects.ts` (14 entries, including TEG Wardogs, Janguard, AI Museum Guide, the two configs and NCWM).
+- Live sites: stats.tegwardogs.fyi, flicker-bot.com, thejantleman.com. The Warcon panel (tegwardogs.fyi) sits behind Cloudflare Access and is not linked publicly.
 - Screenshots: `public/Pics/Flicker/` (4) and `public/Pics/Jan/` (4). No screenshots exist yet for the other projects.
-- User counts as stated in the copy: Jantleman 50,000+ and Flicker 100+.
+- User counts as stated in the copy: Jantleman 50,000+, Flicker 100+, TEG services 35,000+ Discord members and 20,000+ in-game players.
 - Live demo: https://se3-mathgame.duckdns.org/.
 - None on hand: testimonials, employer references, metrics beyond the user counts, CV/résumé download. Don't fabricate any of these.
 

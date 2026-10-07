@@ -57,17 +57,45 @@ const tone = { repo: 'ink', live: 'lemon', invite: 'mint' } as const;
 
     <section class="sheet" aria-label="About this project">
       {
-        p.users && (
-          <p class="numeral">
-            <span class="big">{p.users.count}</span>
-            <span>{p.users.label}</span>
-          </p>
+        p.stats && (
+          <div class="numerals">
+            {p.stats.map((st) => (
+              <p class="numeral">
+                <span class="big">{st.count}</span>
+                <span>{st.label}</span>
+              </p>
+            ))}
+          </div>
         )
       }
       <div class="prose">
         {p.body.map((para) => <p>{para}</p>)}
         {p.crewNote && <p class="note">{p.crewNote}.</p>}
       </div>
+      {
+        p.parts && (
+          <div class="parts">
+            <h2>What's in it</h2>
+            <ul>
+              {p.parts.map((part) => (
+                <li>
+                  <h3>
+                    {part.href ? (
+                      <a href={part.href} target="_blank" rel="noopener">
+                        {part.name}
+                        <Icon name="external" />
+                      </a>
+                    ) : (
+                      part.name
+                    )}
+                  </h3>
+                  <p>{part.line}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )
+      }
       <div class="built">
         <h2>Built with</h2>
         <ul>
@@ -260,8 +288,14 @@ const tone = { repo: 'ink', live: 'lemon', invite: 'mint' } as const;
     grid-template-areas: 'prose built';
   }
 
-  .numeral {
+  .numerals {
     grid-area: num;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s2) var(--s6);
+  }
+
+  .numeral {
     display: flex;
     align-items: baseline;
     flex-wrap: wrap;
@@ -295,6 +329,45 @@ const tone = { repo: 'ink', live: 'lemon', invite: 'mint' } as const;
 
   .built {
     grid-area: built;
+  }
+
+  .parts {
+    grid-column: 1 / -1;
+    padding-top: var(--s4);
+    border-top: 2.5px dashed rgb(27 20 32 / 0.28);
+  }
+
+  .parts ul {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--s4) var(--s5);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .parts h3 {
+    font-size: 1.4rem;
+    line-height: 1.1;
+    margin-bottom: var(--s1);
+  }
+
+  .parts h3 a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3em;
+    text-decoration-color: var(--pink);
+  }
+
+  .parts h3 :global(svg) {
+    width: 0.8em;
+    height: 0.8em;
+    flex: none;
+  }
+
+  .parts p {
+    color: var(--ink-soft);
+    max-width: 48ch;
   }
 
   h2 {
@@ -384,6 +457,9 @@ const tone = { repo: 'ink', live: 'lemon', invite: 'mint' } as const;
     }
     .sheet:not(:has(.numeral)) {
       grid-template-areas: 'prose' 'built';
+    }
+    .parts ul {
+      grid-template-columns: minmax(0, 1fr);
     }
     .sheet {
       width: 84%;

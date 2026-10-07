@@ -16,8 +16,8 @@ const r3 = (n: number) => Math.round(n * 1000) / 1000;
     <div class="card">
       <p class="series">Building Digital Worlds.</p>
       <p class="pitch">
-        Games, web apps, Discord bots and Linux desktops. Every capsule in the globe is something I've
-        built and shipped. Spin it, turn the crank, or open any capsule to see what's inside.
+        Live services for a 35,000-member gaming community, Discord bots, games, web apps and Linux
+        desktops. Every capsule in the globe is something I've built and shipped. Spin it, turn the crank, or open any capsule to see what's inside.
       </p>
       <a class="pill" data-tone="lemon" href="#set">
         See the full set <Icon name="arrow" />
@@ -42,7 +42,7 @@ const r3 = (n: number) => Math.round(n * 1000) / 1000;
                 data-crew={c.crew}
               >
                 <span class="cap-top" aria-hidden="true">
-                  {c.users ? c.users.count.replace(',000', 'K') : pad(c.no)}
+                  {c.stats ? c.stats[0].count.replace(',000', 'K') : pad(c.no)}
                 </span>
                 <span class="cap-name" aria-hidden="true">
                   {c.crew === 'wip' ? '???' : c.short}
