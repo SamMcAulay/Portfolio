@@ -11,16 +11,13 @@
     "ignoreFiles": [],
     "ignoreValues": [
       {
-        "rule": "bounce-easing",
-        "value": "cubic-bezier(0.34, 1.56, 0.64, 1)",
-        "createdAt": "2026-10-06T10:57:38.793Z",
-        "reason": "agent decision: Capsule Machine direction contract names springy moulded-plastic motion as the motion grammar for the bubbly brief"
-      },
-      {
-        "rule": "bounce-easing",
-        "value": "var(--spring)",
-        "createdAt": "2026-10-06T10:57:38.805Z",
-        "reason": "agent decision: same --spring token, intentional plastic pop/press motion per direction contract"
+        "rule": "flat-type-hierarchy",
+        "value": "*",
+        "files": [
+          "cv/cv.html"
+        ],
+        "createdAt": "2026-10-12T11:10:09.219Z",
+        "reason": "agent decision: cv/cv.html is a print CV rendered to PDF, where a compact 10-10.5pt body and role-title scale is the deliberate convention; the name sets the dominant step"
       }
     ]
   }

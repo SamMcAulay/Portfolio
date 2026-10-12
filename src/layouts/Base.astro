@@ -1,5 +1,6 @@
 ---
-import '@fontsource/bagel-fat-one/400.css';
+import '@fontsource/baloo-2/700.css';
+import '@fontsource/baloo-2/800.css';
 import '@fontsource/m-plus-rounded-1c/500.css';
 import '@fontsource/m-plus-rounded-1c/700.css';
 import '@fontsource/m-plus-rounded-1c/800.css';
@@ -24,7 +25,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
-    <meta name="theme-color" content="#e94560" />
+    <meta name="theme-color" content="#dce9f5" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
@@ -32,9 +33,40 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <meta property="og:image" content={new URL('/og.png', Astro.site)} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Sam McAulay's portfolio: a capsule machine full of numbered project capsules." />
+    <meta property="og:image:alt" content="Sam McAulay's portfolio: a clay globe of the Earth beside his featured projects." />
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    {home && <link rel="preload" as="image" href="/globe-poster.webp" fetchpriority="high" />}
+    <script is:inline>
+      // Name the project's pebble that morphs into (or out of) a project page during a view transition.
+      (() => {
+        const slugOf = (url) => url && new URL(url).pathname.match(/^\/projects\/([^/]+)/)?.[1];
+        const pick = (slug) => {
+          const all = [...document.querySelectorAll(`[data-vt-slug="${slug}"]`)];
+          return all.find((el) => {
+            const r = el.getBoundingClientRect();
+            return r.bottom > 0 && r.top < innerHeight;
+          });
+        };
+        addEventListener('pageswap', (e) => {
+          if (!e.viewTransition) return;
+          e.viewTransition.ready.catch(() => {});
+          e.viewTransition.finished.catch(() => {});
+          const el = pick(slugOf(e.activation?.entry?.url));
+          if (el) el.style.viewTransitionName = 'project-pebble';
+        });
+        addEventListener('pagereveal', (e) => {
+          if (!e.viewTransition) return;
+          e.viewTransition.ready.catch(() => {});
+          e.viewTransition.updateCallbackDone?.catch?.(() => {});
+          const el = pick(slugOf(navigation.activation?.from?.url));
+          if (!el) return;
+          el.style.viewTransitionName = 'project-pebble';
+          const clear = () => (el.style.viewTransitionName = '');
+          e.viewTransition.finished.then(clear, clear);
+        });
+      })();
+    </script>
   </head>
   <body>
     <a class="skip" href="#main">Skip to content</a>
@@ -43,26 +75,26 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
         home ? (
           <span class="domain">sammcaulay.dev</span>
         ) : (
-          <a class="pill back" href="/" data-tone="lemon" aria-label="Back to the machine">
+          <a class="pill back" href="/" aria-label="Back home">
             <Icon name="back" />
-            Back<span class="label">to the machine</span>
+            Home
           </a>
         )
       }
       <nav aria-label="Contact">
         <ul>
           <li>
-            <a class="sticker" style="--tilt:-3deg" href="https://github.com/SamMcAulay" rel="me noopener" target="_blank">
+            <a class="chip" href="https://github.com/SamMcAulay" rel="me noopener" target="_blank">
               <Icon name="github" /><span class="label">GitHub</span>
             </a>
           </li>
           <li>
-            <a class="sticker" style="--tilt:2deg;--face:var(--mint)" href="https://www.linkedin.com/in/sammca05/" rel="me noopener" target="_blank">
+            <a class="chip" href="https://www.linkedin.com/in/sammca05/" rel="me noopener" target="_blank">
               <Icon name="linkedin" /><span class="label">LinkedIn</span>
             </a>
           </li>
           <li>
-            <a class="sticker" style="--tilt:-1.5deg;--face:var(--lemon)" href="mailto:SamMcAulay@pm.me">
+            <a class="chip email" href="mailto:SamMcAulay@pm.me">
               <Icon name="mail" /><span class="label">Email me</span>
             </a>
           </li>
@@ -76,6 +108,15 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
 </html>
 
 <style>
+  :global(html) {
+    scroll-behavior: smooth;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    :global(html) {
+      scroll-behavior: auto;
+    }
+  }
+
   .skip {
     position: absolute;
     left: var(--gutter);
@@ -99,6 +140,8 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     justify-content: space-between;
     gap: var(--s2);
     padding: var(--s3) var(--gutter) 0;
+    max-width: 1440px;
+    margin: 0 auto;
     view-transition-name: topbar;
   }
 
@@ -110,61 +153,55 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
 
   nav ul {
     display: flex;
-    gap: var(--s2);
+    gap: var(--s1);
     margin: 0;
     padding: 0;
     list-style: none;
   }
 
-  /* Die-cut contact stickers, same cut as the parts list. */
-  .sticker {
-    --face: var(--paper);
+  .chip {
     display: inline-flex;
     align-items: center;
     gap: 0.5em;
-    padding: 0.5em 1em 0.55em;
+    padding: 0.6em 1.05em 0.65em;
     border-radius: 999px;
-    border: 2.5px solid var(--ink);
-    background: var(--face);
+    background: var(--paper);
     color: var(--ink);
     font: 800 0.95rem/1 var(--body);
     white-space: nowrap;
     text-decoration: none;
-    box-shadow:
-      0 0 0 4px var(--paper),
-      0 0 0 6.5px var(--ink),
-      0 10px 14px -6px rgb(27 20 32 / 0.5);
-    rotate: var(--tilt);
-    transition: rotate 0.3s var(--spring), scale 0.3s var(--spring);
+    box-shadow: var(--lift-low);
+    transition:
+      transform 0.2s var(--out),
+      background-color 0.2s var(--out);
   }
 
-  .sticker:hover {
-    rotate: 0deg;
-    scale: 1.08;
+  .chip:hover {
+    transform: translateY(-2px);
+    background: var(--sand);
   }
 
-  .sticker:active {
-    scale: 0.96;
+  .chip:active {
+    transform: translateY(1px);
   }
 
-  .sticker :global(svg) {
+  .chip.email {
+    background: var(--coral);
+  }
+
+  .chip.email:hover {
+    background: #f19484;
+  }
+
+  .chip :global(svg) {
     width: 1.15em;
     height: 1.15em;
     flex: none;
   }
 
-  .sticker:focus-visible {
-    outline-offset: 9px;
-    border-radius: 999px;
-  }
-
   .back {
     font-size: 0.95rem;
     white-space: nowrap;
-    gap: 0.35em;
-  }
-  .back .label {
-    margin-left: -0.1em;
   }
 
   @media (max-width: 640px) {
@@ -175,11 +212,11 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
       overflow: hidden;
       clip-path: inset(50%);
     }
-    nav .sticker {
-      padding: 0.6em;
+    .chip {
+      padding: 0.65em;
     }
     .back {
-      font-size: 0.85rem;
+      font-size: 0.88rem;
     }
     .domain {
       font-size: 0.85rem;

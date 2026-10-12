@@ -1,24 +1,17 @@
 ---
 const groups = [
-  { title: 'Languages', tone: 'lemon', items: ['C', 'C++', 'C#', 'Java', 'Python', 'Lua', 'JavaScript', 'TypeScript', 'HTML', 'CSS', 'SQL', 'Bash'] },
-  { title: 'Engines & libraries', tone: 'mint', items: ['Unity', 'SFML', 'Crow', 'Node.js', 'Next.js', 'React', 'Express', 'discord.js', 'Prisma', 'PostgreSQL', 'SQLite', 'Gemini API', 'HLSL', 'ShaderLab'] },
-  { title: 'Tooling', tone: 'blue', items: ['Git', 'Docker', 'Cloudflare', 'Jenkins', 'CMake', 'AWS', 'Oracle', 'Neovim', 'Visual Studio', 'Blender'] },
-  { title: 'Systems', tone: 'orange', items: ['Arch Linux', 'Debian', 'Ubuntu', 'FreeBSD', 'OpenBSD', 'Windows', 'i3wm', 'Wayland'] },
+  { title: 'Languages', tone: 'sand', items: ['C', 'C++', 'C#', 'Java', 'Python', 'Lua', 'JavaScript', 'TypeScript', 'HTML', 'CSS', 'SQL', 'Bash'] },
+  { title: 'Engines & libraries', tone: 'land', items: ['Unity', 'SFML', 'Crow', 'Node.js', 'Next.js', 'React', 'Express', 'discord.js', 'Prisma', 'PostgreSQL', 'SQLite', 'Gemini API', 'HLSL', 'ShaderLab'] },
+  { title: 'Tooling', tone: 'ocean', items: ['Git', 'Docker', 'Cloudflare', 'Jenkins', 'CMake', 'AWS', 'Oracle', 'Neovim', 'Visual Studio', 'Blender'] },
+  { title: 'Systems', tone: 'stone', items: ['Arch Linux', 'Debian', 'Ubuntu', 'FreeBSD', 'OpenBSD', 'Windows', 'i3wm', 'Wayland'] },
   { title: 'Off the clock', tone: 'paper', items: ['Making prototype perfumes', 'Vinyl and CD collecting', 'Building PCs and home servers', 'Watches and fashion'] },
 ];
-
-// Deterministic tilt per sticker so the sheet looks slapped on by hand but never shifts between builds.
-const tilt = (s: string) => {
-  let h = 0;
-  for (const c of s) h = (h * 31 + c.charCodeAt(0)) | 0;
-  return ((Math.abs(h) % 11) - 5) * 0.9;
-};
 ---
 
 <section class="parts" aria-labelledby="parts-title">
   <div class="parts-head">
-    <h2 id="parts-title" class="lettering">Parts list</h2>
-    <p>What the capsules are made of, and what I get up to away from them. Every tool here has shipped in a capsule or runs on my machine.</p>
+    <h2 id="parts-title">Toolkit</h2>
+    <p>What my projects are built with, and what I get up to away from them. Every tool here has shipped in a project or runs on my machine.</p>
   </div>
 
   <div class="groups">
@@ -28,9 +21,7 @@ const tilt = (s: string) => {
           <h3>{g.title}</h3>
           <ul>
             {g.items.map((item) => (
-              <li class="sticker" style={`--tilt:${tilt(item)}deg`}>
-                {item}
-              </li>
+              <li class="chip">{item}</li>
             ))}
           </ul>
         </div>
@@ -55,13 +46,12 @@ const tilt = (s: string) => {
   }
 
   h2 {
-    font-size: clamp(2.8rem, 6vw, 5rem);
-    transform: rotate(2deg);
+    font-size: clamp(2.6rem, 5.4vw, 4.4rem);
   }
 
   .parts-head p {
     font-weight: 700;
-    max-width: 44ch;
+    max-width: 48ch;
     padding-bottom: var(--s1);
   }
 
@@ -75,47 +65,36 @@ const tilt = (s: string) => {
     font-family: var(--body);
     font-weight: 800;
     font-size: 1.05rem;
+    letter-spacing: 0;
     margin-bottom: var(--s2);
   }
 
   ul {
     display: flex;
     flex-wrap: wrap;
-    gap: 14px 10px;
+    gap: 10px;
     margin: 0;
     padding: 0;
     list-style: none;
   }
 
-  /* Die-cut sticker: white kiss-cut border, colour face, ink outline. */
-  .sticker {
-    --face: var(--lemon);
-    padding: 0.4em 0.95em 0.48em;
+  /* Clay chips: little pressed tiles in the group's colour. */
+  .chip {
+    --face: var(--sand);
+    padding: 0.45em 1em 0.5em;
     border-radius: 999px;
     background: var(--face);
     color: var(--ink);
     font-weight: 800;
-    font-size: 1.02rem;
+    font-size: 0.98rem;
     line-height: 1.1;
-    border: 2.5px solid var(--ink);
-    box-shadow:
-      0 0 0 5px var(--paper),
-      0 0 0 7.5px var(--ink),
-      0 10px 14px -6px rgb(27 20 32 / 0.5);
-    rotate: var(--tilt);
-    margin: 7px;
-    transition: rotate 0.35s var(--spring), scale 0.35s var(--spring);
+    box-shadow: var(--lift-low);
   }
 
-  .sticker:hover {
-    rotate: 0deg;
-    scale: 1.1;
-  }
-
-  [data-tone='mint'] .sticker { --face: var(--mint); }
-  [data-tone='blue'] .sticker { --face: var(--blue); }
-  [data-tone='orange'] .sticker { --face: var(--orange); }
-  [data-tone='paper'] .sticker { --face: var(--paper); }
+  [data-tone='land'] .chip { --face: var(--land); }
+  [data-tone='ocean'] .chip { --face: var(--ocean); }
+  [data-tone='stone'] .chip { --face: var(--stone); }
+  [data-tone='paper'] .chip { --face: var(--paper); }
 
   @media (max-width: 760px) {
     .parts-head,
@@ -125,8 +104,8 @@ const tilt = (s: string) => {
     .groups {
       gap: var(--s4);
     }
-    .sticker {
-      font-size: 0.95rem;
+    .chip {
+      font-size: 0.92rem;
     }
   }
 </style>

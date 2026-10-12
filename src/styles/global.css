@@ -3,19 +3,33 @@
 }
 
 :root {
-  --pink: #e94560;
-  --pink-deep: #c9304d;
-  --pink-light: #f37a8e;
-  --ink: #1b1420;
-  --ink-soft: #5b4652;
-  --paper: #fffdf9;
-  --lemon: #ffd23f;
-  --mint: #3bceac;
-  --blue: #3d7bff;
-  --orange: #ff8a3d;
-  --shell-white: #f6f2f7;
+  /* Daylight clay */
+  --sky: #dce9f5;
+  --sky-deep: #c9dcee;
+  --ocean: #7db3d8;
+  --land: #a8cf9c;
+  --sand: #f3ddb8;
+  --coral: #ee8472;
+  --coral-deep: #d9624f;
+  --stone: #d8cfc3;
+  --ink: #1e2a44;
+  --ink-soft: #46536d;
+  --paper: #fbfaf6;
+  --cloud: #f1f5fa;
 
-  --display: 'Bagel Fat One', 'M PLUS Rounded 1c', system-ui, sans-serif;
+  /* Clay light: highlight from above, shadow tinted by the ink, never black. */
+  --lift:
+    inset 0 2px 0 rgb(255 255 255 / 0.75),
+    inset 0 -8px 14px -6px rgb(30 42 68 / 0.1),
+    0 1px 2px rgb(30 42 68 / 0.08),
+    0 16px 32px -14px rgb(30 42 68 / 0.32);
+  --lift-low:
+    inset 0 2px 0 rgb(255 255 255 / 0.7),
+    inset 0 -5px 10px -5px rgb(30 42 68 / 0.12),
+    0 1px 2px rgb(30 42 68 / 0.08),
+    0 8px 16px -8px rgb(30 42 68 / 0.3);
+
+  --display: 'Baloo 2', 'M PLUS Rounded 1c', system-ui, sans-serif;
   --body: 'M PLUS Rounded 1c', system-ui, sans-serif;
 
   /* One spacing rhythm, 8px base. */
@@ -29,8 +43,7 @@
 
   --gutter: clamp(16px, 4vw, 56px);
   --radius: 28px;
-  --spring: cubic-bezier(0.34, 1.56, 0.64, 1);
-  --out: cubic-bezier(0.16, 1, 0.3, 1);
+  --out: cubic-bezier(0.22, 1, 0.36, 1);
 
   color-scheme: light;
 }
@@ -42,14 +55,14 @@
 }
 
 html {
-  background: var(--pink);
-  scrollbar-color: var(--ink) var(--pink-deep);
+  background: var(--sky);
+  scrollbar-color: var(--ocean) var(--sky);
   -webkit-text-size-adjust: 100%;
 }
 
 body {
   margin: 0;
-  background: var(--pink);
+  background: var(--sky);
   color: var(--ink);
   font-family: var(--body);
   font-weight: 500;
@@ -57,29 +70,31 @@ body {
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   overflow-x: clip;
-  caret-color: var(--pink);
+  caret-color: var(--coral-deep);
 }
 
 ::selection {
-  background: var(--lemon);
+  background: var(--sand);
   color: var(--ink);
 }
 
 img {
   max-width: 100%;
+  height: auto;
   display: block;
 }
 
 a {
   color: inherit;
-  text-underline-offset: 0.2em;
+  text-underline-offset: 0.22em;
   text-decoration-thickness: 2px;
+  text-decoration-color: var(--ocean);
 }
 
 :focus-visible {
-  outline: 3px solid var(--ink);
+  outline: 3px solid var(--coral-deep);
   outline-offset: 4px;
-  border-radius: 12px;
+  border-radius: 14px;
 }
 
 h1,
@@ -87,23 +102,15 @@ h2,
 h3 {
   margin: 0;
   font-family: var(--display);
-  font-weight: 400;
-  line-height: 0.95;
-  letter-spacing: -0.01em;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.02em;
   text-wrap: balance;
 }
 
 p {
   margin: 0;
   text-wrap: pretty;
-}
-
-/* Sticker lettering: fat fill, ink outline, a short soft ink drop. */
-.lettering {
-  color: var(--paper);
-  -webkit-text-stroke: 0.09em var(--ink);
-  paint-order: stroke fill;
-  text-shadow: 0 0.07em 0.02em var(--ink);
 }
 
 .visually-hidden {
@@ -115,48 +122,48 @@ p {
   white-space: nowrap;
 }
 
-/* Moulded plastic pill: lit from the top, presses down on hover and click. */
+/* A slab of matte clay. */
+.clay {
+  background: var(--surface, var(--paper));
+  border-radius: var(--radius);
+  box-shadow: var(--lift);
+}
+
+/* Clay button: a pressed pebble. Sinks on press, never fades. */
 .pill {
   --pill: var(--paper);
   display: inline-flex;
   align-items: center;
   gap: 0.55em;
-  padding: 0.7em 1.25em 0.75em;
-  border: 2.5px solid var(--ink);
+  padding: 0.75em 1.3em 0.8em;
+  border: 0;
   border-radius: 999px;
   background: var(--pill);
   color: var(--ink);
   font: 800 1rem/1 var(--body);
   text-decoration: none;
   cursor: pointer;
-  box-shadow:
-    inset 0 -4px 0 rgb(27 20 32 / 0.16),
-    inset 0 3px 0 rgb(255 255 255 / 0.65),
-    0 5px 0 -1px var(--ink),
-    0 9px 14px -6px rgb(27 20 32 / 0.45);
-  transform: translateY(0);
+  box-shadow: var(--lift-low);
   transition:
-    transform 0.18s var(--spring),
-    box-shadow 0.18s var(--out),
-    background-color 0.18s var(--out);
+    transform 0.2s var(--out),
+    box-shadow 0.2s var(--out),
+    background-color 0.2s var(--out);
 }
 
 .pill:hover {
-  transform: translateY(2px);
+  transform: translateY(-2px);
   box-shadow:
-    inset 0 -4px 0 rgb(27 20 32 / 0.16),
-    inset 0 3px 0 rgb(255 255 255 / 0.65),
-    0 3px 0 -1px var(--ink),
-    0 6px 10px -6px rgb(27 20 32 / 0.45);
+    inset 0 2px 0 rgb(255 255 255 / 0.7),
+    inset 0 -5px 10px -5px rgb(30 42 68 / 0.12),
+    0 2px 3px rgb(30 42 68 / 0.08),
+    0 14px 22px -10px rgb(30 42 68 / 0.34);
 }
 
 .pill:active {
-  transform: translateY(5px);
+  transform: translateY(1px);
   box-shadow:
-    inset 0 -2px 0 rgb(27 20 32 / 0.16),
-    inset 0 3px 0 rgb(255 255 255 / 0.65),
-    0 0 0 -1px var(--ink),
-    0 2px 4px -2px rgb(27 20 32 / 0.45);
+    inset 0 3px 8px rgb(30 42 68 / 0.18),
+    0 1px 2px rgb(30 42 68 / 0.1);
   transition-duration: 0.06s;
 }
 
@@ -166,24 +173,23 @@ p {
   flex: none;
 }
 
-.pill[data-tone='lemon'] { --pill: var(--lemon); }
-.pill[data-tone='mint'] { --pill: var(--mint); }
-.pill[data-tone='blue'] { --pill: var(--blue); }
+.pill[data-tone='coral'] { --pill: var(--coral); }
+.pill[data-tone='sand'] { --pill: var(--sand); }
+.pill[data-tone='land'] { --pill: var(--land); }
+.pill[data-tone='stone'] { --pill: var(--stone); }
 .pill[data-tone='ink'] { --pill: var(--ink); color: var(--paper); }
 
-/* Two-tone capsule: coloured top, milky bottom, a seam, and a specular highlight. */
-.capsule {
+/* A clay pebble in the project's colour, lit from the top left. */
+.pebble {
   position: relative;
   border-radius: 50%;
-  border: 2.5px solid var(--ink);
   background:
-    radial-gradient(circle at 21% 30%, rgb(255 255 255 / 0.85) 0 5.5%, transparent 6.5%),
-    radial-gradient(ellipse 60% 22% at 50% 12%, rgb(255 255 255 / 0.35), transparent 70%),
-    linear-gradient(to bottom, var(--shell, var(--lemon)) 0 47%, var(--ink) 47% 50%, rgb(255 255 255 / 0.82) 50% 100%);
+    radial-gradient(circle at 36% 26%, rgb(255 255 255 / 0.42), transparent 58%),
+    radial-gradient(circle at 62% 80%, rgb(30 42 68 / 0.16), transparent 62%),
+    var(--shell, var(--sand));
   box-shadow:
-    inset 0 -10px 16px -6px rgb(27 20 32 / 0.18),
-    inset 0 6px 10px -4px rgb(255 255 255 / 0.5),
-    0 8px 14px -8px rgb(27 20 32 / 0.55);
+    inset 0 -4px 10px rgb(30 42 68 / 0.1),
+    0 6px 12px -6px rgb(30 42 68 / 0.4);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -201,6 +207,6 @@ p {
 }
 
 ::view-transition-group(*) {
-  animation-duration: 0.55s;
+  animation-duration: 0.5s;
   animation-timing-function: var(--out);
 }

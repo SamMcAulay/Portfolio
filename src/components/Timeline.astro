@@ -7,7 +7,7 @@ const entries = [
     place: 'The Employed Gamers (TEG) community',
     line: 'Hosting the Warcon admin panel for six Wardogs game servers, and building the stats site, status bots, moderation bot and Janguard on top of it.',
     href: '/projects/teg-wardogs/',
-    tone: 'blue',
+    tone: 'ocean',
   },
   {
     when: 'Jan – May 2026',
@@ -15,7 +15,7 @@ const entries = [
     place: 'Khora, remote placement',
     line: 'Led and delivered a full-stack AR AI museum guide as the only developer: client requirements meetings, architecture, CI/CD to production and live demos.',
     href: '/projects/ai-museum/',
-    tone: 'mint',
+    tone: 'land',
   },
   {
     when: '2025',
@@ -23,7 +23,7 @@ const entries = [
     place: 'Games Fleadh 2025',
     line: 'Won Best Gameplay, Best Use of a Physics Engine and Best Soundtrack with a physics-based couch co-op game.',
     href: '/projects/moonhaul/',
-    tone: 'lemon',
+    tone: 'sand',
   },
   {
     when: '2025',
@@ -31,14 +31,14 @@ const entries = [
     place: 'Hackathon Athlone 2025',
     line: 'Built Space VR Explorer, a VR simulation of asteroid impacts using NASA data.',
     href: '/projects/space-vr-explorer/',
-    tone: 'white',
+    tone: 'cloud',
   },
   {
     when: 'Apr – Aug 2025',
     role: 'Crew Member',
     place: "McDonald's, Athlone",
     line: 'High-volume customer service, cash handling and stock monitoring. Recognised by management for customer service and teamwork.',
-    tone: 'orange',
+    tone: 'stone',
   },
   {
     when: '2023 – 2027',
@@ -46,31 +46,31 @@ const entries = [
     place: 'Technological University of the Shannon, Athlone',
     line: "Dean's Honours List and on course for a first. Final-year thesis on AI and email security. Student council, and work shown at campus open days.",
     href: '/projects/phisher-vs-filter/',
-    tone: 'lemon',
+    tone: 'sand',
   },
   {
     when: '2023 – now',
     role: 'Volunteer, special needs childcare',
     place: 'Birr, Co. Offaly',
     line: 'Supporting children with developmental and learning disabilities, with communication strategies built around each child.',
-    tone: 'mint',
+    tone: 'land',
   },
 ];
 ---
 
 <section class="timeline" id="experience" aria-labelledby="exp-title">
   <div class="head">
-    <h2 id="exp-title" class="lettering">Experience</h2>
+    <h2 id="exp-title">Experience</h2>
     <p>Work, study and the communities I build for, newest first.</p>
   </div>
 
   <ol>
     {
-      entries.map((e, i) => (
-        <li style={`--shell:var(--${e.tone === 'white' ? 'shell-white' : e.tone});--tilt:${i % 2 ? 0.8 : -0.8}deg`}>
+      entries.map((e) => (
+        <li style={`--shell:var(--${e.tone})`}>
           <p class="when">{e.when}</p>
           <div class="ticket">
-            <span class="dot capsule" aria-hidden="true" />
+            <span class="dot pebble" aria-hidden="true" />
             <div class="text">
               <h3>
                 {e.href ? <a href={e.href}>{e.role}</a> : e.role}
@@ -101,9 +101,7 @@ const entries = [
   }
 
   h2 {
-    font-size: clamp(2.8rem, 6vw, 5rem);
-    color: var(--lemon);
-    transform: rotate(-2deg);
+    font-size: clamp(2.6rem, 5.4vw, 4.4rem);
   }
 
   .head p {
@@ -121,17 +119,18 @@ const entries = [
     list-style: none;
   }
 
-  /* The rail the tickets hang from. */
+  /* A soft clay rail joining the years. */
   ol::before {
     content: '';
     position: absolute;
-    top: 8px;
-    bottom: 8px;
+    top: 12px;
+    bottom: 12px;
     left: calc(9rem + var(--s3) / 2);
-    width: 4px;
-    margin-left: -2px;
-    border-radius: 2px;
-    background: var(--ink);
+    width: 8px;
+    margin-left: -4px;
+    border-radius: 4px;
+    background: var(--sky-deep);
+    box-shadow: inset 0 1px 2px rgb(30 42 68 / 0.12);
   }
 
   li {
@@ -145,34 +144,31 @@ const entries = [
   .when {
     justify-self: end;
     margin-top: var(--s2);
-    padding: 4px 12px 5px;
-    border: 2.5px solid var(--ink);
+    padding: 5px 13px 6px;
     border-radius: 999px;
     background: var(--paper);
     font-weight: 800;
     font-size: 0.9rem;
     white-space: nowrap;
     font-variant-numeric: tabular-nums;
+    box-shadow: var(--lift-low);
   }
 
   .ticket {
     display: grid;
     grid-template-columns: auto minmax(0, 1fr);
     gap: var(--s2);
-    max-width: 52rem;
+    max-width: 54rem;
     margin-left: var(--s3);
     padding: var(--s3);
     background: var(--paper);
-    border: 3px solid var(--ink);
     border-radius: 24px;
-    box-shadow: 0 14px 22px -14px rgb(27 20 32 / 0.6);
-    rotate: var(--tilt);
+    box-shadow: var(--lift);
   }
 
   .dot {
     width: 40px;
     aspect-ratio: 1;
-    border-width: 2px;
   }
 
   .text {
@@ -186,7 +182,6 @@ const entries = [
   }
 
   h3 a {
-    text-decoration-color: var(--pink);
     text-decoration-thickness: 3px;
   }
 
@@ -210,7 +205,7 @@ const entries = [
     li {
       grid-template-columns: minmax(0, 1fr);
       gap: var(--s1);
-      padding-left: 34px;
+      padding-left: 36px;
     }
     .when {
       justify-self: start;

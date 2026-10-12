@@ -1,4 +1,4 @@
-export type Shell = 'lemon' | 'mint' | 'blue' | 'orange' | 'white';
+export type Shell = 'sand' | 'land' | 'ocean' | 'stone' | 'cloud';
 export type Crew = 'solo' | 'team' | 'wip' | 'thesis';
 
 export interface Link {
@@ -23,8 +23,6 @@ export interface Project {
   slug: string;
   no: number;
   name: string;
-  /** Two short words max, printed on the capsule label. */
-  short: string;
   shell: Shell;
   crew: Crew;
   /** Who it was built with, when the repo lives under a collaborator. */
@@ -36,23 +34,18 @@ export interface Project {
   body: string[];
   links: Link[];
   images: string[];
-  /** Headline numbers, shown on the lineup ticket and the project page. */
+  /** Headline numbers, shown on the project cards and the project page. */
   stats?: Stat[];
-  /** Short text printed on the capsule's top shell instead of its number. */
-  onCapsule?: string;
   /** Recognition the project has received, as stated on Sam's CV. */
   awards?: string[];
   parts?: Part[];
-  /** Capsule size relative to the base radius. */
-  size: number;
 }
 
 const list: Omit<Project, 'no'>[] = [
   {
     slug: 'teg-wardogs',
     name: 'TEG Wardogs',
-    short: 'TEG Wardogs',
-    shell: 'blue',
+    shell: 'ocean',
     crew: 'solo',
     crewNote: 'Built and run for The Employed Gamers (TEG) community',
     category: 'Platform',
@@ -93,14 +86,11 @@ const list: Omit<Project, 'no'>[] = [
       { count: '35,000+', label: 'Discord members' },
       { count: '20,000+', label: 'in-game players' },
     ],
-    onCapsule: '35K+',
-    size: 1.4,
   },
   {
     slug: 'phisher-vs-filter',
     name: 'Phisher vs Filter',
-    short: 'Phisher',
-    shell: 'white',
+    shell: 'cloud',
     crew: 'thesis',
     crewNote: 'Final-year thesis, approved by my supervisor. Results to come',
     category: 'Research',
@@ -120,14 +110,11 @@ const list: Omit<Project, 'no'>[] = [
     ],
     links: [],
     images: [],
-    onCapsule: 'Thesis',
-    size: 1.12,
   },
   {
     slug: 'ai-museum',
     name: 'AR AI Museum Guide',
-    short: 'AI Museum',
-    shell: 'mint',
+    shell: 'land',
     crew: 'solo',
     crewNote: 'Commissioned by Khora during my placement, January to May 2026. I was the lead and only developer',
     category: 'AR',
@@ -143,13 +130,11 @@ const list: Omit<Project, 'no'>[] = [
       { label: 'Unity app repo', href: 'https://github.com/SamMcAulay/AI_Museum_Front-end', kind: 'repo' },
     ],
     images: [],
-    size: 1,
   },
   {
     slug: 'jantleman-bot',
     name: 'The Jantleman Bot',
-    short: 'Jantleman',
-    shell: 'lemon',
+    shell: 'sand',
     crew: 'solo',
     category: 'Bot',
     tech: ['Python', 'Discord', 'SQLite'],
@@ -166,14 +151,11 @@ const list: Omit<Project, 'no'>[] = [
     ],
     images: ['/Pics/Jan/Jan1.png', '/Pics/Jan/Jan2.png', '/Pics/Jan/Jan3.png', '/Pics/Jan/Jan4.png'],
     stats: [{ count: '50,000+', label: 'users served' }],
-    onCapsule: '50K+',
-    size: 1.32,
   },
   {
     slug: 'flicker-bot',
     name: 'Flicker Bot',
-    short: 'Flicker',
-    shell: 'mint',
+    shell: 'land',
     crew: 'solo',
     category: 'Bot',
     tech: ['Python', 'Discord', 'SQLite'],
@@ -189,14 +171,11 @@ const list: Omit<Project, 'no'>[] = [
     ],
     images: ['/Pics/Flicker/Flicker1.png', '/Pics/Flicker/Flicker2.png', '/Pics/Flicker/Flicker3.png', '/Pics/Flicker/Flicker4.png'],
     stats: [{ count: '100+', label: 'users served' }],
-    onCapsule: '100+',
-    size: 1.12,
   },
   {
     slug: 'janguard',
     name: 'Janguard',
-    short: 'Janguard',
-    shell: 'orange',
+    shell: 'stone',
     crew: 'solo',
     crewNote: 'Built for The Employed Gamers (TEG) community',
     category: 'Bot',
@@ -208,13 +187,11 @@ const list: Omit<Project, 'no'>[] = [
     ],
     links: [{ label: 'GitHub repo', href: 'https://github.com/SamMcAulay/Janguard', kind: 'repo' }],
     images: [],
-    size: 1,
   },
   {
     slug: 'moonhaul',
     name: 'Moonhaul',
-    short: 'Moonhaul',
-    shell: 'lemon',
+    shell: 'sand',
     crew: 'team',
     crewNote: 'Team project, where I was lead game developer. Repo hosted by SamsonA00321296',
     category: 'Game',
@@ -225,16 +202,13 @@ const list: Omit<Project, 'no'>[] = [
       'It was showcased at Games Fleadh 2025 and uses custom physics and shader meshes.',
     ],
     awards: ['Best Gameplay', 'Best Use of a Physics Engine', 'Best Soundtrack'],
-    onCapsule: '3 awards',
     links: [{ label: 'GitHub repo', href: 'https://github.com/SamsonA00321296/Games-fleadh', kind: 'repo' }],
     images: [],
-    size: 1,
   },
   {
     slug: 'math-game',
     name: 'Math Game Web App',
-    short: 'Math Game',
-    shell: 'blue',
+    shell: 'ocean',
     crew: 'team',
     crewNote: 'Team project, repo hosted by Carlbytes',
     category: 'Web',
@@ -249,13 +223,11 @@ const list: Omit<Project, 'no'>[] = [
       { label: 'Live demo', href: 'https://se3-mathgame.duckdns.org/', kind: 'live' },
     ],
     images: [],
-    size: 1,
   },
   {
     slug: 'space-vr-explorer',
     name: 'Space VR Explorer',
-    short: 'Space VR',
-    shell: 'white',
+    shell: 'cloud',
     crew: 'team',
     crewNote: 'Hackathon Athlone 2025 team, repo hosted by Carlbytes',
     category: 'Game',
@@ -267,13 +239,11 @@ const list: Omit<Project, 'no'>[] = [
     ],
     links: [{ label: 'GitHub repo', href: 'https://github.com/Carlbytes/Hackahton2025', kind: 'repo' }],
     images: [],
-    size: 1,
   },
   {
     slug: 'battleship',
     name: 'Battleship',
-    short: 'Battleship',
-    shell: 'orange',
+    shell: 'stone',
     crew: 'team',
     crewNote: 'Team project, repo hosted by Carlbytes',
     category: 'Game',
@@ -285,13 +255,11 @@ const list: Omit<Project, 'no'>[] = [
     ],
     links: [{ label: 'GitHub repo', href: 'https://github.com/Carlbytes/BattleShip_cpp_Game', kind: 'repo' }],
     images: [],
-    size: 1,
   },
   {
     slug: 'laser-game',
     name: 'Laser Game',
-    short: 'Laser',
-    shell: 'blue',
+    shell: 'ocean',
     crew: 'solo',
     category: 'Game',
     tech: ['Unity', 'C#'],
@@ -302,13 +270,11 @@ const list: Omit<Project, 'no'>[] = [
     ],
     links: [{ label: 'GitHub repo', href: 'https://github.com/SamMcAulay/laserGame', kind: 'repo' }],
     images: [],
-    size: 1,
   },
   {
     slug: 'pangbot',
     name: 'Pangbot',
-    short: 'Pangbot',
-    shell: 'mint',
+    shell: 'land',
     crew: 'solo',
     category: 'Bot',
     tech: ['Python', 'Twitch'],
@@ -319,13 +285,11 @@ const list: Omit<Project, 'no'>[] = [
     ],
     links: [{ label: 'GitHub repo', href: 'https://github.com/SamMcAulay/Pangbot', kind: 'repo' }],
     images: [],
-    size: 1,
   },
   {
     slug: 'i3-dotfiles',
     name: 'i3 Dotfiles',
-    short: 'i3 Rice',
-    shell: 'orange',
+    shell: 'stone',
     crew: 'solo',
     category: 'Config',
     tech: ['i3wm', 'picom', 'pywal', 'Bash'],
@@ -336,13 +300,11 @@ const list: Omit<Project, 'no'>[] = [
     ],
     links: [{ label: 'GitHub repo', href: 'https://github.com/SamMcAulay/i3_PywalEXP_Dotfiles', kind: 'repo' }],
     images: [],
-    size: 0.92,
   },
   {
     slug: 'nvim-config',
     name: 'Neovim Config',
-    short: 'Neovim',
-    shell: 'white',
+    shell: 'cloud',
     crew: 'solo',
     category: 'Config',
     tech: ['Neovim', 'Lua'],
@@ -353,13 +315,11 @@ const list: Omit<Project, 'no'>[] = [
     ],
     links: [{ label: 'GitHub repo', href: 'https://github.com/SamMcAulay/NVIM-Main-conf', kind: 'repo' }],
     images: [],
-    size: 0.92,
   },
   {
     slug: 'ncwm',
     name: 'NCWM',
-    short: 'NCWM',
-    shell: 'white',
+    shell: 'cloud',
     crew: 'wip',
     category: 'Desktop',
     tech: ['Wayland', 'Compositor', 'GUI config'],
@@ -372,18 +332,17 @@ const list: Omit<Project, 'no'>[] = [
     ],
     links: [],
     images: [],
-    size: 1,
   },
 ];
 
 export const projects: Project[] = list.map((p, i) => ({ ...p, no: i + 1 }) as Project);
 
 export const shellColor: Record<Shell, string> = {
-  lemon: 'var(--lemon)',
-  mint: 'var(--mint)',
-  blue: 'var(--blue)',
-  orange: 'var(--orange)',
-  white: 'var(--shell-white)',
+  sand: 'var(--sand)',
+  land: 'var(--land)',
+  ocean: 'var(--ocean)',
+  stone: 'var(--stone)',
+  cloud: 'var(--cloud)',
 };
 
 export const crewLabel: Record<Crew, string> = {

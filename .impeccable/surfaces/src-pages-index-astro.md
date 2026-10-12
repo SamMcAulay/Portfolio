@@ -7,22 +7,20 @@ related_targets: ["src/pages/projects/[slug].astro"]
 
 # Home + project pages (sammcaulay.dev)
 
-Scope: home (`src/pages/index.astro`) and project detail pages (`src/pages/projects/[slug].astro`). Visitor mode: Experience. The work leads from the first viewport.
+Scope: home (`src/pages/index.astro`) and project pages (`src/pages/projects/[slug].astro`). Visitor mode: Experience; the work leads from the first viewport. The site is also Sam's graded TUS portfolio (ENGE08016, due 2026-11-12): the AI and security direction must stay visible.
 
-Audience: recruiters and hiring managers skimming from a CV, LinkedIn or GitHub link. Job: see range and real-world proof in seconds, then contact Sam or open repos. Action: open a capsule (project), turn the crank, or use the GitHub, LinkedIn and email stickers that are always visible.
-
-Constraints: Astro static build on GitHub Pages (sammcaulay.dev). Content and features keep working without JS. prefers-reduced-motion is honoured. Facts and numbers come from PRODUCT.md only.
+Audience: recruiters and hiring managers across industries, plus the module lecturer. Job: see who Sam is, where he's heading and his strongest proof within seconds, then contact or dig in. Constraints: Astro static on GitHub Pages; content works without JS or WebGL; reduced motion honoured; facts only from PRODUCT.md.
 
 ## Direction contract
 
-THESIS: Sam's work is a gashapon capsule machine. Every project is a capsule tumbling in one clear globe you can spin, and a crank dispenses one that pops open. It refuses the name-plus-card-grid dev portfolio and the hand-rolled zoom globe.
+THESIS: "Building Digital Worlds." taken literally: a hand-made clay Earth is the site's navigator, and Sam's strongest work sits beside it, readable without a click. It refuses the name-plus-card-grid portfolio and the brittle zoom-in-canvas globe of the old site.
 
-OWN-WORLD: The machine body is the brand pink #E94560 as the page field, owning at least a third of every screen. The dome is clear acrylic with white specular arcs, not a glass card. Capsules are two-tone: a glossy coloured top in lemon, mint, blue, orange or white over a translucent white bottom. Text is set in Bagel Fat One, fat and rounded, with an ink #1B1420 stroke and a short ink drop. Labels and body use M PLUS Rounded 1c. Body text sits on a white printed lineup card. Buttons are moulded plastic pills that press down. Stickers are die-cut with white borders.
+OWN-WORLD: Daylight clay. The ground is a powder sky, #DCE9F5. Clay ocean #7DB3D8, sage land #A8CF9C, warm sand #F3DDB8, one coral #EE8472 for actions, and deep navy ink #1E2A44 for text. Surfaces are matte modelled clay: puffy rounded slabs with a top highlight and soft navy-tinted shadows, no hard ink outlines, no glass. Display type is Baloo 2 ExtraBold and body is M PLUS Rounded 1c. Project dots are small clay pebbles in the project's colour.
 
-STORY: A recruiter sees eleven numbered capsules and the user counts printed big on the bot capsules, spins the globe, and opens one. They come away believing Sam ships real things across games, web, bots and Linux, then email, check GitHub or browse the full lineup.
+STORY: The visitor sees Sam's name, his role ("Software Developer, heading into AI & Security") and a clay Earth they can spin, with signposts to Projects, Thesis, Experience, About and Contact. Three featured projects (TEG Wardogs 35K+, Phisher vs Filter, AR AI Museum Guide) show their proof and links in place. They leave believing Sam ships real systems and is moving into AI and security, then contact him or open a project.
 
-FIRST VIEWPORT: On desktop, the machine fills the screen. The left 55% is the dome (about 600px) of eleven physics capsules, with a crank and chute below it. The right side holds a tilted lineup card: "Sam McAulay" as the h1 plate, the role line, "Building Digital Worlds." in outlined display, a short intro and the crank call to action. Contact stickers are top right. On mobile it stacks as plate, dome, crank, card.
+FIRST VIEWPORT: On desktop, a top bar with contact chips. The left column has the name, role and tagline over a large clay Earth (about 500px) with five clay signposts fanned around its upper-left rim. The right column stacks the three featured clay cards with numbers and live links. On tablet the cards become a row under the globe; on phones everything stacks, with the signposts as a chip row under the globe.
 
-FORM: Capsule Machine (gashapon), position 4 on my ordered list (1 tiny planet, 2 sticker-bombed laptop, 3 console channel menu, 4 capsule machine, 5 rice desktop, 6 card binder, 7 park map). Seed key 9e274048. Raises: a numbered lineup of all 11 (from the j-card), user counts as huge numerals (Du Bois), honest solo/team/WIP marks (provenance), pink at page scale (cutting bench). Signature interaction: drag to spin the drum, then crank to dispense a capsule that pops open. A cross-document View Transition morphs the capsule into the project page's opened capsule. Motion grammar: springy physics, press-down plastic, no scroll fades.
+FORM: Clay Earth navigator, a direction pinned by the user (it overrides the earlier roll, seed 9e274048). Signature interaction: drag the Earth with inertia; it idles in a slow turn and shows a clay pin on Athlone. Choosing a signpost eases the camera in before the cross-document View Transition. Motion grammar: soft ease-out, gentle settles, nothing bouncy, no scroll fades. Built in three.js with a static poster render as the first paint and the no-WebGL fallback.
 
 FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance
