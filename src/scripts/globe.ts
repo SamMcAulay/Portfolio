@@ -1,4 +1,5 @@
-// The clay Earth: a matte, hand-made-looking globe you can spin, with a pin on Athlone.
+// The clay Earth: a matte, hand-made-looking globe you spin to find your way round the site.
+// Signposts are planted on its surface; their signs are real links that turn with the globe.
 import * as THREE from 'three';
 import { geoEquirectangular, geoPath } from 'd3-geo';
 import { feature } from 'topojson-client';
@@ -6,17 +7,21 @@ import type { Topology, GeometryCollection } from 'topojson-specification';
 import land110 from 'world-atlas/land-110m.json';
 
 const COLORS = {
-  ocean: '#7db3d8',
-  oceanDeep: '#6aa3cc',
-  land: '#a8cf9c',
-  landDeep: '#93bf87',
-  sand: '#f3ddb8',
-  ice: '#f1f5fa',
-  coral: '#ee8472',
+  ocean: '#8fe0d1',
+  oceanDeep: '#74d2c1',
+  oceanLight: '#a9ebdf',
+  land: '#ffe58a',
+  landDeep: '#f7d264',
+  landLight: '#fff0b0',
+  shore: '#fff8f2',
+  ice: '#fff8f2',
+  coral: '#ff7a59',
+  post: '#fff8f2',
 };
 
 const ATHLONE = { lat: 53.42, lon: -7.94 };
 const CAMERA_Z = 4.75;
+const POST_HEIGHT = 0.2;
 
 export interface GlobeHandle {
   /** Ease the camera in towards the globe, for a page change. Resolves when done. */
@@ -57,14 +62,14 @@ function paintTextures() {
     return [c, c.getContext('2d')!] as const;
   };
 
-  // Colour: ocean, a sandy shoreline, land, gentle mottling, soft ice at the poles.
+  // Colour: mint sea, a cream shoreline, butter land, gentle mottling, soft caps at the poles.
   const [color, cx] = make();
   const path = geoPath(projection, cx);
   cx.fillStyle = COLORS.ocean;
   cx.fillRect(0, 0, W, H);
   for (let i = 0; i < 260; i++) {
-    cx.fillStyle = rand() > 0.5 ? COLORS.oceanDeep : '#8cbedf';
-    cx.globalAlpha = 0.18;
+    cx.fillStyle = rand() > 0.5 ? COLORS.oceanDeep : COLORS.oceanLight;
+    cx.globalAlpha = 0.2;
     cx.beginPath();
     cx.arc(rand() * W, rand() * H, 20 + rand() * 70, 0, Math.PI * 2);
     cx.fill();
@@ -73,7 +78,7 @@ function paintTextures() {
   cx.beginPath();
   path(land);
   cx.lineJoin = 'round';
-  cx.strokeStyle = COLORS.sand;
+  cx.strokeStyle = COLORS.shore;
   cx.lineWidth = 7;
   cx.stroke();
   cx.fillStyle = COLORS.land;
@@ -81,7 +86,7 @@ function paintTextures() {
   cx.save();
   cx.clip();
   for (let i = 0; i < 420; i++) {
-    cx.fillStyle = rand() > 0.6 ? COLORS.landDeep : '#b6d8ab';
+    cx.fillStyle = rand() > 0.6 ? COLORS.landDeep : COLORS.landLight;
     cx.globalAlpha = 0.35;
     cx.beginPath();
     cx.arc(rand() * W, rand() * H, 8 + rand() * 40, 0, Math.PI * 2);
@@ -91,8 +96,8 @@ function paintTextures() {
   cx.globalAlpha = 1;
   const ice = cx.createLinearGradient(0, 0, 0, H);
   ice.addColorStop(0, COLORS.ice);
-  ice.addColorStop(0.07, 'rgba(241,245,250,0)');
-  ice.addColorStop(0.9, 'rgba(241,245,250,0)');
+  ice.addColorStop(0.07, 'rgba(255,248,242,0)');
+  ice.addColorStop(0.9, 'rgba(255,248,242,0)');
   ice.addColorStop(1, COLORS.ice);
   cx.fillStyle = ice;
   cx.fillRect(0, 0, W, H);
@@ -140,6 +145,28 @@ function makePin() {
   return pin;
 }
 
+/** A little clay signpost: a mound in the destination's colour and a post. The sign itself is the page's link. */
+function makePost(tone: string) {
+  const post = new THREE.Group();
+  const clay = new THREE.MeshStandardMaterial({ color: COLORS.post, roughness: 0.9 });
+  const mound = new THREE.Mesh(
+    new THREE.SphereGeometry(0.038, 20, 12),
+    new THREE.MeshStandardMaterial({ color: tone, roughness: 0.9 }),
+  );
+  mound.scale.set(1, 0.45, 1);
+  const stick = new THREE.Mesh(new THREE.CylinderGeometry(0.009, 0.012, POST_HEIGHT, 12), clay);
+  stick.position.y = POST_HEIGHT / 2;
+  post.add(mound, stick);
+  return post;
+}
+
+interface Sign {
+  el: HTMLAnchorElement;
+  item: HTMLElement;
+  dir: THREE.Vector3;
+  anchor: THREE.Vector3;
+}
+
 export function mountGlobe(host: HTMLElement): GlobeHandle | null {
   const canvas = host.querySelector<HTMLCanvasElement>('canvas');
   if (!canvas) return null;
@@ -148,7 +175,7 @@ export function mountGlobe(host: HTMLElement): GlobeHandle | null {
   try {
     renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'low-power' });
   } catch {
-    return null; // No WebGL: the poster image stays.
+    return null; // No WebGL: the poster image and the plain link row stay.
   }
   renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
   renderer.outputColorSpace = THREE.SRGBColorSpace;
@@ -159,12 +186,12 @@ export function mountGlobe(host: HTMLElement): GlobeHandle | null {
   const camera = new THREE.PerspectiveCamera(30, 1, 0.1, 20);
   camera.position.z = CAMERA_Z;
 
-  // Soft studio light: sky from above, warm sand bounce from below, a warm key and a cool rim.
-  scene.add(new THREE.HemisphereLight('#f4f8ff', '#e9d3ad', 1.6));
-  const key = new THREE.DirectionalLight('#fff4e6', 2.1);
+  // Soft studio light: bright from above, a pink bounce from the ground, a warm key and a cool rim.
+  scene.add(new THREE.HemisphereLight('#fff6fa', '#ffc6d6', 1.6));
+  const key = new THREE.DirectionalLight('#fff4e6', 2.0);
   key.position.set(-2.5, 2.2, 3);
   scene.add(key);
-  const rim = new THREE.DirectionalLight('#cfe2ff', 1.2);
+  const rim = new THREE.DirectionalLight('#d6f2ff', 1.1);
   rim.position.set(2.5, -0.5, -2);
   scene.add(rim);
 
@@ -172,86 +199,152 @@ export function mountGlobe(host: HTMLElement): GlobeHandle | null {
   const colorMap = new THREE.CanvasTexture(color);
   colorMap.colorSpace = THREE.SRGBColorSpace;
   colorMap.anisotropy = 4;
-  const heightMap = new THREE.CanvasTexture(height);
-  const bumpMap = new THREE.CanvasTexture(bump);
 
   const globe = new THREE.Group();
-  const earth = new THREE.Mesh(
-    new THREE.SphereGeometry(1, 256, 128),
-    new THREE.MeshStandardMaterial({
-      map: colorMap,
-      displacementMap: heightMap,
-      displacementScale: 0.045,
-      displacementBias: -0.005,
-      bumpMap,
-      bumpScale: 1.4,
-      roughness: 0.92,
-      metalness: 0,
-    }),
+  globe.add(
+    new THREE.Mesh(
+      new THREE.SphereGeometry(1, 256, 128),
+      new THREE.MeshStandardMaterial({
+        map: colorMap,
+        displacementMap: new THREE.CanvasTexture(height),
+        displacementScale: 0.045,
+        displacementBias: -0.005,
+        bumpMap: new THREE.CanvasTexture(bump),
+        bumpScale: 1.4,
+        roughness: 0.92,
+        metalness: 0,
+      }),
+    ),
   );
-  globe.add(earth);
 
-  const pin = makePin();
-  const at = toVector(ATHLONE.lat, ATHLONE.lon);
-  pin.position.copy(at.clone().multiplyScalar(1.035));
-  pin.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), at);
-  globe.add(pin);
+  const up = new THREE.Vector3(0, 1, 0);
+  const plant = (obj: THREE.Object3D, dir: THREE.Vector3, lift = 1.03) => {
+    obj.position.copy(dir.clone().multiplyScalar(lift));
+    obj.quaternion.setFromUnitVectors(up, dir);
+    globe.add(obj);
+  };
+
+  const athlone = toVector(ATHLONE.lat, ATHLONE.lon);
+  plant(makePin(), athlone, 1.035);
+
+  // Signposts, read from the link list in the page.
+  const signs: Sign[] = [...host.querySelectorAll<HTMLAnchorElement>('[data-sign]')].map((el) => {
+    const dir = toVector(Number(el.dataset.lat), Number(el.dataset.lon));
+    const tone = getComputedStyle(el).backgroundColor;
+    plant(makePost(tone), dir);
+    return { el, item: el.closest('li')!, dir, anchor: dir.clone().multiplyScalar(1.03 + POST_HEIGHT) };
+  });
   scene.add(globe);
 
+  // ---- Orientation
+  const faceFor = (dir: THREE.Vector3, above = 0.12) => {
+    const yaw = Math.atan2(-dir.x, dir.z);
+    const zr = Math.hypot(dir.x, dir.z);
+    const pitch = Math.atan2(dir.y, zr) - Math.asin(above);
+    return { yaw, pitch };
+  };
 
-  // Start with Ireland facing the viewer, a little above centre.
-  const yawFor = Math.atan2(-at.x, at.z);
+  const start = faceFor(athlone, 0.35);
   const state = {
-    yaw: yawFor,
-    pitch: 0.55,
+    yaw: start.yaw - 0.35,
+    pitch: start.pitch,
     vYaw: 0,
     vPitch: 0,
     lastInput: 0,
+    target: null as null | { yaw: number; pitch: number },
   };
 
   const still = matchMedia('(prefers-reduced-motion: reduce)');
 
   const resize = () => {
-    const { width, height: h } = host.getBoundingClientRect();
-    renderer.setSize(width, h, false);
-    camera.aspect = width / h;
+    const rect = canvas.getBoundingClientRect();
+    renderer.setSize(rect.width, rect.height, false);
+    camera.aspect = rect.width / rect.height;
     camera.updateProjectionMatrix();
   };
+
+  // ---- Place each sign over its post; fade signs that have turned away.
+  const world = new THREE.Vector3();
+  const normal = new THREE.Vector3();
+  const placeSigns = () => {
+    const hostRect = host.getBoundingClientRect();
+    const rect = canvas.getBoundingClientRect();
+    const ox = rect.left - hostRect.left;
+    const oy = rect.top - hostRect.top;
+    for (const s of signs) {
+      world.copy(s.anchor).applyMatrix4(globe.matrixWorld);
+      normal.copy(s.dir).applyQuaternion(globe.quaternion);
+      const facing = normal.z;
+      const p = world.clone().project(camera);
+      let x = ox + ((p.x + 1) / 2) * rect.width;
+      const y = oy + ((1 - p.y) / 2) * rect.height;
+      // Keep every sign on screen, even when its post is at the very edge on a phone.
+      const half = s.el.offsetWidth / 2 + 8;
+      x = Math.min(Math.max(x, half - hostRect.left), innerWidth - hostRect.left - half);
+      const show = Math.min(1, Math.max(0, (facing - 0.02) / 0.22));
+      const scale = 0.82 + 0.18 * Math.max(0, facing);
+      s.item.style.transform = `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px) translate(-50%, -100%) scale(${scale.toFixed(3)})`;
+      s.item.style.opacity = s.el === document.activeElement ? '1' : show.toFixed(3);
+      s.item.style.zIndex = String(Math.round(50 + facing * 50));
+      s.item.classList.toggle('is-away', show < 0.35 && s.el !== document.activeElement);
+    }
+  };
+
+  const draw = () => {
+    globe.rotation.set(state.pitch, state.yaw, 0, 'XYZ');
+    globe.updateMatrixWorld();
+    renderer.render(scene, camera);
+    placeSigns();
+  };
+
   new ResizeObserver(() => {
     resize();
     draw();
   }).observe(host);
   resize();
 
-  const draw = () => {
-    globe.rotation.set(state.pitch, state.yaw, 0, 'XYZ');
-    renderer.render(scene, camera);
-  };
-
   // ---- Loop: only while visible, and never when motion is reduced and nothing is moving.
   let raf = 0;
   let last = performance.now();
   let onScreen = true;
+  let dragging = false;
+
+  const shortest = (from: number, to: number) => {
+    let d = (to - from) % (Math.PI * 2);
+    if (d > Math.PI) d -= Math.PI * 2;
+    if (d < -Math.PI) d += Math.PI * 2;
+    return from + d;
+  };
 
   const tick = (t: number) => {
     const dt = Math.min(0.05, (t - last) / 1000);
     last = t;
-    const idle = t - state.lastInput > 2200;
+    // The globe only drifts on its own when nobody is pointing at it or has a sign focused.
+    const idle = t - state.lastInput > 2600 && !hovering && !host.contains(document.activeElement);
 
-    if (!dragging) {
+    if (state.target && !dragging) {
+      const k = 1 - Math.exp(-7 * dt);
+      state.yaw += (state.target.yaw - state.yaw) * k;
+      state.pitch += (state.target.pitch - state.pitch) * k;
+      state.vYaw = state.vPitch = 0;
+      if (Math.abs(state.target.yaw - state.yaw) < 0.002 && Math.abs(state.target.pitch - state.pitch) < 0.002) {
+        state.target = null;
+      }
+    } else if (!dragging) {
       state.yaw += state.vYaw * dt;
       state.pitch += state.vPitch * dt;
       const decay = Math.exp(-3 * dt);
       state.vYaw *= decay;
       state.vPitch *= decay;
-      if (idle && !still.matches) state.vYaw += (0.12 - state.vYaw) * (1 - Math.exp(-0.8 * dt));
-      // Ease the tilt back towards a comfortable angle.
-      state.pitch += (0.4 - state.pitch) * (1 - Math.exp(-0.6 * dt)) * (idle ? 1 : 0);
+      if (idle && !still.matches) {
+        state.vYaw += (0.1 - state.vYaw) * (1 - Math.exp(-0.8 * dt));
+        state.pitch += (0.45 - state.pitch) * (1 - Math.exp(-0.5 * dt));
+      }
     }
     state.pitch = Math.max(-0.9, Math.min(1.1, state.pitch));
     draw();
 
-    const moving = dragging || Math.abs(state.vYaw) > 0.002 || Math.abs(state.vPitch) > 0.002;
+    const moving = dragging || !!state.target || Math.abs(state.vYaw) > 0.002 || Math.abs(state.vPitch) > 0.002;
     if (onScreen && document.visibilityState === 'visible' && (!still.matches || moving)) {
       raf = requestAnimationFrame(tick);
     } else {
@@ -271,15 +364,37 @@ export function mountGlobe(host: HTMLElement): GlobeHandle | null {
   }).observe(host);
   document.addEventListener('visibilitychange', wake);
 
-  // ---- Drag to spin, with inertia.
-  let dragging = false;
+  /** Turn the globe so a signpost faces the visitor. */
+  const turnTo = (s: Sign) => {
+    const f = faceFor(s.dir);
+    state.target = { yaw: shortest(state.yaw, f.yaw), pitch: f.pitch };
+    state.lastInput = performance.now();
+    if (still.matches) {
+      state.yaw = state.target.yaw;
+      state.pitch = state.target.pitch;
+      state.target = null;
+      draw();
+      return;
+    }
+    wake();
+  };
+
+  let hovering = false;
+  host.addEventListener('pointerenter', () => (hovering = true));
+  host.addEventListener('pointerleave', () => {
+    hovering = false;
+    state.lastInput = performance.now();
+  });
+
+  // ---- Drag to spin, with inertia. Drags that start on a sign are left to the sign.
   let px = 0;
   let py = 0;
   let pt = 0;
 
   host.addEventListener('pointerdown', (e) => {
-    if (e.button !== 0) return;
+    if (e.button !== 0 || (e.target as Element).closest('[data-sign]')) return;
     dragging = true;
+    state.target = null;
     px = e.clientX;
     py = e.clientY;
     pt = e.timeStamp;
@@ -320,9 +435,11 @@ export function mountGlobe(host: HTMLElement): GlobeHandle | null {
 
   // Keyboard: arrow keys turn the globe when it has focus.
   host.addEventListener('keydown', (e) => {
+    if (e.target !== host) return;
     const step = { ArrowLeft: [-0.3, 0], ArrowRight: [0.3, 0], ArrowUp: [0, -0.2], ArrowDown: [0, 0.2] }[e.key];
     if (!step) return;
     e.preventDefault();
+    state.target = null;
     state.yaw += step[0];
     state.pitch += step[1];
     state.lastInput = performance.now();
@@ -330,28 +447,58 @@ export function mountGlobe(host: HTMLElement): GlobeHandle | null {
     wake();
   });
 
+  // ---- Signs: focus or hover turns the globe to them; choosing one dives in, then goes.
+  const dive = (s?: Sign) => {
+    if (still.matches) return Promise.resolve();
+    return new Promise<void>((resolve) => {
+      const begin = performance.now();
+      const from = camera.position.clone();
+      const to = s ? new THREE.Vector3(0, 0.22, 3.2) : new THREE.Vector3(0, 0, 3.3);
+      const step = (t: number) => {
+        const p = Math.min(1, (t - begin) / 480);
+        const e = 1 - Math.pow(1 - p, 3);
+        camera.position.lerpVectors(from, to, e);
+        camera.lookAt(0, 0, 0);
+        draw();
+        if (p < 1) requestAnimationFrame(step);
+        else resolve();
+      };
+      requestAnimationFrame(step);
+    });
+  };
+
+  const settleCamera = () => {
+    camera.position.set(0, 0, CAMERA_Z);
+    camera.lookAt(0, 0, 0);
+    draw();
+  };
+
+  for (const s of signs) {
+    s.el.addEventListener('focus', () => turnTo(s));
+    s.el.addEventListener('pointerenter', () => turnTo(s));
+    s.el.addEventListener('click', async (e) => {
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
+      e.preventDefault();
+      const href = s.el.getAttribute('href')!;
+      turnTo(s);
+      if (!still.matches) await new Promise((r) => setTimeout(r, 380));
+      await dive(s);
+      if (href.startsWith('#')) {
+        document.querySelector(href)?.scrollIntoView({ behavior: still.matches ? 'auto' : 'smooth' });
+        history.pushState(null, '', href);
+        setTimeout(settleCamera, 600);
+      } else {
+        location.href = href;
+      }
+    });
+  }
+
+  // Coming back from another page (bfcache), put the camera back.
+  addEventListener('pageshow', settleCamera);
+
   draw();
   host.classList.add('is-live');
   wake();
 
-  return {
-    dive() {
-      if (still.matches) return Promise.resolve();
-      return new Promise((resolve) => {
-        const start = performance.now();
-        const from = camera.position.z;
-        const spin = state.yaw;
-        const step = (t: number) => {
-          const p = Math.min(1, (t - start) / 420);
-          const e = 1 - Math.pow(1 - p, 3);
-          camera.position.z = from - (from - 3.3) * e;
-          state.yaw = spin + 0.35 * e;
-          draw();
-          if (p < 1) requestAnimationFrame(step);
-          else resolve();
-        };
-        requestAnimationFrame(step);
-      });
-    },
-  };
+  return { dive: () => dive() };
 }

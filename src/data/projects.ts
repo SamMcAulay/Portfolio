@@ -1,4 +1,4 @@
-export type Shell = 'sand' | 'land' | 'ocean' | 'stone' | 'cloud';
+export type Shell = 'butter' | 'mint' | 'blue' | 'blush' | 'cream';
 export type Crew = 'solo' | 'team' | 'wip' | 'thesis';
 
 export interface Link {
@@ -29,7 +29,7 @@ export interface Project {
   crewNote?: string;
   category: 'Platform' | 'Research' | 'AR' | 'Bot' | 'Game' | 'Web' | 'Config' | 'Desktop';
   tech: string[];
-  /** One line for the lineup card and the dispenser tray. */
+  /** One line for the project cards. */
   line: string;
   body: string[];
   links: Link[];
@@ -45,7 +45,7 @@ const list: Omit<Project, 'no'>[] = [
   {
     slug: 'teg-wardogs',
     name: 'TEG Wardogs',
-    shell: 'ocean',
+    shell: 'blue',
     crew: 'solo',
     crewNote: 'Built and run for The Employed Gamers (TEG) community',
     category: 'Platform',
@@ -90,7 +90,7 @@ const list: Omit<Project, 'no'>[] = [
   {
     slug: 'phisher-vs-filter',
     name: 'Phisher vs Filter',
-    shell: 'cloud',
+    shell: 'cream',
     crew: 'thesis',
     crewNote: 'Final-year thesis, approved by my supervisor. Results to come',
     category: 'Research',
@@ -114,7 +114,7 @@ const list: Omit<Project, 'no'>[] = [
   {
     slug: 'ai-museum',
     name: 'AR AI Museum Guide',
-    shell: 'land',
+    shell: 'mint',
     crew: 'solo',
     crewNote: 'Commissioned by Khora during my placement, January to May 2026. I was the lead and only developer',
     category: 'AR',
@@ -134,7 +134,7 @@ const list: Omit<Project, 'no'>[] = [
   {
     slug: 'jantleman-bot',
     name: 'The Jantleman Bot',
-    shell: 'sand',
+    shell: 'butter',
     crew: 'solo',
     category: 'Bot',
     tech: ['Python', 'Discord', 'SQLite'],
@@ -155,7 +155,7 @@ const list: Omit<Project, 'no'>[] = [
   {
     slug: 'flicker-bot',
     name: 'Flicker Bot',
-    shell: 'land',
+    shell: 'mint',
     crew: 'solo',
     category: 'Bot',
     tech: ['Python', 'Discord', 'SQLite'],
@@ -175,7 +175,7 @@ const list: Omit<Project, 'no'>[] = [
   {
     slug: 'janguard',
     name: 'Janguard',
-    shell: 'stone',
+    shell: 'blush',
     crew: 'solo',
     crewNote: 'Built for The Employed Gamers (TEG) community',
     category: 'Bot',
@@ -191,7 +191,7 @@ const list: Omit<Project, 'no'>[] = [
   {
     slug: 'moonhaul',
     name: 'Moonhaul',
-    shell: 'sand',
+    shell: 'butter',
     crew: 'team',
     crewNote: 'Team project, where I was lead game developer. Repo hosted by SamsonA00321296',
     category: 'Game',
@@ -208,7 +208,7 @@ const list: Omit<Project, 'no'>[] = [
   {
     slug: 'math-game',
     name: 'Math Game Web App',
-    shell: 'ocean',
+    shell: 'blue',
     crew: 'team',
     crewNote: 'Team project, repo hosted by Carlbytes',
     category: 'Web',
@@ -227,7 +227,7 @@ const list: Omit<Project, 'no'>[] = [
   {
     slug: 'space-vr-explorer',
     name: 'Space VR Explorer',
-    shell: 'cloud',
+    shell: 'cream',
     crew: 'team',
     crewNote: 'Hackathon Athlone 2025 team, repo hosted by Carlbytes',
     category: 'Game',
@@ -243,7 +243,7 @@ const list: Omit<Project, 'no'>[] = [
   {
     slug: 'battleship',
     name: 'Battleship',
-    shell: 'stone',
+    shell: 'blush',
     crew: 'team',
     crewNote: 'Team project, repo hosted by Carlbytes',
     category: 'Game',
@@ -259,7 +259,7 @@ const list: Omit<Project, 'no'>[] = [
   {
     slug: 'laser-game',
     name: 'Laser Game',
-    shell: 'ocean',
+    shell: 'blue',
     crew: 'solo',
     category: 'Game',
     tech: ['Unity', 'C#'],
@@ -274,7 +274,7 @@ const list: Omit<Project, 'no'>[] = [
   {
     slug: 'pangbot',
     name: 'Pangbot',
-    shell: 'land',
+    shell: 'mint',
     crew: 'solo',
     category: 'Bot',
     tech: ['Python', 'Twitch'],
@@ -289,7 +289,7 @@ const list: Omit<Project, 'no'>[] = [
   {
     slug: 'i3-dotfiles',
     name: 'i3 Dotfiles',
-    shell: 'stone',
+    shell: 'blush',
     crew: 'solo',
     category: 'Config',
     tech: ['i3wm', 'picom', 'pywal', 'Bash'],
@@ -304,7 +304,7 @@ const list: Omit<Project, 'no'>[] = [
   {
     slug: 'nvim-config',
     name: 'Neovim Config',
-    shell: 'cloud',
+    shell: 'cream',
     crew: 'solo',
     category: 'Config',
     tech: ['Neovim', 'Lua'],
@@ -319,7 +319,7 @@ const list: Omit<Project, 'no'>[] = [
   {
     slug: 'ncwm',
     name: 'NCWM',
-    shell: 'cloud',
+    shell: 'cream',
     crew: 'wip',
     category: 'Desktop',
     tech: ['Wayland', 'Compositor', 'GUI config'],
@@ -338,11 +338,11 @@ const list: Omit<Project, 'no'>[] = [
 export const projects: Project[] = list.map((p, i) => ({ ...p, no: i + 1 }) as Project);
 
 export const shellColor: Record<Shell, string> = {
-  sand: 'var(--sand)',
-  land: 'var(--land)',
-  ocean: 'var(--ocean)',
-  stone: 'var(--stone)',
-  cloud: 'var(--cloud)',
+  butter: 'var(--butter)',
+  mint: 'var(--mint)',
+  blue: 'var(--blue)',
+  blush: 'var(--blush)',
+  cream: 'var(--cream)',
 };
 
 export const crewLabel: Record<Crew, string> = {

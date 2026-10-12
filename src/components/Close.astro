@@ -24,19 +24,20 @@ import Icon from './Icon.astro';
 </footer>
 
 <style>
-  /* The close is one big slab of ocean-coloured clay. */
+  /* The close is one big slab of plum clay. */
   .close {
     position: relative;
     overflow: hidden;
     max-width: 1280px;
     margin: 0 auto var(--gutter);
     padding: var(--s6) clamp(var(--s3), 5vw, var(--s6)) var(--s4);
-    background: var(--ocean);
+    background: var(--ink);
+    color: var(--paper);
     border-radius: 48px;
     box-shadow:
       inset 0 3px 0 rgb(255 255 255 / 0.35),
-      inset 0 -14px 24px -10px rgb(30 42 68 / 0.18),
-      0 24px 40px -24px rgb(30 42 68 / 0.45);
+      inset 0 -14px 24px -10px rgb(42 30 59 / 0.18),
+      0 24px 40px -24px rgb(42 30 59 / 0.45);
   }
 
   @media (max-width: 1360px) {
@@ -56,6 +57,7 @@ import Icon from './Icon.astro';
   h2 {
     font-size: clamp(2.4rem, 5.6vw, 4.6rem);
     max-width: 16ch;
+    color: var(--butter);
   }
 
   p {
@@ -68,9 +70,13 @@ import Icon from './Icon.astro';
     font-weight: 800;
     font-size: clamp(1.5rem, 4.6vw, 3.4rem);
     line-height: 1.1;
-    color: var(--ink);
+    color: var(--butter);
     text-decoration: none;
     margin-top: var(--s1);
+  }
+
+  .mail:focus-visible {
+    outline-color: var(--butter);
   }
 
   .mail:hover {

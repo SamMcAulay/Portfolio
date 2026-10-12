@@ -12,12 +12,13 @@ const kicker: Record<string, string> = {
 };
 
 // Signposts fanned around the globe's rim. Angle in degrees, 180 = left, 270 = top.
-const posts = [
-  { label: 'Projects', href: '#work', angle: 200 },
-  { label: 'Thesis', href: '/projects/phisher-vs-filter/', angle: 226 },
-  { label: 'Experience', href: '#experience', angle: 252 },
-  { label: 'About', href: '#about', angle: 280 },
-  { label: 'Contact', href: '#contact', angle: 310 },
+// Signposts planted on the globe. Spread round the Earth so spinning it brings them into view.
+const signs = [
+  { label: 'About me', href: '#about', lat: 44, lon: -21, tone: 'butter' },
+  { label: 'Projects', href: '#work', lat: 10, lon: 16, tone: 'blue' },
+  { label: 'Experience', href: '#experience', lat: 16, lon: -48, tone: 'blush' },
+  { label: 'Thesis', href: '/projects/phisher-vs-filter/', lat: 34, lon: 78, tone: 'mint' },
+  { label: 'Contact', href: '#contact', lat: 40, lon: -104, tone: 'coral' },
 ];
 ---
 
@@ -33,8 +34,8 @@ const posts = [
       class="globe"
       data-globe
       tabindex="0"
-      role="img"
-      aria-label="A clay globe of the Earth with a pin on Athlone, Ireland. Drag or use the arrow keys to turn it."
+      role="group"
+      aria-label="A clay globe of the Earth with signposts to each part of the site. Drag or use the arrow keys to turn it."
     >
       <img
         class="poster"
@@ -46,21 +47,21 @@ const posts = [
         decoding="async"
       />
       <canvas aria-hidden="true"></canvas>
+      <nav class="signs" aria-label="Explore the site">
+        <ul>
+          {
+            signs.map((g) => (
+              <li>
+                <a class="sign" href={g.href} data-sign data-lat={g.lat} data-lon={g.lon} data-tone={g.tone}>
+                  {g.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
     </div>
-    <nav class="posts" aria-label="Explore the site">
-      <ul>
-        {
-          posts.map((p, i) => (
-            <li style={`--a:${p.angle}deg;--i:${i}`}>
-              <a class="post" href={p.href} data-post>
-                {p.label}
-              </a>
-            </li>
-          ))
-        }
-      </ul>
-    </nav>
-    <p class="hint" aria-hidden="true">Drag to spin. That pin is Athlone, where I study and build.</p>
+    <p class="hint" aria-hidden="true">Spin the globe and pick a signpost. The coral pin is Athlone, where I study and build.</p>
   </div>
 
   <div class="featured">
@@ -117,18 +118,7 @@ const posts = [
     const start = async () => {
       // three.js loads after first paint; the poster image stands in until the globe is live.
       const { mountGlobe } = await import('../scripts/globe');
-      const globe = mountGlobe(host);
-      if (!globe) return;
-      // Signposts to other pages ease the camera in before the page transition.
-      for (const post of document.querySelectorAll<HTMLAnchorElement>('[data-post]')) {
-        post.addEventListener('click', async (e) => {
-          const href = post.getAttribute('href')!;
-          if (href.startsWith('#') || e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
-          e.preventDefault();
-          await globe.dive();
-          location.href = href;
-        });
-      }
+      mountGlobe(host);
     };
     if ('requestIdleCallback' in window) requestIdleCallback(start, { timeout: 600 });
     else setTimeout(start, 50);
@@ -182,7 +172,7 @@ const posts = [
     padding-top: var(--lead);
     container-type: inline-size;
     --size: min(100cqw, 520px, calc(100svh - 360px));
-    --lead: 3.5rem;
+    --lead: var(--s4);
   }
 
   .globe {
@@ -210,7 +200,7 @@ const posts = [
     bottom: -5%;
     height: 9%;
     border-radius: 50%;
-    background: rgb(30 42 68 / 0.22);
+    background: rgb(42 30 59 / 0.22);
     filter: blur(14px);
     z-index: -1;
   }
@@ -240,52 +230,81 @@ const posts = [
     border-radius: 50%;
   }
 
-  .posts ul {
+  /* Signs. Without the live globe they sit in a plain row under it. */
+  .signs {
+    position: absolute;
+    top: calc(100% + var(--s3));
+    left: -10%;
+    right: -10%;
+  }
+
+  .signs ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--s1);
     margin: 0;
     padding: 0;
     list-style: none;
   }
 
-  /* Wide screens: signposts fan around the upper-left rim of the globe. */
-  .posts li {
-    position: absolute;
-    left: 50%;
-    top: calc(var(--lead) + var(--size) / 2);
-    transform:
-      translate(-50%, -50%)
-      rotate(var(--a))
-      translateX(calc(var(--size) / 2 + 3.2rem))
-      rotate(calc(-1 * var(--a)))
-      rotate(calc((var(--i) - 2) * 3deg));
+  /* With the live globe, each sign rides its post; the script sets its position and fade. */
+  .globe:global(.is-live) .signs {
+    inset: 0;
   }
 
-  .post {
+  .globe:global(.is-live) .signs li {
+    position: absolute;
+    left: 0;
+    top: 0;
+    transform-origin: 50% 100%;
+    will-change: transform, opacity;
+  }
+
+  .globe:global(.is-live) .signs li:global(.is-away) {
+    pointer-events: none;
+  }
+
+  .sign {
+    --tone: var(--paper);
     display: block;
-    padding: 0.55em 1.05em 0.6em;
+    padding: 0.5em 1em 0.55em;
     border-radius: 999px;
-    background: var(--paper);
+    background: var(--tone);
     color: var(--ink);
     font-weight: 800;
     font-size: 0.98rem;
+    line-height: 1.1;
     text-decoration: none;
     white-space: nowrap;
     box-shadow: var(--lift-low);
+    cursor: pointer;
     transition:
-      transform 0.25s var(--out),
-      background-color 0.25s var(--out);
+      translate 0.25s var(--out),
+      box-shadow 0.25s var(--out);
   }
 
-  .post:hover {
-    background: var(--sand);
-    transform: translateY(-2px);
+  .sign[data-tone='butter'] { --tone: var(--butter); }
+  .sign[data-tone='blue'] { --tone: var(--blue); }
+  .sign[data-tone='blush'] { --tone: var(--blush); }
+  .sign[data-tone='mint'] { --tone: var(--mint); }
+  .sign[data-tone='coral'] { --tone: var(--coral); }
+
+  .sign:hover,
+  .sign:focus-visible {
+    translate: 0 -3px;
   }
 
-  .post:active {
-    transform: translateY(1px);
+  .sign:active {
+    translate: 0 1px;
+  }
+
+  .world:has(:global(.is-live)) .hint {
+    margin-top: var(--s4);
   }
 
   .hint {
-    margin-top: var(--s4);
+    margin-top: var(--s6);
     font-size: 0.9rem;
     font-weight: 700;
     color: var(--ink-soft);
@@ -529,22 +548,8 @@ const posts = [
       --size: min(88cqw, 380px);
       --lead: var(--s3);
     }
-    .posts ul {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: var(--s1);
-      margin-top: var(--s4);
-    }
-    .posts li {
-      position: static;
-      transform: none;
-    }
-    .post {
-      font-size: 0.92rem;
-    }
-    .hint {
-      margin-top: var(--s2);
+    .sign {
+      font-size: 0.88rem;
     }
   }
 </style>

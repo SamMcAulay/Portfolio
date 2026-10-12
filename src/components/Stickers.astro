@@ -1,9 +1,9 @@
 ---
 const groups = [
-  { title: 'Languages', tone: 'sand', items: ['C', 'C++', 'C#', 'Java', 'Python', 'Lua', 'JavaScript', 'TypeScript', 'HTML', 'CSS', 'SQL', 'Bash'] },
-  { title: 'Engines & libraries', tone: 'land', items: ['Unity', 'SFML', 'Crow', 'Node.js', 'Next.js', 'React', 'Express', 'discord.js', 'Prisma', 'PostgreSQL', 'SQLite', 'Gemini API', 'HLSL', 'ShaderLab'] },
-  { title: 'Tooling', tone: 'ocean', items: ['Git', 'Docker', 'Cloudflare', 'Jenkins', 'CMake', 'AWS', 'Oracle', 'Neovim', 'Visual Studio', 'Blender'] },
-  { title: 'Systems', tone: 'stone', items: ['Arch Linux', 'Debian', 'Ubuntu', 'FreeBSD', 'OpenBSD', 'Windows', 'i3wm', 'Wayland'] },
+  { title: 'Languages', tone: 'butter', items: ['C', 'C++', 'C#', 'Java', 'Python', 'Lua', 'JavaScript', 'TypeScript', 'HTML', 'CSS', 'SQL', 'Bash'] },
+  { title: 'Engines & libraries', tone: 'mint', items: ['Unity', 'SFML', 'Crow', 'Node.js', 'Next.js', 'React', 'Express', 'discord.js', 'Prisma', 'PostgreSQL', 'SQLite', 'Gemini API', 'HLSL', 'ShaderLab'] },
+  { title: 'Tooling', tone: 'blue', items: ['Git', 'Docker', 'Cloudflare', 'Jenkins', 'CMake', 'AWS', 'Oracle', 'Neovim', 'Visual Studio', 'Blender'] },
+  { title: 'Systems', tone: 'blush', items: ['Arch Linux', 'Debian', 'Ubuntu', 'FreeBSD', 'OpenBSD', 'Windows', 'i3wm', 'Wayland'] },
   { title: 'Off the clock', tone: 'paper', items: ['Making prototype perfumes', 'Vinyl and CD collecting', 'Building PCs and home servers', 'Watches and fashion'] },
 ];
 ---
@@ -80,7 +80,7 @@ const groups = [
 
   /* Clay chips: little pressed tiles in the group's colour. */
   .chip {
-    --face: var(--sand);
+    --face: var(--butter);
     padding: 0.45em 1em 0.5em;
     border-radius: 999px;
     background: var(--face);
@@ -91,9 +91,9 @@ const groups = [
     box-shadow: var(--lift-low);
   }
 
-  [data-tone='land'] .chip { --face: var(--land); }
-  [data-tone='ocean'] .chip { --face: var(--ocean); }
-  [data-tone='stone'] .chip { --face: var(--stone); }
+  [data-tone='mint'] .chip { --face: var(--mint); }
+  [data-tone='blue'] .chip { --face: var(--blue); }
+  [data-tone='blush'] .chip { --face: var(--blush); }
   [data-tone='paper'] .chip { --face: var(--paper); }
 
   @media (max-width: 760px) {

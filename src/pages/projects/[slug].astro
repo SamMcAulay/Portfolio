@@ -18,7 +18,7 @@ interface Props {
 
 const { project: p, next } = Astro.props;
 const linkIcon = { repo: 'github', live: 'external', invite: 'discord' } as const;
-const tone = { repo: 'ink', live: 'coral', invite: 'land' } as const;
+const tone = { repo: 'ink', live: 'coral', invite: 'mint' } as const;
 ---
 
 <Base title={`${p.name} | Sam McAulay`} description={`${p.line} ${p.tech.join(', ')}.`}>
@@ -164,7 +164,7 @@ const tone = { repo: 'ink', live: 'coral', invite: 'land' } as const;
 
   .wip .badge {
     background: transparent;
-    box-shadow: inset 0 0 0 4px rgb(30 42 68 / 0.3);
+    box-shadow: inset 0 0 0 4px rgb(42 30 59 / 0.3);
   }
 
   .title {
@@ -203,12 +203,12 @@ const tone = { repo: 'ink', live: 'coral', invite: 'land' } as const;
     color: var(--paper);
   }
   .facts .crew.team {
-    background: var(--land);
+    background: var(--mint);
     color: var(--ink);
   }
   .facts .crew.wip,
   .facts .crew.thesis {
-    background: var(--sand);
+    background: var(--butter);
     color: var(--ink);
   }
 
@@ -303,7 +303,7 @@ const tone = { repo: 'ink', live: 'coral', invite: 'land' } as const;
   }
 
   .wip .built li {
-    background: var(--sand);
+    background: var(--butter);
   }
 
   .awards {
@@ -322,7 +322,7 @@ const tone = { repo: 'ink', live: 'coral', invite: 'land' } as const;
   .awards li {
     padding: 0.45em 1.15em 0.55em;
     border-radius: 999px;
-    background: var(--sand);
+    background: var(--butter);
     font-family: var(--display);
     font-weight: 800;
     font-size: 1.25rem;
@@ -332,7 +332,7 @@ const tone = { repo: 'ink', live: 'coral', invite: 'land' } as const;
   .parts {
     grid-column: 1 / -1;
     padding-top: var(--s4);
-    border-top: 2px solid var(--cloud);
+    border-top: 2px solid var(--cream);
   }
 
   .parts ul {
