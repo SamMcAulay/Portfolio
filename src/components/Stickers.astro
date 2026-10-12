@@ -4,6 +4,7 @@ const groups = [
   { title: 'Engines & libraries', tone: 'mint', items: ['Unity', 'SFML', 'Crow', 'Node.js', 'Next.js', 'React', 'Express', 'discord.js', 'Prisma', 'PostgreSQL', 'SQLite', 'Gemini API', 'HLSL', 'ShaderLab'] },
   { title: 'Tooling', tone: 'blue', items: ['Git', 'Docker', 'Cloudflare', 'Jenkins', 'CMake', 'AWS', 'Oracle', 'Neovim', 'Visual Studio', 'Blender'] },
   { title: 'Systems', tone: 'orange', items: ['Arch Linux', 'Debian', 'Ubuntu', 'FreeBSD', 'OpenBSD', 'Windows', 'i3wm', 'Wayland'] },
+  { title: 'Off the clock', tone: 'paper', items: ['Making prototype perfumes', 'Vinyl and CD collecting', 'Building PCs and home servers', 'Watches and fashion'] },
 ];
 
 // Deterministic tilt per sticker so the sheet looks slapped on by hand but never shifts between builds.
@@ -17,7 +18,7 @@ const tilt = (s: string) => {
 <section class="parts" aria-labelledby="parts-title">
   <div class="parts-head">
     <h2 id="parts-title" class="lettering">Parts list</h2>
-    <p>What the capsules are made of. Everything here has shipped in at least one of them, or runs on my machine.</p>
+    <p>What the capsules are made of, and what I get up to away from them. Every tool here has shipped in a capsule or runs on my machine.</p>
   </div>
 
   <div class="groups">
@@ -114,6 +115,7 @@ const tilt = (s: string) => {
   [data-tone='mint'] .sticker { --face: var(--mint); }
   [data-tone='blue'] .sticker { --face: var(--blue); }
   [data-tone='orange'] .sticker { --face: var(--orange); }
+  [data-tone='paper'] .sticker { --face: var(--paper); }
 
   @media (max-width: 760px) {
     .parts-head,

@@ -12,7 +12,7 @@ Primary: employers and recruiters (hiring managers, technical screeners) assessi
 
 ## Product Purpose
 
-A personal portfolio at sammcaulay.dev presenting Sam McAulay as a fullstack developer across games, web and desktop ("Building Digital Worlds."). It exists to turn a recruiter's quick look into proof of capability and a contact.
+A personal portfolio at sammcaulay.dev presenting Sam McAulay as a software developer heading into AI and security, with a track record across games, web, bots and infrastructure ("Building Digital Worlds."). It exists to turn a recruiter's quick look into proof of capability and a contact. It is also Sam's graded digital portfolio for TUS module ENGE08016 (due 2026-11-12), where the rubric rewards work that is highly relevant to his stated goals, so the AI and security direction must stay visible.
 
 ## Positioning
 
@@ -39,9 +39,13 @@ Future work should keep all four visible. None of them should be dropped to make
 
 ## Brand Commitments
 
-- Name: Sam McAulay. Role line: "Fullstack Developer - Game | Web | Desktop". Tagline: "Building Digital Worlds."
+- Name: Sam McAulay. Role line: "Software Developer, heading into AI & Security" (changed by Sam, October 2026; was "Fullstack Developer - Game | Web | Desktop"). Tagline: "Building Digital Worlds."
 - Team builds (confirmed by Sam): Math Game Web App, Battleship, Space VR Explorer, Moonhaul. Everything else is solo, and NCWM is work in progress.
-- Sam is looking for developer roles across games, web and desktop (confirmed by Sam; the footer says so).
+- Sam is looking for developer roles, especially in AI and security; the footer says so.
+- Education: BSc (Hons) Software Design with Virtual Reality and Gaming, TUS Athlone, 2023 to 2027. Dean's Honours List, on course for a first. Facts in the timeline come from Sam's CV (October 2026).
+- Thesis "Phisher vs Filter" (AI and email security) is approved by the supervisor; no results yet, so present it as in progress.
+- AR AI Museum Guide was commissioned by Khora during Sam's placement (Jan to May 2026); Sam was lead and only developer.
+- Moonhaul: Sam was lead game developer; awards Best Gameplay, Best Use of a Physics Engine, Best Soundtrack (per CV).
 
 ## Evidence on Hand
 

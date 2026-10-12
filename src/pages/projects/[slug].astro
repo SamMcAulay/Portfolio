@@ -73,6 +73,18 @@ const tone = { repo: 'ink', live: 'lemon', invite: 'mint' } as const;
         {p.crewNote && <p class="note">{p.crewNote}.</p>}
       </div>
       {
+        p.awards && (
+          <div class="awards">
+            <h2>Awards</h2>
+            <ul>
+              {p.awards.map((a) => (
+                <li>{a}</li>
+              ))}
+            </ul>
+          </div>
+        )
+      }
+      {
         p.parts && (
           <div class="parts">
             <h2>What's in it</h2>
@@ -257,7 +269,8 @@ const tone = { repo: 'ink', live: 'lemon', invite: 'mint' } as const;
     background: var(--mint);
     color: var(--ink);
   }
-  .facts .crew.wip {
+  .facts .crew.wip,
+  .facts .crew.thesis {
     background: var(--lemon);
     color: var(--ink);
   }
@@ -329,6 +342,34 @@ const tone = { repo: 'ink', live: 'lemon', invite: 'mint' } as const;
 
   .built {
     grid-area: built;
+  }
+
+  .awards {
+    grid-column: 1 / -1;
+  }
+
+  .awards ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .awards li {
+    padding: 0.45em 1.1em 0.5em;
+    border: 3px solid var(--ink);
+    border-radius: 999px;
+    background: var(--lemon);
+    font-family: var(--display);
+    font-size: 1.25rem;
+    rotate: -2deg;
+    box-shadow: 0 8px 12px -8px rgb(27 20 32 / 0.6);
+  }
+
+  .awards li:nth-child(even) {
+    rotate: 2deg;
   }
 
   .parts {

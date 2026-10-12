@@ -1,0 +1,218 @@
+---
+import Icon from './Icon.astro';
+
+// Where the AI and security thread already runs through the work. Each points at a capsule.
+const thread = [
+  {
+    name: 'Phisher vs Filter',
+    line: 'My thesis: ML attackers against ML defenders, from hand-written rules up to a local LLM.',
+    href: '/projects/phisher-vs-filter/',
+    tone: 'lemon',
+  },
+  {
+    name: 'Moderation log bot',
+    line: 'Flags players whose kill rate spikes far above their own record, live across six servers.',
+    href: '/projects/teg-wardogs/',
+    tone: 'blue',
+  },
+  {
+    name: 'Warcon hosting',
+    line: 'Zero-trust access through Cloudflare Access, with a scoped API key for each service.',
+    href: '/projects/teg-wardogs/',
+    tone: 'blue',
+  },
+  {
+    name: 'AR AI Museum Guide',
+    line: 'Live Gemini voice for a client, with answers grounded in search and keys kept off the phone.',
+    href: '/projects/ai-museum/',
+    tone: 'mint',
+  },
+  {
+    name: 'Janguard',
+    line: 'Steam sign-in, server-side sessions and staff verification for VIP access.',
+    href: '/projects/janguard/',
+    tone: 'orange',
+  },
+];
+---
+
+<section class="about" id="about" aria-labelledby="about-title">
+  <div class="intro">
+    <h2 id="about-title" class="lettering">Where I'm heading</h2>
+    <div class="bio">
+      <p>
+        I'm Sam, a final-year student on TUS's BSc (Hons) in Software Design with Virtual Reality and Gaming,
+        graduating in 2027. I'm on the Dean's Honours List and on course for a first.
+      </p>
+      <p>
+        My work started in games and Discord bots, and it has been moving toward AI and security: I run the
+        infrastructure for a 35,000-member gaming community, I built a live AI museum guide for a client, and my
+        thesis measures whether AI helps phishers or spam filters more. That's the field I want to work in after I
+        graduate.
+      </p>
+    </div>
+  </div>
+
+  <div class="thread">
+    <h3>AI and security in my work</h3>
+    <ul>
+      {
+        thread.map((t, i) => (
+          <li style={`--shell:var(--${t.tone});--tilt:${i % 2 ? 1.2 : -1.2}deg`}>
+            <a href={t.href}>
+              <span class="name">
+                <span class="dot capsule" aria-hidden="true" />
+                <span class="label">{t.name}</span>
+                <Icon name="arrow" />
+              </span>
+              <span class="line">{t.line}</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .about {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: var(--s6) var(--gutter) var(--s5);
+    display: grid;
+    gap: var(--s5);
+  }
+
+  .intro {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    align-items: start;
+    gap: var(--s3) var(--s6);
+  }
+
+  h2 {
+    font-size: clamp(2.8rem, 6vw, 5rem);
+    transform: rotate(-2deg);
+    transform-origin: left bottom;
+  }
+
+  .bio {
+    display: grid;
+    gap: var(--s2);
+    font-size: 1.15rem;
+    font-weight: 700;
+    max-width: 58ch;
+  }
+
+  h3 {
+    font-family: var(--body);
+    font-weight: 800;
+    font-size: 1.05rem;
+    margin-bottom: var(--s3);
+  }
+
+  .thread ul {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: var(--s3);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .thread li {
+    rotate: var(--tilt);
+    transition: rotate 0.35s var(--spring), translate 0.35s var(--spring);
+  }
+
+  .thread li:hover,
+  .thread li:focus-within {
+    rotate: 0deg;
+    translate: 0 -4px;
+  }
+
+  /* Each pointer is a small paper tag with its capsule's colour as a band across the top. */
+  .thread a {
+    display: grid;
+    gap: var(--s1);
+    height: 100%;
+    align-content: start;
+    padding: var(--s2) var(--s2) var(--s3);
+    background: var(--paper);
+    border: 3px solid var(--ink);
+    border-radius: 22px;
+    color: var(--ink);
+    text-decoration: none;
+    overflow: hidden;
+    box-shadow: 0 14px 22px -14px rgb(27 20 32 / 0.6);
+  }
+
+  .name {
+    display: flex;
+    align-items: center;
+    gap: var(--s1);
+    font-family: var(--display);
+    font-size: 1.25rem;
+    line-height: 1.05;
+  }
+
+  .dot {
+    width: 30px;
+    aspect-ratio: 1;
+    flex: none;
+    border-width: 2px;
+  }
+
+  .label {
+    flex: 1;
+  }
+
+  .name :global(svg) {
+    width: 0.85em;
+    height: 0.85em;
+    flex: none;
+    transition: transform 0.25s var(--spring);
+  }
+
+  .thread a:hover .name :global(svg) {
+    transform: translateX(4px);
+  }
+
+  .line {
+    color: var(--ink-soft);
+    font-size: 0.95rem;
+    line-height: 1.45;
+  }
+
+  .thread a:focus-visible {
+    outline-offset: 5px;
+    border-radius: 22px;
+  }
+
+  @media (max-width: 1100px) {
+    .thread ul {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 760px) {
+    .intro {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .bio {
+      font-size: 1.05rem;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .thread ul {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .thread li {
+      width: 90%;
+    }
+    .thread li:nth-child(even) {
+      justify-self: end;
+    }
+  }
+</style>

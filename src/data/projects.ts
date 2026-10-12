@@ -1,5 +1,5 @@
 export type Shell = 'lemon' | 'mint' | 'blue' | 'orange' | 'white';
-export type Crew = 'solo' | 'team' | 'wip';
+export type Crew = 'solo' | 'team' | 'wip' | 'thesis';
 
 export interface Link {
   label: string;
@@ -29,15 +29,19 @@ export interface Project {
   crew: Crew;
   /** Who it was built with, when the repo lives under a collaborator. */
   crewNote?: string;
-  category: 'Platform' | 'Bot' | 'Game' | 'Web' | 'Config' | 'Desktop';
+  category: 'Platform' | 'Research' | 'AR' | 'Bot' | 'Game' | 'Web' | 'Config' | 'Desktop';
   tech: string[];
   /** One line for the lineup card and the dispenser tray. */
   line: string;
   body: string[];
   links: Link[];
   images: string[];
-  /** Headline numbers. The first one is printed on the capsule. */
+  /** Headline numbers, shown on the lineup ticket and the project page. */
   stats?: Stat[];
+  /** Short text printed on the capsule's top shell instead of its number. */
+  onCapsule?: string;
+  /** Recognition the project has received, as stated on Sam's CV. */
+  awards?: string[];
   parts?: Part[];
   /** Capsule size relative to the base radius. */
   size: number;
@@ -89,7 +93,57 @@ const list: Omit<Project, 'no'>[] = [
       { count: '35,000+', label: 'Discord members' },
       { count: '20,000+', label: 'in-game players' },
     ],
+    onCapsule: '35K+',
     size: 1.4,
+  },
+  {
+    slug: 'phisher-vs-filter',
+    name: 'Phisher vs Filter',
+    short: 'Phisher',
+    shell: 'white',
+    crew: 'thesis',
+    crewNote: 'Final-year thesis, approved by my supervisor. Results to come',
+    category: 'Research',
+    tech: ['Python', 'PyTorch', 'Hugging Face', 'scikit-learn', 'SpamAssassin', 'LoRA'],
+    line: 'My thesis: does AI help phishers or spam filters more? I\'m measuring it.',
+    body: [
+      'Spam filters and the people trying to get phishing emails past them have been in an arms race for twenty years, and both sides now have AI. Plenty of people have an opinion on which side it helps more; my thesis puts a number on it.',
+      'I build an attacker and a defender at four levels of sophistication and ask how much each step up in technology buys each side. Every attacker faces every defender, then the strongest pair fight over ten rounds while both keep learning. Snapshots from every round are played against each other afterwards, which shows whether either side really improved or is just running on a treadmill.',
+      'The twist is that the defender plays with a handicap. A filter that gets too aggressive blocks real mail, which for a business is often worse than letting a scam through, so each defender is also scored under a fixed limit on false positives.',
+      'The result is a single offence-defence balance: above 1 means AI favours attackers, below 1 means it favours defenders. It runs entirely offline, no email can ever be sent, and the generated attack emails won\'t be released.',
+    ],
+    parts: [
+      { name: 'Level 0: no AI', line: 'Attacker: synonym swaps, look-alike characters and padding. Defender: hand-written SpamAssassin rules.' },
+      { name: 'Level 1: classic ML', line: 'Attacker: a simple statistical model picks which words to change. Defender: a traditional spam classifier.' },
+      { name: 'Level 2: neural', line: 'Attacker: a BERT language model suggests replacement words. Defender: a BERT classifier, trained once.' },
+      { name: 'Level 3: generative and adaptive', line: 'Attacker: a small local LLM rewrites the whole email. Defender: a BERT classifier that keeps learning from its own misses.' },
+    ],
+    links: [],
+    images: [],
+    onCapsule: 'Thesis',
+    size: 1.12,
+  },
+  {
+    slug: 'ai-museum',
+    name: 'AR AI Museum Guide',
+    short: 'AI Museum',
+    shell: 'mint',
+    crew: 'solo',
+    crewNote: 'Commissioned by Khora during my placement, January to May 2026. I was the lead and only developer',
+    category: 'AR',
+    tech: ['Unity 6', 'AR Foundation', 'C#', 'Node.js', 'Express', 'Gemini Live', 'WebSockets', 'PostgreSQL', 'Railway'],
+    line: 'An AR museum guide: point your phone at an exhibit and ask it anything out loud.',
+    body: [
+      'A conversational museum guide on a phone. The Unity AR app recognises the exhibit in front of the camera, and the visitor asks about it out loud. Answers come back as speech, grounded in that exhibit and fact-checked with Google Search grounding.',
+      'There are two voice modes: a quick record-and-answer pipeline over REST, and a live mode that streams audio both ways over WebSockets to Gemini, so visitors can interrupt and ask follow-ups.',
+      'API keys never touch the phone: a Node.js and PostgreSQL backend on Railway makes every AI call, and spoken answers are cached per exhibit so repeat questions don\'t spend model time. I gathered requirements in client meetings, deployed through GitHub Actions and gave live demos to the client.',
+    ],
+    links: [
+      { label: 'Server repo', href: 'https://github.com/SamMcAulay/AI_Museum_Server', kind: 'repo' },
+      { label: 'Unity app repo', href: 'https://github.com/SamMcAulay/AI_Museum_Front-end', kind: 'repo' },
+    ],
+    images: [],
+    size: 1,
   },
   {
     slug: 'jantleman-bot',
@@ -112,6 +166,7 @@ const list: Omit<Project, 'no'>[] = [
     ],
     images: ['/Pics/Jan/Jan1.png', '/Pics/Jan/Jan2.png', '/Pics/Jan/Jan3.png', '/Pics/Jan/Jan4.png'],
     stats: [{ count: '50,000+', label: 'users served' }],
+    onCapsule: '50K+',
     size: 1.32,
   },
   {
@@ -134,6 +189,7 @@ const list: Omit<Project, 'no'>[] = [
     ],
     images: ['/Pics/Flicker/Flicker1.png', '/Pics/Flicker/Flicker2.png', '/Pics/Flicker/Flicker3.png', '/Pics/Flicker/Flicker4.png'],
     stats: [{ count: '100+', label: 'users served' }],
+    onCapsule: '100+',
     size: 1.12,
   },
   {
@@ -155,22 +211,22 @@ const list: Omit<Project, 'no'>[] = [
     size: 1,
   },
   {
-    slug: 'ai-museum',
-    name: 'AI Museum Guide',
-    short: 'AI Museum',
-    shell: 'mint',
-    crew: 'solo',
+    slug: 'moonhaul',
+    name: 'Moonhaul',
+    short: 'Moonhaul',
+    shell: 'lemon',
+    crew: 'team',
+    crewNote: 'Team project, where I was lead game developer. Repo hosted by SamsonA00321296',
     category: 'Game',
-    tech: ['Unity', 'C#', 'Node.js', 'Gemini Live', 'WebSockets', 'PostgreSQL'],
-    line: 'Point your phone at an exhibit and ask it a question out loud.',
+    tech: ['Unity', 'HLSL', 'C#'],
+    line: 'Award-winning split-screen couch co-op: battle friends for the most moons.',
     body: [
-      'An AI audio guide for museums. A Unity app sends what the visitor\'s camera sees, plus the exhibit\'s background, to a Node server that answers through Google\'s Gemini models.',
-      'Visitors can talk to it live over a WebSocket voice session or type a question. Spoken answers are cached in PostgreSQL per exhibit, so a repeat question is answered without calling the model again.',
+      'A physics-based split-screen couch co-op game where you battle your friends to collect the most moons.',
+      'It was showcased at Games Fleadh 2025 and uses custom physics and shader meshes.',
     ],
-    links: [
-      { label: 'Server repo', href: 'https://github.com/SamMcAulay/AI_Museum_Server', kind: 'repo' },
-      { label: 'Unity app repo', href: 'https://github.com/SamMcAulay/AI_Museum_Front-end', kind: 'repo' },
-    ],
+    awards: ['Best Gameplay', 'Best Use of a Physics Engine', 'Best Soundtrack'],
+    onCapsule: '3 awards',
+    links: [{ label: 'GitHub repo', href: 'https://github.com/SamsonA00321296/Games-fleadh', kind: 'repo' }],
     images: [],
     size: 1,
   },
@@ -196,24 +252,6 @@ const list: Omit<Project, 'no'>[] = [
     size: 1,
   },
   {
-    slug: 'battleship',
-    name: 'Battleship',
-    short: 'Battleship',
-    shell: 'orange',
-    crew: 'team',
-    crewNote: 'Team project, repo hosted by Carlbytes',
-    category: 'Game',
-    tech: ['C++', 'SFML', 'Networking'],
-    line: 'Multiplayer battleship over LAN and WAN.',
-    body: [
-      'Multiplayer battleship with LAN and WAN support.',
-      'Built in C++ with SFML for speed, networking and real-time play.',
-    ],
-    links: [{ label: 'GitHub repo', href: 'https://github.com/Carlbytes/BattleShip_cpp_Game', kind: 'repo' }],
-    images: [],
-    size: 1,
-  },
-  {
     slug: 'space-vr-explorer',
     name: 'Space VR Explorer',
     short: 'Space VR',
@@ -232,20 +270,20 @@ const list: Omit<Project, 'no'>[] = [
     size: 1,
   },
   {
-    slug: 'moonhaul',
-    name: 'Moonhaul',
-    short: 'Moonhaul',
-    shell: 'lemon',
+    slug: 'battleship',
+    name: 'Battleship',
+    short: 'Battleship',
+    shell: 'orange',
     crew: 'team',
-    crewNote: 'Team project, repo hosted by SamsonA00321296',
+    crewNote: 'Team project, repo hosted by Carlbytes',
     category: 'Game',
-    tech: ['Unity', 'HLSL', 'C#'],
-    line: 'Split-screen couch co-op: battle friends for the most moons.',
+    tech: ['C++', 'SFML', 'Networking'],
+    line: 'Multiplayer battleship over LAN and WAN.',
     body: [
-      'A split-screen couch co-op game where you battle your friends to collect the most moons.',
-      'Uses custom physics and shader meshes.',
+      'Multiplayer battleship with LAN and WAN support.',
+      'Built in C++ with SFML for speed, networking and real-time play.',
     ],
-    links: [{ label: 'GitHub repo', href: 'https://github.com/SamsonA00321296/Games-fleadh', kind: 'repo' }],
+    links: [{ label: 'GitHub repo', href: 'https://github.com/Carlbytes/BattleShip_cpp_Game', kind: 'repo' }],
     images: [],
     size: 1,
   },
@@ -352,6 +390,7 @@ export const crewLabel: Record<Crew, string> = {
   solo: 'Solo build',
   team: 'Team build',
   wip: 'In the works',
+  thesis: 'Thesis, in progress',
 };
 
 export const pad = (n: number) => String(n).padStart(2, '0');

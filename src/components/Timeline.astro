@@ -1,0 +1,227 @@
+---
+// Facts from Sam's CV (October 2026) and confirmed project history. Newest first.
+const entries = [
+  {
+    when: '2026 – now',
+    role: 'Infrastructure and tooling',
+    place: 'The Employed Gamers (TEG) community',
+    line: 'Hosting the Warcon admin panel for six Wardogs game servers, and building the stats site, status bots, moderation bot and Janguard on top of it.',
+    href: '/projects/teg-wardogs/',
+    tone: 'blue',
+  },
+  {
+    when: 'Jan – May 2026',
+    role: 'Lead Software Developer',
+    place: 'Khora, remote placement',
+    line: 'Led and delivered a full-stack AR AI museum guide as the only developer: client requirements meetings, architecture, CI/CD to production and live demos.',
+    href: '/projects/ai-museum/',
+    tone: 'mint',
+  },
+  {
+    when: '2025',
+    role: 'Lead Game Developer, Moonhaul',
+    place: 'Games Fleadh 2025',
+    line: 'Won Best Gameplay, Best Use of a Physics Engine and Best Soundtrack with a physics-based couch co-op game.',
+    href: '/projects/moonhaul/',
+    tone: 'lemon',
+  },
+  {
+    when: '2025',
+    role: 'Hackathon team member',
+    place: 'Hackathon Athlone 2025',
+    line: 'Built Space VR Explorer, a VR simulation of asteroid impacts using NASA data.',
+    href: '/projects/space-vr-explorer/',
+    tone: 'white',
+  },
+  {
+    when: 'Apr – Aug 2025',
+    role: 'Crew Member',
+    place: "McDonald's, Athlone",
+    line: 'High-volume customer service, cash handling and stock monitoring. Recognised by management for customer service and teamwork.',
+    tone: 'orange',
+  },
+  {
+    when: '2023 – 2027',
+    role: 'BSc (Hons) Software Design with Virtual Reality and Gaming',
+    place: 'Technological University of the Shannon, Athlone',
+    line: "Dean's Honours List and on course for a first. Final-year thesis on AI and email security. Student council, and work shown at campus open days.",
+    href: '/projects/phisher-vs-filter/',
+    tone: 'lemon',
+  },
+  {
+    when: '2023 – now',
+    role: 'Volunteer, special needs childcare',
+    place: 'Birr, Co. Offaly',
+    line: 'Supporting children with developmental and learning disabilities, with communication strategies built around each child.',
+    tone: 'mint',
+  },
+];
+---
+
+<section class="timeline" id="experience" aria-labelledby="exp-title">
+  <div class="head">
+    <h2 id="exp-title" class="lettering">Experience</h2>
+    <p>Work, study and the communities I build for, newest first.</p>
+  </div>
+
+  <ol>
+    {
+      entries.map((e, i) => (
+        <li style={`--shell:var(--${e.tone === 'white' ? 'shell-white' : e.tone});--tilt:${i % 2 ? 0.8 : -0.8}deg`}>
+          <p class="when">{e.when}</p>
+          <div class="ticket">
+            <span class="dot capsule" aria-hidden="true" />
+            <div class="text">
+              <h3>
+                {e.href ? <a href={e.href}>{e.role}</a> : e.role}
+              </h3>
+              <p class="place">{e.place}</p>
+              <p class="line">{e.line}</p>
+            </div>
+          </div>
+        </li>
+      ))
+    }
+  </ol>
+</section>
+
+<style>
+  .timeline {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 var(--gutter) var(--s7);
+  }
+
+  .head {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: end;
+    gap: var(--s2) var(--s5);
+    margin-bottom: var(--s5);
+  }
+
+  h2 {
+    font-size: clamp(2.8rem, 6vw, 5rem);
+    color: var(--lemon);
+    transform: rotate(-2deg);
+  }
+
+  .head p {
+    font-weight: 700;
+    max-width: 44ch;
+    padding-bottom: var(--s1);
+  }
+
+  ol {
+    position: relative;
+    display: grid;
+    gap: var(--s3);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  /* The rail the tickets hang from. */
+  ol::before {
+    content: '';
+    position: absolute;
+    top: 8px;
+    bottom: 8px;
+    left: calc(9rem + var(--s3) / 2);
+    width: 4px;
+    margin-left: -2px;
+    border-radius: 2px;
+    background: var(--ink);
+  }
+
+  li {
+    position: relative;
+    display: grid;
+    grid-template-columns: 9rem minmax(0, 1fr);
+    align-items: start;
+    gap: var(--s3);
+  }
+
+  .when {
+    justify-self: end;
+    margin-top: var(--s2);
+    padding: 4px 12px 5px;
+    border: 2.5px solid var(--ink);
+    border-radius: 999px;
+    background: var(--paper);
+    font-weight: 800;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .ticket {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: var(--s2);
+    max-width: 52rem;
+    margin-left: var(--s3);
+    padding: var(--s3);
+    background: var(--paper);
+    border: 3px solid var(--ink);
+    border-radius: 24px;
+    box-shadow: 0 14px 22px -14px rgb(27 20 32 / 0.6);
+    rotate: var(--tilt);
+  }
+
+  .dot {
+    width: 40px;
+    aspect-ratio: 1;
+    border-width: 2px;
+  }
+
+  .text {
+    display: grid;
+    gap: 4px;
+  }
+
+  h3 {
+    font-size: clamp(1.25rem, 1.8vw, 1.5rem);
+    line-height: 1.1;
+  }
+
+  h3 a {
+    text-decoration-color: var(--pink);
+    text-decoration-thickness: 3px;
+  }
+
+  .place {
+    font-weight: 800;
+    font-size: 0.95rem;
+  }
+
+  .line {
+    color: var(--ink-soft);
+    max-width: 62ch;
+  }
+
+  @media (max-width: 760px) {
+    .head {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    ol::before {
+      left: 14px;
+    }
+    li {
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--s1);
+      padding-left: 34px;
+    }
+    .when {
+      justify-self: start;
+      margin-top: 0;
+    }
+    .ticket {
+      margin-left: 0;
+      padding: var(--s2);
+    }
+    .dot {
+      width: 32px;
+    }
+  }
+</style>

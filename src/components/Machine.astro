@@ -12,12 +12,13 @@ const r3 = (n: number) => Math.round(n * 1000) / 1000;
 <section class="machine" aria-labelledby="hero-title">
   <div class="intro">
     <h1 id="hero-title" class="lettering">Sam McAulay</h1>
-    <p class="role">Fullstack Developer - Game | Web | Desktop</p>
+    <p class="role">Software Developer, heading into AI &amp; Security</p>
     <div class="card">
       <p class="series">Building Digital Worlds.</p>
       <p class="pitch">
-        Live services for a 35,000-member gaming community, Discord bots, games, web apps and Linux
-        desktops. Every capsule in the globe is something I've built and shipped. Spin it, turn the crank, or open any capsule to see what's inside.
+        Final-year software student at TUS, heading into AI and security. Every capsule in the globe is my
+        own work, from live services for a 35,000-member gaming community to my thesis on AI and phishing.
+        Spin it, turn the crank, or open any capsule to see what's inside.
       </p>
       <a class="pill" data-tone="lemon" href="#set">
         See the full set <Icon name="arrow" />
@@ -41,8 +42,8 @@ const r3 = (n: number) => Math.round(n * 1000) / 1000;
                 style={`--shell:${shellColor[c.shell]};--x:${r3(c.body.x)};--y:${r3(c.body.y)};--r:${r3(c.body.r)};--a:${r3(c.body.a)}rad`}
                 data-crew={c.crew}
               >
-                <span class="cap-top" aria-hidden="true">
-                  {c.stats ? c.stats[0].count.replace(',000', 'K') : pad(c.no)}
+                <span class:list={['cap-top', { long: (c.onCapsule ?? '').length > 4 }]} aria-hidden="true">
+                  {c.onCapsule ?? pad(c.no)}
                 </span>
                 <span class="cap-name" aria-hidden="true">
                   {c.crew === 'wip' ? '???' : c.short}
@@ -307,6 +308,11 @@ const r3 = (n: number) => Math.round(n * 1000) / 1000;
     font-size: calc(var(--r) * 20cqw);
     line-height: 1;
     letter-spacing: -0.02em;
+  }
+
+  .cap-top.long {
+    font-size: calc(var(--r) * 13cqw);
+    padding-bottom: 9%;
   }
 
   .cap-name {
