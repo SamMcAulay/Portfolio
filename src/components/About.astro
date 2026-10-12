@@ -1,4 +1,5 @@
 ---
+import Icon from './Icon.astro';
 
 // Where the AI and security thread already runs through the work. Each points at a project.
 const thread = [
@@ -66,6 +67,9 @@ const thread = [
       thesis measures whether AI helps phishers or spam filters more. That's the field I want to work in after I
       graduate.
     </p>
+    <a class="pill cv" data-tone="coral" href="/SamMcAulay_CV.pdf" download="SamMcAulay_CV.pdf">
+      <Icon name="download" /> Download my CV <span class="meta">PDF, 2 pages</span>
+    </a>
   </div>
 </section>
 
@@ -91,6 +95,7 @@ const thread = [
 
   .bio {
     display: grid;
+    justify-items: start;
     gap: var(--s2);
     padding: var(--s4);
     background: var(--paper);
@@ -98,6 +103,17 @@ const thread = [
     box-shadow: var(--lift);
     font-size: 1.15rem;
     font-weight: 700;
+  }
+
+  .cv {
+    margin-top: var(--s1);
+    font-size: 1rem;
+  }
+
+  .cv .meta {
+    font-weight: 700;
+    font-size: 0.85rem;
+    opacity: 0.85;
   }
 
   h3 {

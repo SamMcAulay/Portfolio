@@ -90,7 +90,7 @@ const list: Omit<Project, 'no'>[] = [
   {
     slug: 'phisher-vs-filter',
     name: 'Phisher vs Filter',
-    shell: 'cream',
+    shell: 'butter',
     crew: 'thesis',
     crewNote: 'Final-year thesis, approved by my supervisor. Results to come',
     category: 'Research',
@@ -319,7 +319,7 @@ const list: Omit<Project, 'no'>[] = [
   {
     slug: 'ncwm',
     name: 'NCWM',
-    shell: 'cream',
+    shell: 'blush',
     crew: 'wip',
     category: 'Desktop',
     tech: ['Wayland', 'Compositor', 'GUI config'],

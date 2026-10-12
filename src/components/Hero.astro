@@ -14,11 +14,11 @@ const kicker: Record<string, string> = {
 // Signposts fanned around the globe's rim. Angle in degrees, 180 = left, 270 = top.
 // Signposts planted on the globe. Spread round the Earth so spinning it brings them into view.
 const signs = [
-  { label: 'About me', href: '#about', lat: 44, lon: -21, tone: 'butter' },
-  { label: 'Projects', href: '#work', lat: 10, lon: 16, tone: 'blue' },
-  { label: 'Experience', href: '#experience', lat: 16, lon: -48, tone: 'blush' },
-  { label: 'Thesis', href: '/projects/phisher-vs-filter/', lat: 34, lon: 78, tone: 'mint' },
-  { label: 'Contact', href: '#contact', lat: 40, lon: -104, tone: 'coral' },
+  { label: 'About me', href: '#about', lat: 30, lon: -30, tone: 'butter' },
+  { label: 'Projects', href: '#work', lat: 6, lon: 18, tone: 'blue' },
+  { label: 'Experience', href: '#experience', lat: -6, lon: -36, tone: 'blush' },
+  { label: 'Thesis', href: '/projects/phisher-vs-filter/', lat: 38, lon: 44, tone: 'mint' },
+  { label: 'Contact', href: '#contact', lat: 54, lon: -64, tone: 'coral' },
 ];
 ---
 
@@ -339,6 +339,8 @@ const signs = [
     display: grid;
     gap: var(--s1);
     padding: var(--s3);
+    /* Each featured slab is mixed from its project's clay colour. */
+    --surface: color-mix(in oklab, var(--shell) 32%, var(--paper));
     transition: transform 0.3s var(--out);
   }
 

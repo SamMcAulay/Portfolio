@@ -9,15 +9,15 @@
   @font-face { font-family: 'M PLUS Rounded 1c'; src: url('../node_modules/@fontsource/m-plus-rounded-1c/files/m-plus-rounded-1c-latin-700-normal.woff2') format('woff2'); font-weight: 700; }
   @font-face { font-family: 'M PLUS Rounded 1c'; src: url('../node_modules/@fontsource/m-plus-rounded-1c/files/m-plus-rounded-1c-latin-800-normal.woff2') format('woff2'); font-weight: 800; }
 
-  @page { size: A4; margin: 16mm 17mm; }
+  @page { size: A4; margin: 13mm 15mm; }
 
-  :root { --ink: #1b1420; --soft: #4d3b46; --pink: #2f6f9e; --rule: #dbe3ec; }
+  :root { --ink: #2a1e3b; --soft: #5a3a52; --pink: #b13b6c; --rule: #f1d9e2; }
 
   * { box-sizing: border-box; }
   body {
     margin: 0;
     color: var(--ink);
-    font: 500 10pt/1.45 'M PLUS Rounded 1c', sans-serif;
+    font: 500 9.4pt/1.4 'M PLUS Rounded 1c', sans-serif;
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
   }
@@ -27,18 +27,19 @@
   .contact { margin: 6pt 0 0; display: flex; flex-wrap: wrap; gap: 3pt 14pt; font-weight: 700; font-size: 9.5pt; }
   .contact a { color: var(--ink); text-decoration: none; }
 
-  section { display: grid; grid-template-columns: 30mm 1fr; gap: 0 8mm; padding: 9pt 0; border-bottom: 0.75pt solid var(--rule); break-inside: avoid; }
+  section { display: grid; grid-template-columns: 30mm 1fr; gap: 0 8mm; padding: 7pt 0; border-bottom: 0.75pt solid var(--rule); }
+  .role { margin: 4pt 0 0; font-weight: 800; font-size: 11pt; color: var(--soft); }
   section:last-of-type { border-bottom: 0; }
   h2 { margin: 1pt 0 0; font: 800 8.5pt/1.3 'M PLUS Rounded 1c', sans-serif; letter-spacing: 0.08em; text-transform: uppercase; color: var(--pink); }
 
   .item { break-inside: avoid; }
-  .item + .item { margin-top: 9pt; }
+  .item + .item { margin-top: 7pt; }
   .top { display: flex; justify-content: space-between; align-items: baseline; gap: 10pt; }
   h3 { margin: 0; font: 800 10.5pt/1.3 'M PLUS Rounded 1c', sans-serif; }
   .when { font-weight: 700; font-size: 9pt; color: var(--soft); white-space: nowrap; font-variant-numeric: tabular-nums; }
   .where { margin: 0; font-weight: 700; color: var(--soft); font-size: 9.5pt; }
   ul { margin: 3pt 0 0; padding-left: 12pt; }
-  li { margin: 1.5pt 0; }
+  li { margin: 1pt 0; }
   li::marker { color: var(--pink); }
   p { margin: 0; }
   .plain { list-style: none; padding: 0; }
@@ -49,53 +50,76 @@
 <body>
   <header>
     <h1>Sam McAulay</h1>
+    <p class="role">Software Developer, heading into AI &amp; Security</p>
     <p class="contact">
-      <span>Athlone, Co. Westmeath</span>
       <a href="mailto:sammcaulay@pm.me">sammcaulay@pm.me</a>
       <a href="https://sammcaulay.dev/">sammcaulay.dev</a>
       <a href="https://www.linkedin.com/in/sammca05/">linkedin.com/in/sammca05</a>
+      <a href="https://github.com/SamMcAulay">github.com/SamMcAulay</a>
     </p>
   </header>
 
   <section>
     <h2>Summary</h2>
-    <p>I am a motivated, technically skilled final-year software development student. Recognised on the Dean's Honours List for academic excellence. Developer of an award-winning video game showcased at the 2025 Games Fleadh. I bring a strong blend of technical skills, sales and customer satisfaction knowledge, and collaborative experience.</p>
+    <p>Final-year software student at TUS, graduating in 2027, on the Dean's Honours List and on course for a first. I build and run live services for a 35,000-member gaming community, I led and delivered an AR AI museum guide for a client, and my thesis measures whether AI helps phishers or spam filters more. I'm looking for developer roles, especially in AI and security.</p>
   </section>
 
   <section>
     <h2>Experience</h2>
     <div>
       <div class="item">
-        <div class="top"><h3>Lead Software Developer</h3><span class="when">Jan 2026 – May 2026</span></div>
-        <p class="where">Khora, Athlone (remote)</p>
+        <div class="top"><h3>Infrastructure and tooling</h3><span class="when">2026 – Present</span></div>
+        <p class="where">The Employed Gamers (TEG) community</p>
         <ul>
-          <li>Successfully led and completed a full-stack project as a solo developer, meeting tight deadlines and client expectations.</li>
-          <li>Designed and implemented scalable system architectures from scratch, enhancing application performance and reliability.</li>
-          <li>Conducted effective customer meetings to gather requirements and provide technical insights.</li>
-          <li>Deployed the application to production via Git Actions CI/CD, ensuring seamless integration and operation.</li>
-          <li>Delivered engaging live demos, improving client satisfaction and trust.</li>
-          <li>Exceeded customer expectations through methodical planning and over-delivering.</li>
+          <li>Host and run the Warcon admin panel for six Wardogs game servers on a Linux VPS, in Docker, behind a Cloudflare tunnel and Cloudflare Access.</li>
+          <li>Built the public stats site (stats.tegwardogs.fyi) in Next.js: server status, player profiles, match history and leaderboards, read from Warcon's API with a view-only key.</li>
+          <li>Built six Discord status bots that show each server's live player count, faction scores and join code.</li>
+          <li>Built a moderation log bot that alerts staff to watched players, kill rates far above a player's own record, team kills, kicks and bans.</li>
+          <li>Built Janguard, a Discord bot and Express server for VIP management, with Steam sign-in, staff verification and PostgreSQL through Prisma.</li>
+          <li>These services reach 35,000+ Discord members and 20,000+ in-game players.</li>
+        </ul>
+      </div>
+      <div class="item">
+        <div class="top"><h3>Lead Software Developer</h3><span class="when">Jan 2026 – May 2026</span></div>
+        <p class="where">Khora, remote placement</p>
+        <ul>
+          <li>Led and delivered a full-stack AR AI museum guide as the only developer, meeting tight deadlines and client expectations.</li>
+          <li>Designed the architecture from scratch: a Unity AR app that recognises exhibits, and a Node.js and PostgreSQL backend that answers spoken questions through Google's Gemini models, with live two-way voice over WebSockets.</li>
+          <li>Kept API keys off the device and cached spoken answers per exhibit to cut repeat model calls.</li>
+          <li>Ran client meetings to gather requirements and give technical insight.</li>
+          <li>Deployed to production through a CI/CD pipeline and gave live demos to the client.</li>
+        </ul>
+      </div>
+      <div class="item">
+        <div class="top"><h3>Lead Game Developer, Moonhaul</h3><span class="when">2025</span></div>
+        <p class="where">Games Fleadh 2025</p>
+        <ul>
+          <li>Lead game developer on a team building a physics-based split-screen couch co-op game in Unity, with custom physics and shader meshes.</li>
+          <li>Won Best Gameplay, Best Use of a Physics Engine and Best Soundtrack.</li>
+        </ul>
+      </div>
+      <div class="item">
+        <div class="top"><h3>Hackathon team member</h3><span class="when">2025</span></div>
+        <p class="where">Hackathon Athlone 2025</p>
+        <ul>
+          <li>Built Space VR Explorer, a VR simulation of asteroid impacts using NASA data, in Unity and C#.</li>
         </ul>
       </div>
       <div class="item">
         <div class="top"><h3>Crew Member</h3><span class="when">Apr 2025 – Aug 2025</span></div>
         <p class="where">McDonald's, Athlone</p>
         <ul>
-          <li>Greeted and served a high volume of customers efficiently, in a fast and friendly manner, maintaining high customer satisfaction.</li>
-          <li>Accurately processed customer orders, managing cash transactions and maintaining a balanced cash drawer.</li>
-          <li>Prepared a wide range of drinks and desserts, receiving positive feedback from customers.</li>
-          <li>Maintained KPIs by ensuring efficient service and teamwork.</li>
-          <li>Monitored stock levels, efficiently communicating needs to the management team.</li>
-          <li>Received recognition for outstanding customer service and teamwork from management.</li>
+          <li>Served a high volume of customers quickly and accurately, handling cash and orders and keeping a balanced drawer.</li>
+          <li>Monitored stock levels and communicated needs to the management team.</li>
+          <li>Recognised by management for customer service and teamwork.</li>
         </ul>
       </div>
       <div class="item">
         <div class="top"><h3>Volunteer, Special Needs Childcare</h3><span class="when">Jan 2023 – Present</span></div>
         <p class="where">Birr, Co. Offaly</p>
         <ul>
-          <li>Worked with children with many developmental and learning disabilities.</li>
-          <li>Developed personalised communication strategies for problem solving and task facilitation.</li>
-          <li>Leveraged specialised knowledge of neurodiversity to build strong relationships, maintain a positive environment, and prevent overstimulation.</li>
+          <li>Support children with developmental and learning disabilities, with communication strategies built around each child.</li>
+          <li>Use knowledge of neurodiversity to build strong relationships, keep a positive environment and prevent overstimulation.</li>
         </ul>
       </div>
     </div>
@@ -104,44 +128,45 @@
   <section>
     <h2>Education</h2>
     <div class="item">
-      <div class="top"><h3>BSc (Hons) Software Design with Virtual Reality and Gaming</h3><span class="when">Sep 2023 – Present</span></div>
-      <p class="where">Technological University of the Shannon, Midlands, Athlone</p>
+      <div class="top"><h3>BSc (Hons) Software Design with Virtual Reality and Gaming</h3><span class="when">2023 – 2027</span></div>
+      <p class="where">Technological University of the Shannon, Athlone</p>
       <ul>
-        <li>On course for a 1:1 final grade.</li>
-        <li>Presented several works at campus open days.</li>
-        <li>Recognised on the Dean's Honours List.</li>
-        <li>Student council participation.</li>
+        <li>Dean's Honours List, and on course for a first-class honours degree.</li>
+        <li>Final-year thesis, "Phisher vs Filter": measuring whether AI helps phishing attackers or spam filters more, with attackers and defenders at four levels from hand-written rules to a local LLM. Approved by my supervisor; in progress.</li>
+        <li>Student council participation, and work presented at campus open days.</li>
       </ul>
     </div>
   </section>
 
   <section>
-    <h2>Skills</h2>
+    <h2>Selected projects</h2>
     <ul class="plain">
-      <li><b>Programming:</b> C#, C, C++, Python, SQL, Java, web services, Bash and Fish scripting</li>
-      <li><b>Game engines:</b> Unity, Unreal, Godot, GameMaker</li>
-      <li><b>Hardware:</b> computer repairs, construction and configuration</li>
-      <li><b>Certified:</b> Microsoft Office, GMetrix, 2024</li>
-      <li><b>Professional:</b> time management, leadership and collaboration, interpersonal communication</li>
+      <li><b>The Jantleman Bot.</b> A reputation database Discord bot serving 50,000+ users, with its own website and admin dashboard. Python, SQLite.</li>
+      <li><b>Flicker Bot.</b> A do-it-all Discord bot with games, an economy and tickets, serving 100+ users, plus a web dashboard. Python, SQLite.</li>
+      <li><b>Math Game Web App.</b> Team project: a C++ backend with Crow, shipped through CI/CD with Docker.</li>
+      <li><b>Battleship.</b> Team project: multiplayer battleship over LAN and WAN in C++ with SFML.</li>
+      <li>More, with write-ups and code, at <b>sammcaulay.dev</b>.</li>
     </ul>
   </section>
 
   <section>
-    <h2>Achievements</h2>
+    <h2>Skills</h2>
     <ul class="plain">
-      <li><b>Lead Game Developer, Moonhaul.</b> Award-winning physics-based video game, recognised for Best Gameplay, Best Use of a Physics Engine and Best Soundtrack.</li>
-      <li><b>Tall Columns Art Exhibition</b>, Birr, 2022</li>
-      <li><b>Rookie Lifeguard Certification</b>, Birr Leisure Centre, 2019</li>
+      <li><b>Languages:</b> C, C++, C#, Java, Python, Lua, JavaScript, TypeScript, SQL, HTML, CSS, Bash</li>
+      <li><b>Engines and libraries:</b> Unity, Unreal, Godot, SFML, Node.js, Next.js, React, Express, discord.js, Prisma, PostgreSQL, SQLite, Gemini API</li>
+      <li><b>Tooling and systems:</b> Git, Docker, Cloudflare, Jenkins, CMake, AWS, Linux (Arch, Debian, Ubuntu), FreeBSD, Windows</li>
+      <li><b>Certified:</b> Microsoft Office, GMetrix, 2024</li>
+      <li><b>Professional:</b> leadership and collaboration, client communication, time management</li>
     </ul>
   </section>
 
   <section>
     <h2>Interests</h2>
     <ul class="plain">
-      <li><b>Fragrance and luxury perfumery.</b> I have created several prototype perfumes to date.</li>
-      <li><b>Physical music.</b> I have a broad collection of CDs and vinyl records; I believe it is important to preserve this media in its intended form.</li>
-      <li><b>Computer hardware.</b> I have built several machines and server rigs for friends and family, saving them time and money.</li>
-      <li><b>Jewellery and high fashion.</b> Assisted with creating a web landing page for new luxury watch launches and information.</li>
+      <li><b>Perfumery.</b> I have made several prototype perfumes.</li>
+      <li><b>Physical music.</b> A broad collection of CDs and vinyl records.</li>
+      <li><b>Computer hardware.</b> I have built machines and home servers for friends and family.</li>
+      <li><b>Watches and fashion.</b> Helped create a web landing page for luxury watch launches.</li>
     </ul>
   </section>
 

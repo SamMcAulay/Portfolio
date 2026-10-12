@@ -21,7 +21,7 @@ const COLORS = {
 
 const ATHLONE = { lat: 53.42, lon: -7.94 };
 const CAMERA_Z = 4.75;
-const POST_HEIGHT = 0.2;
+const POST_HEIGHT = 0.34;
 
 export interface GlobeHandle {
   /** Ease the camera in towards the globe, for a page change. Resolves when done. */
@@ -145,18 +145,17 @@ function makePin() {
   return pin;
 }
 
-/** A little clay signpost: a mound in the destination's colour and a post. The sign itself is the page's link. */
+/** A clay signpost in the destination's colour: a mound, a thick rolled post and a knob at the top. The sign is the page's link. */
 function makePost(tone: string) {
   const post = new THREE.Group();
-  const clay = new THREE.MeshStandardMaterial({ color: COLORS.post, roughness: 0.9 });
-  const mound = new THREE.Mesh(
-    new THREE.SphereGeometry(0.038, 20, 12),
-    new THREE.MeshStandardMaterial({ color: tone, roughness: 0.9 }),
-  );
-  mound.scale.set(1, 0.45, 1);
-  const stick = new THREE.Mesh(new THREE.CylinderGeometry(0.009, 0.012, POST_HEIGHT, 12), clay);
+  const clay = new THREE.MeshStandardMaterial({ color: tone, roughness: 0.88 });
+  const mound = new THREE.Mesh(new THREE.SphereGeometry(0.05, 20, 12), clay);
+  mound.scale.set(1, 0.42, 1);
+  const stick = new THREE.Mesh(new THREE.CylinderGeometry(0.02, 0.026, POST_HEIGHT, 16), clay);
   stick.position.y = POST_HEIGHT / 2;
-  post.add(mound, stick);
+  const knob = new THREE.Mesh(new THREE.SphereGeometry(0.026, 16, 12), clay);
+  knob.position.y = POST_HEIGHT;
+  post.add(mound, stick, knob);
   return post;
 }
 
@@ -164,6 +163,7 @@ interface Sign {
   el: HTMLAnchorElement;
   item: HTMLElement;
   dir: THREE.Vector3;
+  post: THREE.Object3D;
   anchor: THREE.Vector3;
 }
 
@@ -179,19 +179,19 @@ export function mountGlobe(host: HTMLElement): GlobeHandle | null {
   }
   renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
   renderer.outputColorSpace = THREE.SRGBColorSpace;
-  renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1.05;
+  // No filmic curve: it would wash the pastel clay out towards sage and sand.
+  renderer.toneMapping = THREE.NoToneMapping;
 
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(30, 1, 0.1, 20);
   camera.position.z = CAMERA_Z;
 
   // Soft studio light: bright from above, a pink bounce from the ground, a warm key and a cool rim.
-  scene.add(new THREE.HemisphereLight('#fff6fa', '#ffc6d6', 1.6));
-  const key = new THREE.DirectionalLight('#fff4e6', 2.0);
+  scene.add(new THREE.HemisphereLight('#ffffff', '#ffd3df', 1.75));
+  const key = new THREE.DirectionalLight('#fff8f0', 1.35);
   key.position.set(-2.5, 2.2, 3);
   scene.add(key);
-  const rim = new THREE.DirectionalLight('#d6f2ff', 1.1);
+  const rim = new THREE.DirectionalLight('#e2f6ff', 0.55);
   rim.position.set(2.5, -0.5, -2);
   scene.add(rim);
 
@@ -231,8 +231,9 @@ export function mountGlobe(host: HTMLElement): GlobeHandle | null {
   const signs: Sign[] = [...host.querySelectorAll<HTMLAnchorElement>('[data-sign]')].map((el) => {
     const dir = toVector(Number(el.dataset.lat), Number(el.dataset.lon));
     const tone = getComputedStyle(el).backgroundColor;
-    plant(makePost(tone), dir);
-    return { el, item: el.closest('li')!, dir, anchor: dir.clone().multiplyScalar(1.03 + POST_HEIGHT) };
+    const post = makePost(tone);
+    plant(post, dir);
+    return { el, item: el.closest('li')!, dir, post, anchor: new THREE.Vector3() };
   });
   scene.add(globe);
 
@@ -281,7 +282,8 @@ export function mountGlobe(host: HTMLElement): GlobeHandle | null {
       // Keep every sign on screen, even when its post is at the very edge on a phone.
       const half = s.el.offsetWidth / 2 + 8;
       x = Math.min(Math.max(x, half - hostRect.left), innerWidth - hostRect.left - half);
-      const show = Math.min(1, Math.max(0, (facing - 0.02) / 0.22));
+      // Signs on the far side are gone, not ghosted; they come back as the globe turns.
+      const show = Math.min(1, Math.max(0, (facing - 0.06) / 0.24));
       const scale = 0.82 + 0.18 * Math.max(0, facing);
       s.item.style.transform = `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px) translate(-50%, -100%) scale(${scale.toFixed(3)})`;
       s.item.style.opacity = s.el === document.activeElement ? '1' : show.toFixed(3);
@@ -290,8 +292,27 @@ export function mountGlobe(host: HTMLElement): GlobeHandle | null {
     }
   };
 
+  // Posts lean towards the top of the screen whatever way the globe is turned, so each sign
+  // visibly stands on its post instead of the post pointing straight at the viewer.
+  const inverse = new THREE.Quaternion();
+  const lean = new THREE.Vector3();
+  const screenUp = new THREE.Vector3(0, 1, 0);
+  const tiltPosts = () => {
+    inverse.copy(globe.quaternion).invert();
+    for (const s of signs) {
+      normal.copy(s.dir).applyQuaternion(globe.quaternion);
+      lean.copy(normal).addScaledVector(screenUp, 1.2).normalize();
+      if (lean.dot(normal) < 0.3) lean.copy(normal).addScaledVector(screenUp, 0.4).normalize();
+      lean.applyQuaternion(inverse);
+      s.post.quaternion.setFromUnitVectors(up, lean);
+      s.anchor.copy(s.post.position).addScaledVector(lean, POST_HEIGHT + 0.02);
+    }
+  };
+
   const draw = () => {
     globe.rotation.set(state.pitch, state.yaw, 0, 'XYZ');
+    globe.updateMatrixWorld();
+    tiltPosts();
     globe.updateMatrixWorld();
     renderer.render(scene, camera);
     placeSigns();
