@@ -7,12 +7,12 @@ import type { Topology, GeometryCollection } from 'topojson-specification';
 import land110 from 'world-atlas/land-110m.json';
 
 const COLORS = {
-  ocean: '#8fe0d1',
-  oceanDeep: '#74d2c1',
-  oceanLight: '#a9ebdf',
-  land: '#ffe58a',
-  landDeep: '#f7d264',
-  landLight: '#fff0b0',
+  ocean: '#a6f0e2',
+  oceanDeep: '#92e6d6',
+  oceanLight: '#bdf6eb',
+  land: '#fff1a8',
+  landDeep: '#ffe58a',
+  landLight: '#fff7c8',
   shore: '#fff8f2',
   ice: '#fff8f2',
   coral: '#ff7a59',
@@ -187,7 +187,7 @@ export function mountGlobe(host: HTMLElement): GlobeHandle | null {
   camera.position.z = CAMERA_Z;
 
   // Soft studio light: bright from above, a pink bounce from the ground, a warm key and a cool rim.
-  scene.add(new THREE.HemisphereLight('#ffffff', '#ffd3df', 1.75));
+  scene.add(new THREE.HemisphereLight('#ffffff', '#ffe0ea', 1.95));
   const key = new THREE.DirectionalLight('#fff8f0', 1.35);
   key.position.set(-2.5, 2.2, 3);
   scene.add(key);
