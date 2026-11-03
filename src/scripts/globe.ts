@@ -16,12 +16,13 @@ const COLORS = {
   shore: '#fff8f2',
   ice: '#fff8f2',
   coral: '#ff7a59',
+  pink: '#ff8fb3',
   post: '#fff8f2',
 };
 
 const ATHLONE = { lat: 53.42, lon: -7.94 };
 const CAMERA_Z = 4.75;
-const POST_HEIGHT = 0.34;
+const POST_HEIGHT = 0.17;
 
 export interface GlobeHandle {
   /** Ease the camera in towards the globe, for a page change. Resolves when done. */
@@ -145,17 +146,16 @@ function makePin() {
   return pin;
 }
 
-/** A clay signpost in the destination's colour: a mound, a thick rolled post and a knob at the top. The sign is the page's link. */
-function makePost(tone: string) {
+/** A small pink clay map marker: a round head on a tapered point. The sign above it is the page's link. */
+function makePost() {
   const post = new THREE.Group();
-  const clay = new THREE.MeshStandardMaterial({ color: tone, roughness: 0.88 });
-  const mound = new THREE.Mesh(new THREE.SphereGeometry(0.05, 20, 12), clay);
-  mound.scale.set(1, 0.42, 1);
-  const stick = new THREE.Mesh(new THREE.CylinderGeometry(0.02, 0.026, POST_HEIGHT, 16), clay);
-  stick.position.y = POST_HEIGHT / 2;
-  const knob = new THREE.Mesh(new THREE.SphereGeometry(0.026, 16, 12), clay);
-  knob.position.y = POST_HEIGHT;
-  post.add(mound, stick, knob);
+  const clay = new THREE.MeshStandardMaterial({ color: COLORS.pink, roughness: 0.85 });
+  const head = new THREE.Mesh(new THREE.SphereGeometry(0.045, 24, 16), clay);
+  head.position.y = POST_HEIGHT - 0.045;
+  const point = new THREE.Mesh(new THREE.ConeGeometry(0.032, 0.11, 20), clay);
+  point.rotation.x = Math.PI;
+  point.position.y = 0.055;
+  post.add(head, point);
   return post;
 }
 
@@ -230,8 +230,7 @@ export function mountGlobe(host: HTMLElement): GlobeHandle | null {
   // Signposts, read from the link list in the page.
   const signs: Sign[] = [...host.querySelectorAll<HTMLAnchorElement>('[data-sign]')].map((el) => {
     const dir = toVector(Number(el.dataset.lat), Number(el.dataset.lon));
-    const tone = getComputedStyle(el).backgroundColor;
-    const post = makePost(tone);
+    const post = makePost();
     plant(post, dir);
     return { el, item: el.closest('li')!, dir, post, anchor: new THREE.Vector3() };
   });
