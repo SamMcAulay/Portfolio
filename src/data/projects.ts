@@ -49,11 +49,13 @@ const list: Omit<Project, 'no'>[] = [
     crew: 'solo',
     crewNote: 'Built and run for The Employed Gamers (TEG) community',
     category: 'Platform',
-    tech: ['TypeScript', 'Next.js', 'discord.js', 'Docker', 'Cloudflare', 'Linux VPS'],
-    line: 'The live services behind TEG\'s six Wardogs game servers: hosting, stats, status bots and moderation.',
+    tech: ['TypeScript', 'Next.js', 'React', 'three.js', 'discord.js', 'Docker', 'GitHub Actions', 'Cloudflare', 'Linux VPS'],
+    line: 'The live stats site, hosting, bots and staff tools behind TEG\'s six Wardogs game servers.',
     body: [
       'I run the infrastructure and tooling for The Employed Gamers\' Wardogs servers: six game servers, the Warcon admin panel that manages them, and the services built on top of it.',
       'I host and run the Warcon panel on a Linux VPS with Docker, behind a Cloudflare tunnel and Cloudflare Access. The stats site and bots talk to Warcon\'s API with their own scoped keys, and the public stats site only ever gets view access.',
+      'The stats site is the centrepiece and has served 100,000+ unique visitors and around 1 million requests. Players link their Discord and Steam accounts, follow friends and see who is online, get skill ratings, trends and match replays, and can install it on their phone as an app. Staff get an admin area with account lookups, team-kill watch, match balance analysis and a team balancer that evens the sides by skill for a server\'s next match.',
+      'It reads everything live from Warcon with no database of its own, behind a cache that serves the last copy and refreshes in the background so a rush of players can\'t swamp the game servers. GitHub Actions builds the Docker image and the VPS only pulls it.',
       'Together these services reach a community of 35,000+ Discord members and 20,000+ in-game players.',
     ],
     parts: [
@@ -63,7 +65,7 @@ const list: Omit<Project, 'no'>[] = [
       },
       {
         name: 'Stats site',
-        line: 'Server status, player profiles, match history and leaderboards, built in Next.js on Warcon\'s API.',
+        line: '100,000+ unique visitors: live servers, profiles, skill ratings, match replays, friends, clans, Discord and Steam sign-in and staff tools, in Next.js on Warcon\'s API.',
         href: 'https://stats.tegwardogs.fyi/',
       },
       {
@@ -81,8 +83,10 @@ const list: Omit<Project, 'no'>[] = [
       { label: 'Live stats site', href: 'https://stats.tegwardogs.fyi/', kind: 'live' },
       { label: 'Stats site repo', href: 'https://github.com/SamMcAulay/TEGwardogsSite', kind: 'repo' },
     ],
-    images: [],
+    images: ['/Pics/Wardogs/Wardogs1.png', '/Pics/Wardogs/Wardogs2.png', '/Pics/Wardogs/Wardogs3.png', '/Pics/Wardogs/Wardogs4.png'],
     stats: [
+      { count: '100,000+', label: 'unique visitors' },
+      { count: '~1M', label: 'requests served' },
       { count: '35,000+', label: 'Discord members' },
       { count: '20,000+', label: 'in-game players' },
     ],

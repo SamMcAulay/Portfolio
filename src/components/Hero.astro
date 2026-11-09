@@ -5,8 +5,9 @@ import Icon from './Icon.astro';
 const featuredSlugs = ['teg-wardogs', 'phisher-vs-filter', 'ai-museum'];
 const featured = featuredSlugs.map((s) => projects.find((p) => p.slug === s)!);
 
+// Hero cards show only the top two stats so all three cards fit the first view.
 const kicker: Record<string, string> = {
-  'teg-wardogs': 'Live community infrastructure',
+  'teg-wardogs': 'Live: 100,000+ unique visitors',
   'phisher-vs-filter': 'Thesis, approved and in progress',
   'ai-museum': 'Client work for Khora',
 };
@@ -85,7 +86,7 @@ const signs = [
               </div>
               {p.stats && (
                 <dl class="stats">
-                  {p.stats.map((st) => (
+                  {p.stats.slice(0, 2).map((st) => (
                     <div>
                       <dt>{st.label}</dt>
                       <dd>{st.count}</dd>
